@@ -3,7 +3,7 @@ import React from 'react';
 const SidebarLinkElement = ({ content, image, path }) => {
     return (
         <div>
-            <p className="flex w-64 items-center p-2 mb-4 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400">
+            <p className="flex w-64 items-center p-2 mb-4 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400">
                 <svg 
                     aria-hidden="true"
                     className="flex-shrink-0 w-6 h-6 text-gray-50 transition duration-75 group-hover:text-gray-900"

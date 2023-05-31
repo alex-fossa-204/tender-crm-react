@@ -15,9 +15,9 @@ const WorkspacePage = ({ children }) => {
         <aside id="default-sidebar" className={`fixed w-64 h-screen ${activeSidebar ? 'z-50' : 'hidden'}`} aria-label="Sidebar">
           <WorkspaceSidebar />
         </aside>
-        <div className={`bg-main-bg w-full ${activeSidebar ? 'ml-80' : 'ml-8'}`}>
+        <div className={`bg-main-bg w-full mr-10 ${activeSidebar ? 'ml-80' : 'ml-8'}`}>
           <WorkspaceHeader />
-          <div className="mt-24 h-screen">
+          <div className="mt-32 h-screen">
             { children }
           </div>
         </div>
