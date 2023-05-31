@@ -17,7 +17,7 @@ const WorkspacePage = ({ children }) => {
         </aside>
         <div className={`bg-main-bg w-full mr-10 ${activeSidebar ? 'ml-80' : 'ml-8'}`}>
           <WorkspaceHeader />
-          <div className="mt-32 h-screen">
+          <div className="mt-24 h-screen">
             { children }
           </div>
         </div>

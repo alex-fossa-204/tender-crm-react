@@ -15,7 +15,7 @@ const RegistrationModalView = () => {
                         <div className="text-white">
                             <div className="mb-5 flex flex-col items-center">
                                 <h1 className="mb- text-2xl">Tender CRM</h1>
-                                <span className="text-gray-300">Введите логин</span>
+                                <span className="text-gray-300">Введите персональные данные</span>
                             </div>
                             <form action="src/components/landing/modal/RegistrationModalView#" className="flex flex-col items-center">
                                 <div className="mb-4 text-lg">

@@ -19,7 +19,7 @@ module.exports = {
         veryDarkBlue: 'hsl(233, 12%, 13%)',
         veryPaleRed: 'hsl(13, 100%, 96%)',
         veryLightGray: 'hsl(0, 0%, 98%)',
-        veryLightBlue: 'hsl(197, 88.4%, 59.4%)',
+        veryLightBlue: 'hsla(210, 100%, 45%, 0.91)',
       },
       backgroundColor: {
         'main-bg': '#FAFBFB',
