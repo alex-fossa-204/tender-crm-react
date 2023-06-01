@@ -10,7 +10,9 @@ let PageSize = 10;
 const Tenders = () => {
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [modalOpen, setModalOpen] = useState(false);
+
+    const [tenderModalOpen, setOpenTenderModal] = useState(false);
+    
     const [selectedTender, setSelectedTenderData] = useState('');
 
     const currentTableData = useMemo(() => {
@@ -25,8 +27,8 @@ const Tenders = () => {
     
     return (
         <WorkspacePage>
-            {modalOpen && <TenderModal setOpenModal={setModalOpen} tenderData={selectedTender}/>}
-            <div className={`${modalOpen ? 'hidden' : ''}`}>
+            {tenderModalOpen && <TenderModal setOpenTenderModal={setOpenTenderModal} tenderData={selectedTender}/>}
+            <div className={`w-full ${tenderModalOpen ? 'hidden' : ''}`}>
                 <div className="flex justify-between space-x-10 pb-5 bg-slate-100">
                     <p className={"p-2 text-gray-900 font-bold"}>Упраление Тендерами</p>
                     <div className={"space-x-5"}>
@@ -57,7 +59,7 @@ const Tenders = () => {
                                             <td className="">
                                                 <button className="p-2 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400 hover:cursor-pointer"
                                                         onClick={() => {
-                                                            setModalOpen(true);
+                                                            setOpenTenderModal(true);
                                                             handleTenderSelection(row);
                                                         }}
                                                 >
@@ -69,7 +71,7 @@ const Tenders = () => {
                         }
                     </tbody>
                 </table>
-                <div className="flex justify-between mt-4 p-2 bg-darkBlue text-gray-100">
+                <div className="w-full flex justify-between mt-4 p-2 bg-darkBlue text-gray-100">
                     <TenderPagination
                         className=""
                         currentPage={currentPage}
