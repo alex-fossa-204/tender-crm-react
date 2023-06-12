@@ -4,7 +4,6 @@ import {
   WorkspaceSidebar,
   WorkspaceLogo
 } from "../../components/workspace/index";
-import Dashboard from "./domain/Dashboard";
 import { useWorkspaceStateContext } from "../../components/workspace/context/WorkspaceContext";
 
 const WorkspacePage = ({ children }) => {

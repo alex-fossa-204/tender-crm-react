@@ -35,8 +35,8 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
 
     return (
         <div>
-            <div className={`z-50 absolute top-1/3 right-2/3`}>
-                {lotModalOpen ? <LotModal setOpenLotModal={setOpenLotModal} /> : ''}
+            <div className={`z-50 absolute top-1/5 right-2/5`}>
+                {lotModalOpen ? <LotModal setOpenLotModal={handleLotModalVisibilityClick} lotData={selectedLot} /> : ''}
             </div>
             <div className={`${lotModalOpen ? 'blur-sm' : ''} z-1`}>
                 <div className={"w-full flex justify-between bg-darkBlue"}>
@@ -150,8 +150,8 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                     <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg bg-veryLightBlue ${!isLotsHidden ? 'bg-red-500' : ''}`} onClick={() => { handleLotsVisibilityTableClick(); }}>Управление лотами</button>
                     <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg bg-veryLightBlue`} onClick={() => { setOpenTenderModal(false); }}>Вернуться к тендерам</button>
                 </div>
-                <table className={`w-full text-left font-light text-sm mt-5 mb-10 ${isLotsHidden ? 'hidden' : ''}`}>
-                    <thead className="font-medium ">
+                <table className={`w-full text-left font-light text-sm mt-5 mb-5 ${isLotsHidden ? 'hidden' : ''}`}>
+                    <thead className="font-medium">
                         <tr>
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Номер Лота</th>
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Название Лота</th>
@@ -172,7 +172,8 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                                 <td>
                                     <button className="p-2 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400 hover:cursor-pointer"
                                         onClick={() => {
-                                            setOpenLotModal(true);
+                                            handleLotSelection(lotItem);
+                                            handleLotModalVisibilityClick();
                                         }}
                                     >
                                         Подробнее
