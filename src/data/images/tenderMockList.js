@@ -34,6 +34,7 @@ export const mockData = [
                 lotUpdateTimeStamp: "2022-07-13 15:34:44",
                 employees: [
                     {
+                        employeeUuid: "9c6150d3-f3f3-4929-9848-9a761bad9010",
                         firstName: "Степан",
                         middleName: "Иванович",
                         lastName: "Иванов",
@@ -44,7 +45,7 @@ export const mockData = [
                             address: "пр-т Победителей 7",
                             isRemote: false
                         },
-                        hiringDate: "2022-05-32 13:00:00",
+                        hiringDate: "2022-05-31",
                         currentProjectInfo: {
                             customer: "Сбер",
                             department: "КИБ",
@@ -61,7 +62,7 @@ export const mockData = [
                                 contactValue: "stepanIvan01"
                             },
                             {
-                                contactType: "phoneNumber",
+                                contactType: "phone",
                                 contactValue: "+375291001010"
                             }
                         ],
@@ -76,6 +77,182 @@ export const mockData = [
                             }
                         ]
                     },
+                    {
+                        employeeUuid: "9c6150d3-f3f3-4929-9848-9a761bad9011",
+                        firstName: "Александр",
+                        middleName: "Дмитриевич",
+                        lastName: "Никифоров",
+                        lotState: "АКТИВНЫЙ",
+                        employeeLocation: {
+                            country: "Беларусь",
+                            city: "Минск",
+                            address: "пр-т Победителей 7",
+                            isRemote: false
+                        },
+                        hiringDate: "2022-05-31",
+                        currentProjectInfo: {
+                            customer: "Альфа Банк Казахстан",
+                            department: "Договора",
+                            position: "Developer",
+                            startDate: "2021-05-17"
+                        },
+                        contacts: [
+                            {
+                                contactType: "skype",
+                                contactValue: "stepanIvan01"
+                            },
+                            {
+                                contactType: "teams",
+                                contactValue: "stepanIvan01"
+                            },
+                            {
+                                contactType: "phone",
+                                contactValue: "+375291001010"
+                            }
+                        ],
+                        technologies: [
+                            {
+                                technologyName: "Java",
+                                grade: "M1"
+                            },
+                            {
+                                technologyName: "Angular",
+                                grade: "J2"
+                            }
+                        ]
+                    },
+                    {
+                        employeeUuid: "9c6150d3-f3f3-4929-9848-9a761bad9012",
+                        firstName: "Виктор",
+                        middleName: "Иванович",
+                        lastName: "Петров",
+                        lotState: "ПОБЕДИЛ",
+                        employeeLocation: {
+                            country: "Беларусь",
+                            city: "Минск",
+                            address: "пр-т Победителей 7",
+                            isRemote: false
+                        },
+                        hiringDate: "2022-05-31",
+                        currentProjectInfo: {
+                            customer: "Тиньков Банк",
+                            department: "Переводы",
+                            position: "Developer",
+                            startDate: "2021-05-17"
+                        },
+                        contacts: [
+                            {
+                                contactType: "skype",
+                                contactValue: "stepanIvan01"
+                            },
+                            {
+                                contactType: "teams",
+                                contactValue: "stepanIvan01"
+                            },
+                            {
+                                contactType: "phone",
+                                contactValue: "+375291001010"
+                            }
+                        ],
+                        technologies: [
+                            {
+                                technologyName: "Java",
+                                grade: "M1"
+                            },
+                            {
+                                technologyName: "Angular",
+                                grade: "J2"
+                            }
+                        ]
+                    },
+                    {
+                        employeeUuid: "9c6150d3-f3f3-4929-9848-9a761bad9013",
+                        firstName: "Михаил",
+                        middleName: "Анжеевич",
+                        lastName: "Жебровский",
+                        lotState: "ЗАКРЫТ",
+                        employeeLocation: {
+                            country: "Беларусь",
+                            city: "Минск",
+                            address: "пр-т Победителей 7",
+                            isRemote: false
+                        },
+                        hiringDate: "2022-05-31",
+                        currentProjectInfo: {
+                            customer: "Сбер",
+                            department: "КИБ",
+                            position: "Developer",
+                            startDate: "2021-05-17"
+                        },
+                        contacts: [
+                            {
+                                contactType: "skype",
+                                contactValue: "stepanIvan01"
+                            },
+                            {
+                                contactType: "teams",
+                                contactValue: "stepanIvan01"
+                            },
+                            {
+                                contactType: "phone",
+                                contactValue: "+375291001010"
+                            }
+                        ],
+                        technologies: [
+                            {
+                                technologyName: "Java",
+                                grade: "M1"
+                            },
+                            {
+                                technologyName: "Angular",
+                                grade: "J2"
+                            }
+                        ]
+                    },
+                    {
+                        employeeUuid: "9c6150d3-f3f3-4929-9848-9a761bad9014",
+                        firstName: "Александр",
+                        middleName: "Александрович",
+                        lastName: "Домогаров",
+                        lotState: "ЗАКРЫТ",
+                        employeeLocation: {
+                            country: "Беларусь",
+                            city: "Минск",
+                            address: "пр-т Победителей 7",
+                            isRemote: false
+                        },
+                        hiringDate: "2022-05-31",
+                        currentProjectInfo: {
+                            customer: "Сбер",
+                            department: "КИБ",
+                            position: "Developer",
+                            startDate: "2021-05-17"
+                        },
+                        contacts: [
+                            {
+                                contactType: "skype",
+                                contactValue: "stepanIvan01"
+                            },
+                            {
+                                contactType: "teams",
+                                contactValue: "stepanIvan01"
+                            },
+                            {
+                                contactType: "phone",
+                                contactValue: "+375291001010"
+                            }
+                        ],
+                        technologies: [
+                            {
+                                technologyName: "Java",
+                                grade: "M1"
+                            },
+                            {
+                                technologyName: "Angular",
+                                grade: "J2"
+                            }
+                        ]
+                    }
                 ]
             }
         ]

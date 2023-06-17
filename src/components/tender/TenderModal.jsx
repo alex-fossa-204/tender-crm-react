@@ -7,13 +7,19 @@ let PageSize = 10;
 
 const TenderModal = ({ setOpenTenderModal, tenderData }) => {
 
-    const [isLotsHidden, setLotsVisibility] = useState(false);
+    const [isLotsHidden, setLotsVisibility] = useState(true);
 
     const [currentPage, setCurrentPage] = useState(1);
 
     const [lotModalOpen, setOpenLotModal] = useState(false);
 
-    const [selectedLot, setSelectedLotData] = useState('');
+    const currentTableData = useMemo(() => {
+        const firstPageIndex = (currentPage - 1) * PageSize;
+        const lastPageIndex = firstPageIndex + PageSize;
+        return tenderData.lots.slice(firstPageIndex, lastPageIndex);
+    }, [currentPage]);
+
+    const [selectedLot, setSelectedLotData] = useState(currentTableData[0]);
 
     const handleLotsVisibilityTableClick = () => {
         setLotsVisibility(!isLotsHidden)
@@ -26,12 +32,6 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
     const handleLotSelection = (lot) => {
         setSelectedLotData(lot);
     };
-
-    const currentTableData = useMemo(() => {
-        const firstPageIndex = (currentPage - 1) * PageSize;
-        const lastPageIndex = firstPageIndex + PageSize;
-        return tenderData.lots.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
 
     return (
         <div>
@@ -147,7 +147,7 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                     </div>
                 </div>
                 <div className={"w-full flex justify-start mt-5"}>
-                    <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg bg-veryLightBlue ${!isLotsHidden ? 'bg-red-500' : ''}`} onClick={() => { handleLotsVisibilityTableClick(); }}>Управление лотами</button>
+                    <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg  ${isLotsHidden ? 'bg-veryLightBlue' : 'bg-red-500'}`} onClick={() => { handleLotsVisibilityTableClick(); }}>Управление лотами</button>
                     <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg bg-veryLightBlue`} onClick={() => { setOpenTenderModal(false); }}>Вернуться к тендерам</button>
                 </div>
                 <table className={`w-full text-left font-light text-sm mt-5 mb-5 ${isLotsHidden ? 'hidden' : ''}`}>
