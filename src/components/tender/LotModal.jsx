@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import EmployeeLotPagination from './EmployeeLotPagination';
 import avatar2 from '../../data/images/avatar2.png';
 
@@ -15,11 +15,16 @@ const LotModal = ({ setOpenLotModal, lotData }) => {
         return employeeArray.slice(firstPageIndex, lastPageIndex);
     }, [currentPage]);
 
+
     const [isLotsHidden, setLotsVisibility] = useState(false);
 
     const [selectedEmployeeLot, setSelectedEmployeeLotData] = useState(currentTableData[0]);
 
-    const handleEmployeeLotSelection = (employeeLot) => {
+    useEffect(() => {
+        console.log(currentPage)
+    }, [currentPage]);
+
+    const handleEmployeeLotSelection  = (employeeLot) => {
         setSelectedEmployeeLotData(employeeLot);
     }
 
@@ -54,12 +59,11 @@ const LotModal = ({ setOpenLotModal, lotData }) => {
                                         <th scope="col" className="px-4 py-4 bg-darkBlue text-gray-100">Отчество</th>
                                         <th scope="col" className="px-4 py-4 bg-darkBlue text-gray-100">Статус Лота</th>
                                         <th scope="col" className="px-4 py-4 bg-darkBlue text-gray-100"></th>
-                                        <th scope="col" className="px-4 py-4 bg-darkBlue text-gray-100"></th>
                                     </tr>
                                 </thead>
                                 <tbody className="bg-gray-100">
                                     {currentTableData.map(item => {
-                                        return <tr key={item.employeeUuid} className='border hover:cursor-pointer hover:bg-gray-200 focus:bg-gray-200'>
+                                        return <tr key={item.employeeUuid} className={`border hover:cursor-pointer hover:bg-gray-200 focus:bg-gray-200 ${item.employeeUuid === selectedEmployeeLot.employeeUuid ? "bg-gray-300" : ""}`} onClick={() => {handleEmployeeLotSelection(item);}}>
                                                     <td className="whitespace-nowrap px-4 py-4">{item.lastName}</td>
                                                     <td className="whitespace-nowrap px-4 py-4">{item.firstName}</td>
                                                     <td className="whitespace-nowrap px-4 py-4">{item.middleName}</td>
@@ -74,14 +78,6 @@ const LotModal = ({ setOpenLotModal, lotData }) => {
                                                                 <option value="НЕАКТИВНЫЙ">ЗАКРЫТ</option>
                                                             </select>
                                                         </div>
-                                                    </td>
-                                                    <td>
-                                                        <button tabIndex={0} key={`btn-${item.employeeUuid}`} className={`px-2 py-2 text-gray-100 rounded-lg  ${item.employeeUuid === selectedEmployeeLot.employeeUuid ? "bg-green-400" : "bg-darkBlue"}`}
-                                                                onClick={() => {
-                                                                            handleEmployeeLotSelection(item);
-                                                                        }}>
-                                                                    Подробнее
-                                                        </button>
                                                     </td>
                                                 </tr>
                                     })}
