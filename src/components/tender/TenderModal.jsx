@@ -48,13 +48,6 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                     </div>
                 </div>
                 <div className={"grid grid-cols-1 gap-4 p-2 bg-slate-400"}>
-                    <div>
-                        <label for="message" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Описание тендера</label>
-                        <textarea id="message" rows="3" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Write your thoughts here..."
-                            value={tenderData.tenderDescription}
-                        />
-                    </div>
                     <div className={"grid grid-cols-3 gap-4"}>
                         <div>
                             <label for="tenderCreationDate" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Дата создания тендера</label>
@@ -94,10 +87,10 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                             />
                         </div>
                         <div>
-                            <label for="tenderBaseQuantityLots" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Базовое количество лотов</label>
+                            <label for="tenderBaseQuantityLots" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Валюта тендера</label>
                             <input type="text" id="tenderBaseQuantityLots" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="John" required
-                                value={tenderData.tenderBaseQuantityLots}
+                                value={tenderData.tenderCurrency}
                             />
                         </div>
                     </div>
