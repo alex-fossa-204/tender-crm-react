@@ -2,8 +2,9 @@ import React, { useMemo, useState } from 'react';
 import './Modal.css';
 import LotPagination from './LotPagination';
 import LotModal from './LotModal';
+import Datepicker from 'react-tailwindcss-datepicker';
 
-let PageSize = 10;
+let PageSize = 5;
 
 const TenderModal = ({ setOpenTenderModal, tenderData }) => {
 
@@ -14,9 +15,7 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
     const [lotModalOpen, setOpenLotModal] = useState(false);
 
     const currentTableData = useMemo(() => {
-        const firstPageIndex = (currentPage - 1) * PageSize;
-        const lastPageIndex = firstPageIndex + PageSize;
-        return tenderData.lots.slice(firstPageIndex, lastPageIndex);
+        return tenderData.lots.slice((currentPage - 1) * PageSize, (currentPage - 1) * PageSize + PageSize);
     }, [currentPage]);
 
     const [selectedLot, setSelectedLotData] = useState(currentTableData[0]);
@@ -32,6 +31,11 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
     const handleLotSelection = (lot) => {
         setSelectedLotData(lot);
     };
+
+    const [tenderCreationDateState, setTenderCreationDateState] = useState();
+    const handleTenderCreationDateStateChange = (date) => {
+        setTenderCreationDateState(date);
+    }
 
     return (
         <div>
@@ -50,24 +54,39 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                 <div className={"grid grid-cols-1 gap-4 p-2 bg-slate-400"}>
                     <div className={"grid grid-cols-3 gap-4"}>
                         <div>
-                            <label for="tenderCreationDate" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Дата создания тендера</label>
-                            <input type="text" id="tenderCreationDate" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="John" required
+                            <label for="tenderCreationDate" className="block mb-2 text-sm font-medium text-white">Дата создания тендера</label>
+                            <Datepicker
+                                displayFormat={"DD/MM/YYYY"}
+                                useRange={false}
+                                asSingle={true}
+                                primaryColor={"blue"}
                                 value={tenderData.tenderCreationDate}
+                                showShortcuts={true}
+                                onChange={handleTenderCreationDateStateChange}
                             />
                         </div>
                         <div>
-                            <label for="tenderUpdateDate" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Дата обновления тендера</label>
-                            <input type="text" id="tenderUpdateDate" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="John" required
+                            <label for="tenderCreationDate" className="block mb-2 text-sm font-medium text-white">Дата создания тендера</label>
+                            <Datepicker
+                                displayFormat={"DD/MM/YYYY"}
+                                useRange={false}
+                                asSingle={true}
+                                primaryColor={"blue"}
                                 value={tenderData.tenderUpdateDate}
+                                showShortcuts={true}
+                                onChange={() => {}}
                             />
                         </div>
                         <div>
-                            <label for="tenderDeadlineDate" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Дата завершения тендера</label>
-                            <input type="text" id="tenderDeadlineDate" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="John" required
+                            <label for="tenderCreationDate" className="block mb-2 text-sm font-medium text-white">Дата завершения тендера</label>
+                            <Datepicker
+                                displayFormat={"DD/MM/YYYY"}
+                                useRange={false}
+                                asSingle={true}
+                                primaryColor={"blue"}
                                 value={tenderData.tenderDeadlineDate}
+                                showShortcuts={true}
+                                onChange={() => {}}
                             />
                         </div>
                     </div>
@@ -160,8 +179,8 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.lotUuid}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.lotName}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.lotGlobalState}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotCreationTimeStamp}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotUpdateTimeStamp}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotCreationTimeStamp.startDate}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotUpdateTimeStamp.startDate}</td>
                                 <td>
                                     <button className="p-2 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400 hover:cursor-pointer"
                                         onClick={() => {

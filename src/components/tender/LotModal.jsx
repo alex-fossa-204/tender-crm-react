@@ -43,11 +43,11 @@ const LotModal = ({ setOpenLotModal, lotData }) => {
                             </div>
                             <div className="flex justify-between py-2">
                                 <div className="pl-2">Дата создания:</div>
-                                <div className="pr-2">{lotData.lotCreationTimeStamp}</div>
+                                <div className="pr-2">{lotData.lotCreationTimeStamp.startDate}</div>
                             </div>
                             <div className="flex justify-between py-2">
                                 <div className="pl-2">Дата обновления:</div>
-                                <div className="pr-2">{lotData.lotUpdateTimeStamp}</div>
+                                <div className="pr-2">{lotData.lotUpdateTimeStamp.startDate}</div>
                             </div>
                         </div>
                         <div>

@@ -1,11 +1,11 @@
 import React, { useMemo, useState } from 'react';
 import WorkspacePage from '../WorkspacePage';
 import { SidebarLinkElement } from '../../../components/workspace';
-import { mockData } from '../../../data/images/tenderMockList';
+import { tendersMockData } from '../../../data/images/tenderMockList';
 import TenderPagination from '../../../components/tender/TenderPagination';
 import { TenderFormModal, TenderModal } from '../../../components/tender';
 
-let PageSize = 10;
+let PageSize = 5;
 
 const Tenders = () => {
 
@@ -17,13 +17,13 @@ const Tenders = () => {
 
     const [selectedTender, setSelectedTenderData] = useState('');
 
-    const currentTableData = useMemo(() => {
-        const firstPageIndex = (currentPage - 1) * PageSize;
-        const lastPageIndex = firstPageIndex + PageSize;
-        return mockData.slice(firstPageIndex, lastPageIndex);
-    }, [currentPage]);
+    const [tendersData, setTendersData] = useState(tendersMockData);
+
+    let currentTableData = tendersData.slice((currentPage - 1) * PageSize, (currentPage - 1) * PageSize + PageSize);
 
     const handleTenderSelection = (tender) => {
+        console.log(`selection tender -> ${tender.tenderName} ${tender.tenderStatus} ${tender.tenderStatus}`);
+        console.log(tender);
         setSelectedTenderData(tender);
     };
 
@@ -33,7 +33,7 @@ const Tenders = () => {
 
     return (
         <WorkspacePage>
-            {tenderFormModalOpen && <TenderFormModal setOpenTenderFormModal={setTenderFormModalOpen}/>}
+            {tenderFormModalOpen && <TenderFormModal setOpenTenderFormModal={setTenderFormModalOpen} tenders={tendersData}/>}
             {tenderModalOpen && <TenderModal setOpenTenderModal={setOpenTenderModal} tenderData={selectedTender} />}
             <div className={`${tenderFormModalOpen ? 'blur-sm' : ''} z-1}`}>
                 <div className={`w-full ${tenderModalOpen ? 'hidden' : ''}`}>
@@ -63,7 +63,7 @@ const Tenders = () => {
                                         <td className="whitespace-nowrap px-6 py-4">{row.tenderName}</td>
                                         <td className="whitespace-nowrap px-6 py-4">{row.tenderStatus}</td>
                                         <td className="whitespace-nowrap px-6 py-4">{row.tenderType}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{row.tenderCreationDate}</td>
+                                        <td className="whitespace-nowrap px-6 py-4">{row.tenderCreationDate.startDate}</td>
                                         <td className="">
                                             <button className="p-2 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400 hover:cursor-pointer"
                                                 onClick={() => {
@@ -83,13 +83,13 @@ const Tenders = () => {
                         <TenderPagination
                             className=""
                             currentPage={currentPage}
-                            totalCount={mockData.length}
+                            totalCount={tendersData.length}
                             pageSize={PageSize}
                             onPageChange={page => setCurrentPage(page)}
                         />
                         <div className={"flex space-x-5"}>
                             <div className={"bg-veryLightBlue rounded-md p-2"}>Текущая страница: {currentPage}</div>
-                            <div className={"bg-veryLightBlue rounded-md p-2"}>Тендеров всего: {mockData.length}</div>
+                            <div className={"bg-veryLightBlue rounded-md p-2"}>Тендеров всего: {tendersData.length}</div>
                         </div>
                     </div>
                 </div>
