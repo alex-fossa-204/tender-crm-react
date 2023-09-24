@@ -617,3 +617,57 @@ export const technologiesMockData = [
     { technologyName: "AQA" },
 
 ];
+
+export const userMockData =
+{
+    managerUuid: "9c6150d3-f3f3-4929-9848-9a761bad9014",
+    personalInfo: {
+        firstName: "Дмитрий",
+        middleName: "Иванович",
+        lastName: "Петров",
+        positions: [
+            {
+                shortcut: "PC",
+                fullPosition: "Project Coordinator",
+                grade: "J2",
+                companyName: "Aston"
+            }
+        ],
+        contacts: [
+            {
+                contactType: "skype",
+                contactValue: "stepanIvan01"
+            },
+            {
+                contactType: "teams",
+                contactValue: "stepanIvan01"
+            },
+            {
+                contactType: "phone",
+                contactValue: "+375291001010"
+            },
+            {
+                contactType: "email",
+                contactValue: "dmitryIvanov@mail.com"
+            }
+        ]
+    },
+    authorityInfo: {
+        login: "dm.ivanov",
+        email: "dmitryIvanov@mail.com",
+        avatar: "",
+        userState: "АКТИВНЫЙ",
+        registrationDate: "2022-07-13 15:34:44",
+        lastLoginDate: "2022-07-13 15:34:44",
+        role: {
+            roleName: "Admin",
+            privileges: [
+                "read",
+                "create",
+                "update",
+                "delete"
+            ]
+        }
+    }
+
+};

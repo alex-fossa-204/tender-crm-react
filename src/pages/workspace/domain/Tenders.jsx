@@ -4,6 +4,7 @@ import { SidebarLinkElement } from '../../../components/workspace';
 import { tendersMockData } from '../../../data/images/tenderMockList';
 import TenderPagination from '../../../components/tender/TenderPagination';
 import { TenderFormModal, TenderModal } from '../../../components/tender';
+import { AiFillDelete } from 'react-icons/ai';
 
 let PageSize = 5;
 
@@ -52,6 +53,7 @@ const Tenders = () => {
                                 <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Тип</th>
                                 <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Зарегистрирован</th>
                                 <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
+                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
                             </tr>
                         </thead>
 
@@ -72,6 +74,11 @@ const Tenders = () => {
                                                 }}
                                             >
                                                 Подробнее
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `} onClick={() => { }}>
+                                                <AiFillDelete className='w-4 h-4' />
                                             </button>
                                         </td>
                                     </tr>

@@ -305,9 +305,9 @@ const TenderFormModal = ({ setOpenTenderFormModal, tenders }) => {
                                 </div>
                             </div>
                         </div>
-                        <div className={`${isCustomerViewEnabled ? 'grid grid-cols-2 gap-10 overflow-y' : 'hidden'}`}>
-                            <table className={`table-auto w-full text-left font-light text-sm`}>
-                                <tbody className="bg-gray-100 font-medium ">
+                        <div className={`${isCustomerViewEnabled ? ' grid grid-cols-2 gap-10 overflow-y' : 'hidden'}`}>
+                            <table className={`absolute table-auto w-550 text-left font-light text-sm`}>
+                                <tbody className="bg-gray-100 font-medium">
                                     {
                                         customers.map(
                                             customerItem => {
@@ -353,7 +353,7 @@ const TenderFormModal = ({ setOpenTenderFormModal, tenders }) => {
                             </div>
                         </div>
                         <div className={`${isManagerViewEnabled ? 'overflow-y' : 'hidden'}`}>
-                            <table className={`table-auto w-full text-left font-light text-sm mt-3`}>
+                            <table className={`absolute table-auto text-left font-light text-sm`}>
                                 <thead className="font-medium text-center">
                                     <tr>
                                         <th scope="col" className="px-4 py-2 bg-darkBlue text-gray-100">ID</th>
@@ -462,7 +462,7 @@ const TenderFormModal = ({ setOpenTenderFormModal, tenders }) => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className={`${isLotManagerViewEnabled ? 'overflow-y' : 'hidden'}`}>
+                                <div className={`${isLotManagerViewEnabled ? 'absolute overflow-y' : 'hidden'}`}>
                                     <table className={`border-collapse border  w-full text-left font-light text-sm`}>
                                         <thead className="font-medium text-center bg-blue-100">
                                             <tr className='text-black'>

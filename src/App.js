@@ -10,6 +10,7 @@ import Emplpoyees from './pages/workspace/domain/Emplpoyees';
 import Managers from './pages/workspace/domain/Managers';
 import Calendar from './pages/workspace/domain/Calendar';
 import Kanban from './pages/workspace/domain/Kanban';
+import Profile from './pages/workspace/domain/Profile';
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                         <Route path={"/workspace/managers"} element={<Managers/>}></Route>
                         <Route path={"/workspace/calendar"} element={<Calendar/>}></Route>
                         <Route path={"/workspace/kanban"} element={<Kanban/>}></Route>
+                        <Route path={"/workspace/profile"} element={<Profile/>}></Route>
                     </Routes>
                 </div>
             </BrowserRouter>
