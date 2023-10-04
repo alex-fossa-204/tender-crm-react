@@ -38,7 +38,7 @@ const LandingNavbar = () => {
           content={"Зарегистрироваться"}
           onClickCustomFun={() => toggleRegistrationModalView()}
         />
-        <NavLink key={"workspace"} to={"/workspace/dashboard"}>
+        <NavLink key={"workspace"} to={"/workspace/profile"}>
           <LandingButton
             id={"landing-dashboard-button"}
             type={"button"}

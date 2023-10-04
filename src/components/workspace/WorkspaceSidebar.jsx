@@ -12,7 +12,7 @@ const WorkspaceSidebar = () => {
                 <div>
                     <p className="text-gray-400 m-3 mt-4 uppercase">Пространство</p>
                 </div>
-                <NavLink key={"workspace-dashboard"} to={"/workspace/dashboard"}>
+                <NavLink key={"workspace-dashboard"} to={"/workspace/profile"}>
                     <SidebarLinkElement content={"Главная"} />
                 </NavLink>
                 
@@ -22,19 +22,11 @@ const WorkspaceSidebar = () => {
                 <NavLink key={"workspace-tenders"} to={"/workspace/tenders"}>
                     <SidebarLinkElement content={"Тендеры"} />
                 </NavLink>
-                <NavLink key={"workspace-lots"} to={"/workspace/lots"}>
-                    <SidebarLinkElement content={"Лоты"} />
-                </NavLink>
-                
                 <div>
-                    <p className="text-gray-400 m-3 mt-4 uppercase">Управление Сотрудниками</p>
+                    <p className="text-gray-400 m-3 mt-4 uppercase">Управление Пользователями</p>
                 </div>
                 <NavLink key={"workspace-employees"} to={"/workspace/employees"}>
                     <SidebarLinkElement content={"Сотрудники"} />
-                </NavLink>
-                
-                <NavLink key={"workspace-managers"} to={"/workspace/managers"}>
-                    <SidebarLinkElement content={"Менеджеры"} />
                 </NavLink>
                 
                 <div>
