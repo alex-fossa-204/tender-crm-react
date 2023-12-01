@@ -19,7 +19,6 @@ const WorkspaceHeader = () => {
                 </button>
             </div>
             <div className="flex justify-between">
-                <WorkspaceButton id={"workspace-settings-button"} type={"button"} content={"Настройки"} onClickCustomFun={() => {console.log("it works")}}/>
                 <NavLink key={"profile"} to={"/workspace/profile"}>
                     <WorkspaceButton id={"workspace-settings-button"} type={"button"} content={"Профиль"}  onClickCustomFun={() => {console.log("it works")}}/>
                 </NavLink>

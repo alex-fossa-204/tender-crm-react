@@ -3,9 +3,11 @@ import React, { useMemo, useState } from 'react';
 import { userMockData } from '../../../data/images/tenderMockList';
 import avatar2 from '../../../data/images/avatar2.png';
 import WorkspacePage from '../WorkspacePage';
-import { AiFillDelete, AiFillEdit, AiOutlineFileSearch } from 'react-icons/ai';
-import { TenderPagination } from '../../../components/tender';
+import { AiFillCheckCircle, AiFillDelete, AiFillEdit, AiOutlineFileSearch, AiOutlineUsergroupAdd } from 'react-icons/ai';
+import { TenderFormModal, TenderPagination } from '../../../components/tender';
 import { NavLink } from 'react-router-dom';
+import { RiGroupFill, RiLockFill } from 'react-icons/ri';
+import { BsChevronDoubleDown, BsChevronDown, BsChevronUp, BsEye, BsEyeSlash } from 'react-icons/bs';
 
 const Profile = () => {
     const [currentUser, setCurrentUserState] = useState(userMockData);
@@ -13,7 +15,34 @@ const Profile = () => {
     const PageSize = 3;
     const [currentPage, setCurrentPage] = useState(1);
 
+    //Кнопка состояния: Персональные данные пользователя
+    const [isUserNameDataChanged, setIsUserNameDataChanged] = useState(false);
+
+    //Кнопка состояния: Контакты пользователя
+    const [isUserContactsChanged, setIsUserContactsChanged] = useState(false);
+
+    //Кнопка состояния: Данные акканта
+    const [isUserAccountDataChanged, setIsUserAccountDataChanged] = useState(false);
+
+    //Кнопка состояния: Данные изменения пароля
+    const [isUserPasswordChangeModalOpen, setIsUserPasswordChangeModalOpen] = useState(false);
+
+    //Кнопка состояния: Новый пароль видимость
+    const [isNewPasswordVisible, setIsNewPasswordVisible] = useState(false);
+    //Кнопка состояния: Новый пароль подтверждение видимость
+    const [isNewPasswordConfirmVisible, setIsNewPasswordConfirmVisible] = useState(false);
+
+    //Состояние: поля для ввода пароля -> для управления видимости при нажатии кнопки подтвердить изм пароля
+    const [isPasswordInputFieldsActive, setIsPasswordInputFieldsActive] = useState(true);
+
+    const [isPasswordSuccessfulyChangedActiveModal, setIsPasswordSuccessfulyChangedActiveModal] = useState(false);
+
+    //Фичатогл: тендеры пользователя
+    const [isUserTendersFeatureToggleEnabled, setIsUserTendersFeatureToggleEnabled] = useState(false);
+
     const [isUserTenderDataHidden, setIsUserTenderDataHidden] = useState(false);
+
+    const [isTenderModalHidden, setIsTenderModalHidden] = useState(false);
 
     const currentUserTenderData = useMemo(() => {
         return currentUser.userTenders.slice((currentPage - 1) * PageSize, (currentPage - 1) * PageSize + PageSize);
@@ -21,7 +50,7 @@ const Profile = () => {
 
     return (
         <WorkspacePage>
-            <div className='grid grid-rows-4 grid-cols-4 gap-4'>
+            <div className={`grid grid-rows-4 grid-cols-4 gap-4`}>
                 <div className='col-span-1 row-span-4 flex flex-col justify-start bg-blue-50 drop-shadow-xl p-4'>
                     <div className="grid grid-cols-1 justify-items-center bg-darkBlue text-white p-2 mx-5 rounded-lg">
                         <div className='p-2'>
@@ -52,22 +81,44 @@ const Profile = () => {
                     <div className='bg-darkBlue p-2 rounded-lg'>
                         <p className='text-xl font-bold text-white'>Персональные данные пользователя</p>
                     </div>
-                    <div className='grid grid-cols-4 mt-5 p-2 border border-blue-600'>
+                    <div className='grid grid-cols-4 mt-5 p-2 gap-5 border border-blue-600'>
                         <div className='flex justify-start text-lg gap-5'>
-                            <div className='font-bold'>Фамилия:</div>
-                            <div className='font-medium'>{currentUser.personalInfo.lastName}</div>
+                            <div className='flex flex-col justify-center font-bold'>Фамилия:</div>
+                            <div className='font-medium'>
+                                <input type="text" id="profileuser-lastName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
+                                    defaultValue={currentUser.personalInfo.lastName}
+                                    required
+                                    onChange={() => {
+                                        setIsUserNameDataChanged(true);
+                                    }}
+                                />
+                            </div>
                         </div>
                         <div className='flex justify-start text-lg gap-5'>
-                            <div className='font-bold'>Имя:</div>
-                            <div className='font-medium'>{currentUser.personalInfo.firstName}</div>
+                            <div className='flex flex-col justify-center font-bold'>Имя:</div>
+                            <input type="text" id="profileuser-firstname" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
+                                defaultValue={currentUser.personalInfo.firstName}
+                                onChange={() => {
+                                    setIsUserNameDataChanged(true);
+                                }}
+                            />
                         </div>
                         <div className='flex justify-start text-lg gap-5'>
-                            <div className='font-bold'>Отчество:</div>
-                            <div className='font-medium'>{currentUser.personalInfo.middleName}</div>
+                            <div className='flex flex-col justify-center font-bold'>Отчество:</div>
+                            <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
+                                defaultValue={currentUser.personalInfo.middleName}
+                                onChange={() => {
+                                    setIsUserNameDataChanged(true);
+                                }}
+                            />
                         </div>
                         <div className='flex justify-end'>
-                            <button className={`text-gray-100 rounded-lg bg-yellow-400 p-3`} onClick={() => { }}>
-                                <AiFillEdit className='w-4 h-4' />
+                            <button className={`text-gray-100 rounded-lg ${isUserNameDataChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
+                                onClick={() => {
+                                    setIsUserNameDataChanged(false);
+                                }}
+                            >
+                                {isUserNameDataChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
                             </button>
                         </div>
                     </div>
@@ -91,7 +142,12 @@ const Profile = () => {
                                     return (
                                         <div className='p-1 flex justify-between gap-5'>
                                             <p className='font-semibold'>{`${contanct.contactType}:`}</p>
-                                            <p>{`${contanct.contactValue}`}</p>
+                                            <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
+                                                defaultValue={contanct.contactValue}
+                                                onChange={() => {
+                                                    setIsUserContactsChanged(true);
+                                                }}
+                                            />
                                         </div>
                                     );
                                 })}
@@ -99,8 +155,12 @@ const Profile = () => {
                         </div>
                         <div className='flex justify-end'>
                             <div className='flex flex-col justify-center'>
-                                <button className={`text-gray-100 rounded-lg bg-yellow-400 p-3`} onClick={() => { }}>
-                                    <AiFillEdit className='w-4 h-4' />
+                                <button className={`text-gray-100 rounded-lg ${isUserContactsChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
+                                    onClick={() => {
+                                        setIsUserContactsChanged(false)
+                                    }}
+                                >
+                                    {isUserContactsChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
                                 </button>
                             </div>
                         </div>
@@ -110,29 +170,112 @@ const Profile = () => {
                     <div className='bg-darkBlue p-2 rounded-lg'>
                         <p className='text-xl font-bold text-white'>Данные аккаунта</p>
                     </div>
-                    <div className='grid grid-cols-3 mt-5 p-2 border border-blue-600'>
+                    <div className='grid grid-cols-3 mt-5 p-2 gap-5 border border-blue-600'>
                         <div className='flex justify-start text-lg gap-5'>
-                            <div className='font-bold'>Логин:</div>
-                            <div className='font-medium'>{currentUser.authorityInfo.login}</div>
+                            <div className='flex flex-col justify-center font-bold'>Логин:</div>
+                            <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
+                                defaultValue={currentUser.authorityInfo.login}
+                                onChange={() => {
+                                    setIsUserAccountDataChanged(true);
+                                }}
+                            />
                         </div>
                         <div className='flex justify-start text-lg gap-5'>
-                            <div className='font-bold'>Почта:</div>
-                            <div className='font-medium'>{currentUser.authorityInfo.email}</div>
+                            <div className='flex flex-col justify-center font-bold'>Почта:</div>
+                            <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
+                                defaultValue={currentUser.authorityInfo.email}
+                                onChange={() => {
+                                    setIsUserAccountDataChanged(true);
+                                }}
+                            />
                         </div>
                         <div className='flex justify-end'>
-                            <button className={`text-gray-100 rounded-lg bg-yellow-400 p-3`} onClick={() => { }}>
-                                <AiFillEdit className='w-4 h-4' />
+                            <button className={`text-gray-100 rounded-lg ${isUserAccountDataChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
+                                onClick={() => {
+                                    setIsUserAccountDataChanged(false);
+                                }}
+                            >
+                                {isUserAccountDataChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
                             </button>
                         </div>
                     </div>
-                    <div className='grid grid-cols-2 mt-5 p-2 border border-blue-600'>
-                        <div className='flex justify-start text-lg gap-5'>
-                            <div className='font-bold'>Изменить пароль:</div>
+                    <div className='mt-5 p-2 border border-blue-600'>
+                        <div className='grid grid-cols-2'>
+                            <div className='flex justify-start text-lg gap-5'>
+                                <div className='font-bold'>Изменить пароль:</div>
+                            </div>
+                            <div className='flex justify-end'>
+                                <button className={`text-gray-100 rounded-lg ${isUserPasswordChangeModalOpen ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
+                                    onClick={() => {
+                                        setIsUserPasswordChangeModalOpen(!isUserPasswordChangeModalOpen);
+                                    }}
+                                >
+                                    {isUserPasswordChangeModalOpen ? <BsChevronUp className='w-4 h-4' /> : <BsChevronDown className='w-4 h-4' />}
+                                </button>
+                            </div>
                         </div>
-                        <div className='flex justify-end'>
-                            <button className={`text-gray-100 rounded-lg bg-yellow-400 p-3`} onClick={() => { }}>
-                                <AiFillEdit className='w-4 h-4' />
-                            </button>
+                        <div className={`${isUserPasswordChangeModalOpen ? 'grid grid-cols-1 gap-2' : 'hidden'}`}>
+                            <div className={`${isPasswordInputFieldsActive ? 'grid grid-cols-1 gap-2' : 'hidden'}`}>
+                                <div className='flex justify-start gap-2'>
+                                    <input type="text" id="new-password-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-400"
+                                        placeholder='Новый пароль'
+                                        onChange={() => { }}
+                                    />
+                                    <button className={`text-gray-100 rounded-lg ${isNewPasswordVisible ? 'bg-red-400' : 'bg-blue-400'} p-3`}
+                                        onClick={() => {
+                                            setIsNewPasswordVisible(!isNewPasswordVisible);
+                                        }}
+                                    >
+                                        {isNewPasswordVisible ? <BsEye className='w-4 h-4' /> : <BsEyeSlash className='w-4 h-4' />}
+                                    </button>
+                                </div>
+                                <div className='flex justify-start gap-2'>
+                                    <input type="text" id="new-password-confirm-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-400"
+                                        placeholder='Подтвердите пароль'
+                                        onChange={() => { }}
+                                    />
+                                    <button className={`text-gray-100 rounded-lg ${isNewPasswordConfirmVisible ? 'bg-red-400' : 'bg-blue-400'} p-3`}
+                                        onClick={() => {
+                                            setIsNewPasswordConfirmVisible(!isNewPasswordConfirmVisible);
+                                        }}
+                                    >
+                                        {isNewPasswordConfirmVisible ? <BsEye className='w-4 h-4' /> : <BsEyeSlash className='w-4 h-4' />}
+                                    </button>
+                                </div>
+                            </div>
+                            <div className={`${isPasswordSuccessfulyChangedActiveModal ? 'flex justify-center' : 'hidden'}`}>
+                                <div className='bg-green-500 text-white font-bold px-5 py-2 rounded-lg'>Пароль успешно изменен</div>
+                            </div>
+                            <div className={`flex justify-end gap-3`}>
+                                <div id='password-should-be-entered-btn-group' className={`${isPasswordSuccessfulyChangedActiveModal ? 'hidden' : 'flex justify-end gap-3'}`}>
+                                    <button className='text-gray-100 rounded-lg bg-veryLightBlue p-2 hover:bg-green-500'
+                                        onClick={() => {
+                                            setIsPasswordInputFieldsActive(false);
+                                            setIsPasswordSuccessfulyChangedActiveModal(true);
+                                        }}
+                                    >
+                                        Подтвердить
+                                    </button>
+                                    <button className='text-gray-100 rounded-lg bg-yellow-400 p-2 hover:bg-yellow-300'
+                                        onClick={() => {
+                                            setIsUserPasswordChangeModalOpen(!isUserPasswordChangeModalOpen);
+                                        }}
+                                    >
+                                        Отмена
+                                    </button>
+                                </div>
+                                <div id='password-confirmed-btn-group' className={`${isPasswordSuccessfulyChangedActiveModal ? '' : 'hidden'}`}>
+                                    <button className='text-gray-100 rounded-lg bg-yellow-400 p-2 hover:bg-yellow-300'
+                                        onClick={() => {
+                                            setIsPasswordInputFieldsActive(!isPasswordInputFieldsActive);
+                                            setIsPasswordSuccessfulyChangedActiveModal(!isPasswordSuccessfulyChangedActiveModal); 
+                                            setIsUserPasswordChangeModalOpen(!isUserPasswordChangeModalOpen);
+                                        }}
+                                    >
+                                        Закрыть
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className='grid grid-cols-3 mt-5 p-2 border border-blue-600'>
@@ -149,31 +292,22 @@ const Profile = () => {
                             })}</div>
                         </div>
                         <div className='flex justify-end'>
-                            <button className={`text-gray-100 rounded-lg bg-yellow-400 p-3`} onClick={() => { }}>
-                                <AiFillEdit className='w-4 h-4' />
+                            <button className={`text-gray-100 rounded-lg bg-blue-400 p-3`} onClick={() => { }}>
+                                <RiGroupFill className='w-4 h-4' />
                             </button>
                         </div>
                     </div>
-                    <div className='grid grid-cols-3 mt-5 p-2 gap-5 border border-blue-600'>
-                        <div className='flex justify-start text-lg gap-5'>
-                            <div className='font-bold'>Регистрация:</div>
-                            <div className='font-medium'>{currentUser.authorityInfo.registrationDate}</div>
-                        </div>
-                        <div className='flex justify-start text-lg gap-5'>
-                            <div className='font-bold'>Сессия:</div>
-                            <div className='font-medium'>{currentUser.authorityInfo.lastLoginDate}</div>
-                        </div>
-                    </div>
                 </div>
-                <div className='col-span-4 row-span-4 bg-blue-50 drop-shadow-xl p-4'>
+                {isTenderModalHidden && <div className='ml-56'><TenderFormModal setOpenTenderFormModal={setIsTenderModalHidden} tenders={currentUser.userTenders} /></div>}
+                <div className={`col-span-4 row-span-4 bg-blue-50 drop-shadow-xl p-4 pb-32 ${isTenderModalHidden ? 'blur-sm' : ''} ${isUserTendersFeatureToggleEnabled ? '' : 'hidden'}`}>
                     <div className='bg-darkBlue p-2 rounded-lg'>
                         <p className='text-xl font-bold text-white'>Мои тендеры:</p>
                     </div>
                     <div className='flex flex-row justify-between mt-5 mb-2'>
-                        <div className='flex'>
+                        <div className='flex flex-row justify-start gap-4'>
                             <NavLink key={"workspace"} to={"/workspace/tenders"}>
                                 <button className={`text-gray-100 rounded-lg bg-veryLightBlue p-3`} onClick={() => { }}>
-                                    Показать все тендеры
+                                    Показать  все тендеры
                                 </button>
                             </NavLink>
                         </div>

@@ -9,7 +9,7 @@ let PageSize = 5;
 
 const TenderModal = ({ setOpenTenderModal, tenderData }) => {
 
-    const [isLotsHidden, setLotsVisibility] = useState(true);
+    const [isLotsHidden, setLotsVisibility] = useState(false);
 
     const [currentPage, setCurrentPage] = useState(1);
 
