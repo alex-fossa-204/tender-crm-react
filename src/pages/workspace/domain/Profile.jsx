@@ -8,6 +8,7 @@ import { TenderFormModal, TenderPagination } from '../../../components/tender';
 import { NavLink } from 'react-router-dom';
 import { RiGroupFill, RiLockFill } from 'react-icons/ri';
 import { BsChevronDoubleDown, BsChevronDown, BsChevronUp, BsEye, BsEyeSlash } from 'react-icons/bs';
+import { CSSTransition } from 'react-transition-group';
 
 const Profile = () => {
     const [currentUser, setCurrentUserState] = useState(userMockData);
@@ -214,69 +215,83 @@ const Profile = () => {
                                 </button>
                             </div>
                         </div>
-                        <div className={`${isUserPasswordChangeModalOpen ? 'grid grid-cols-1 gap-2' : 'hidden'}`}>
-                            <div className={`${isPasswordInputFieldsActive ? 'grid grid-cols-1 gap-2' : 'hidden'}`}>
-                                <div className='flex justify-start gap-2'>
-                                    <input type="text" id="new-password-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-400"
-                                        placeholder='Новый пароль'
-                                        onChange={() => { }}
-                                    />
-                                    <button className={`text-gray-100 rounded-lg ${isNewPasswordVisible ? 'bg-red-400' : 'bg-blue-400'} p-3`}
-                                        onClick={() => {
-                                            setIsNewPasswordVisible(!isNewPasswordVisible);
-                                        }}
-                                    >
-                                        {isNewPasswordVisible ? <BsEye className='w-4 h-4' /> : <BsEyeSlash className='w-4 h-4' />}
-                                    </button>
+                        <CSSTransition
+                            in={isUserPasswordChangeModalOpen}
+                            timeout={1000}
+                            classNames={`appear-window`}
+                        >
+                            <div className={`${isUserPasswordChangeModalOpen ? 'grid grid-cols-1 gap-2 ' : 'hidden'}`}>
+                                <div className={`${isPasswordInputFieldsActive ? 'grid grid-cols-1 gap-2' : 'hidden'}`}>
+                                    <div className='flex justify-start gap-2'>
+                                        <input id="new-password-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-400"
+                                            type={isNewPasswordVisible ? 'text' : 'password'}
+                                            placeholder='Новый пароль'
+                                            onChange={() => { }}
+                                        />
+                                        <button className={`text-gray-100 rounded-lg ${isNewPasswordVisible ? 'bg-red-400' : 'bg-blue-400'} p-3`}
+                                            onClick={() => {
+                                                setIsNewPasswordVisible(!isNewPasswordVisible);
+                                            }}
+                                        >
+                                            {isNewPasswordVisible ? <BsEye className='w-4 h-4' /> : <BsEyeSlash className='w-4 h-4' />}
+                                        </button>
+                                    </div>
+                                    <div className='flex justify-start gap-2'>
+                                        <input id="new-password-confirm-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-400"
+                                            type={isNewPasswordConfirmVisible ? 'text' : 'password'}
+                                            placeholder='Подтвердите пароль'
+                                            onChange={() => { }}
+                                        />
+                                        <button className={`text-gray-100 rounded-lg ${isNewPasswordConfirmVisible ? 'bg-red-400' : 'bg-blue-400'} p-3`}
+                                            onClick={() => {
+                                                setIsNewPasswordConfirmVisible(!isNewPasswordConfirmVisible);
+                                            }}
+                                        >
+                                            {isNewPasswordConfirmVisible ? <BsEye className='w-4 h-4' /> : <BsEyeSlash className='w-4 h-4' />}
+                                        </button>
+                                    </div>
                                 </div>
-                                <div className='flex justify-start gap-2'>
-                                    <input type="text" id="new-password-confirm-input" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-400"
-                                        placeholder='Подтвердите пароль'
-                                        onChange={() => { }}
-                                    />
-                                    <button className={`text-gray-100 rounded-lg ${isNewPasswordConfirmVisible ? 'bg-red-400' : 'bg-blue-400'} p-3`}
-                                        onClick={() => {
-                                            setIsNewPasswordConfirmVisible(!isNewPasswordConfirmVisible);
-                                        }}
-                                    >
-                                        {isNewPasswordConfirmVisible ? <BsEye className='w-4 h-4' /> : <BsEyeSlash className='w-4 h-4' />}
-                                    </button>
+                                <CSSTransition
+                                    in={isPasswordSuccessfulyChangedActiveModal}
+                                    timeout={1000}
+                                    classNames={`appear-window`}
+                                >
+                                    <div className={`${isPasswordSuccessfulyChangedActiveModal ? 'flex justify-center' : 'hidden'}`}>
+                                        <div className='bg-green-500 text-white font-bold px-5 py-2 rounded-lg'>Пароль успешно изменен</div>
+                                    </div>
+                                </CSSTransition>
+                                <div className={`flex justify-end gap-3`}>
+                                    <div id='password-should-be-entered-btn-group' className={`${isPasswordSuccessfulyChangedActiveModal ? 'hidden' : 'flex justify-end gap-3'}`}>
+                                        <button className='text-gray-100 rounded-lg bg-veryLightBlue p-2 hover:bg-green-500'
+                                            onClick={() => {
+                                                setIsPasswordInputFieldsActive(false);
+                                                setIsPasswordSuccessfulyChangedActiveModal(true);
+                                            }}
+                                        >
+                                            Подтвердить
+                                        </button>
+                                        <button className='text-gray-100 rounded-lg bg-yellow-400 p-2 hover:bg-yellow-300'
+                                            onClick={() => {
+                                                setIsUserPasswordChangeModalOpen(!isUserPasswordChangeModalOpen);
+                                            }}
+                                        >
+                                            Отмена
+                                        </button>
+                                    </div>
+                                    <div id='password-confirmed-btn-group' className={`${isPasswordSuccessfulyChangedActiveModal ? '' : 'hidden'}`}>
+                                        <button className='text-gray-100 rounded-lg bg-yellow-400 p-2 hover:bg-yellow-300'
+                                            onClick={() => {
+                                                setIsPasswordInputFieldsActive(!isPasswordInputFieldsActive);
+                                                setIsPasswordSuccessfulyChangedActiveModal(!isPasswordSuccessfulyChangedActiveModal);
+                                                setIsUserPasswordChangeModalOpen(!isUserPasswordChangeModalOpen);
+                                            }}
+                                        >
+                                            Закрыть
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
-                            <div className={`${isPasswordSuccessfulyChangedActiveModal ? 'flex justify-center' : 'hidden'}`}>
-                                <div className='bg-green-500 text-white font-bold px-5 py-2 rounded-lg'>Пароль успешно изменен</div>
-                            </div>
-                            <div className={`flex justify-end gap-3`}>
-                                <div id='password-should-be-entered-btn-group' className={`${isPasswordSuccessfulyChangedActiveModal ? 'hidden' : 'flex justify-end gap-3'}`}>
-                                    <button className='text-gray-100 rounded-lg bg-veryLightBlue p-2 hover:bg-green-500'
-                                        onClick={() => {
-                                            setIsPasswordInputFieldsActive(false);
-                                            setIsPasswordSuccessfulyChangedActiveModal(true);
-                                        }}
-                                    >
-                                        Подтвердить
-                                    </button>
-                                    <button className='text-gray-100 rounded-lg bg-yellow-400 p-2 hover:bg-yellow-300'
-                                        onClick={() => {
-                                            setIsUserPasswordChangeModalOpen(!isUserPasswordChangeModalOpen);
-                                        }}
-                                    >
-                                        Отмена
-                                    </button>
-                                </div>
-                                <div id='password-confirmed-btn-group' className={`${isPasswordSuccessfulyChangedActiveModal ? '' : 'hidden'}`}>
-                                    <button className='text-gray-100 rounded-lg bg-yellow-400 p-2 hover:bg-yellow-300'
-                                        onClick={() => {
-                                            setIsPasswordInputFieldsActive(!isPasswordInputFieldsActive);
-                                            setIsPasswordSuccessfulyChangedActiveModal(!isPasswordSuccessfulyChangedActiveModal); 
-                                            setIsUserPasswordChangeModalOpen(!isUserPasswordChangeModalOpen);
-                                        }}
-                                    >
-                                        Закрыть
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        </CSSTransition>
                     </div>
                     <div className='grid grid-cols-3 mt-5 p-2 border border-blue-600'>
                         <div className='flex justify-start text-lg gap-5'>

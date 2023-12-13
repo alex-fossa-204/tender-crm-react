@@ -42,7 +42,7 @@ const LandingNavbar = () => {
           <LandingButton
             id={"landing-dashboard-button"}
             type={"button"}
-            content={"Dashboard"}
+            content={"Профиль"}
           />
         </NavLink>
       </div>

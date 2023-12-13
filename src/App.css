@@ -8,3 +8,34 @@
 ::-webkit-scrollbar-track {
     background-color: transparent;
 }
+
+
+
+/* Плавное появление окон */
+/* Вход */
+.appear-window-enter {
+    opacity: 0;
+}
+
+.appear-window-enter-active {
+    opacity: 1;
+    transition: opacity 1000ms;
+}
+
+.appear-window-enter-done {
+    opacity: 1;
+}
+
+/* Вход */
+.appear-window-exit {
+    opacity: 1;
+}
+
+.appear-window-exit-active {
+    opacity: 0;
+    transition: opacity 1000ms;
+}
+
+.appear-window-exit-done {
+    opacity: 0;
+}

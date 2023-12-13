@@ -2,10 +2,19 @@ import React, { useState } from 'react';
 import WorkspacePage from '../WorkspacePage';
 import { AiFillDelete } from 'react-icons/ai';
 import { managerMockData } from '../../../data/images/tenderMockList';
+import EmployeePagination from '../../../components/employee/EmployeePagination';
+
+let PageSize = 5;
 
 const Emplpoyees = () => {
 
-    const [employeeMockData, setEmployeeMockData] = useState(managerMockData);
+    //Состояние. Пагинация номер страницы
+    const [currentPage, setCurrentPage] = useState(1);
+
+    //Состояние: таблица сотрудников
+    const [employeeData, setemployeeData] = useState(managerMockData);
+
+    let currentTableData = employeeData.slice((currentPage - 1) * PageSize, (currentPage - 1) * PageSize + PageSize);
 
     return (
         <WorkspacePage>
@@ -14,7 +23,7 @@ const Emplpoyees = () => {
                     <div className="flex justify-between space-x-10 pb-5 bg-slate-100">
                         <p className={"p-2 text-gray-900 font-bold"}>Упраление Сотрудниками</p>
                         <div className={"space-x-5"}>
-                            <button className={"p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer"} onClick={() => {}}>Добавить Сторудника</button>
+                            <button className={"p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer"} onClick={() => { }}>Добавить Сторудника</button>
                         </div>
                     </div>
                     <table className={`min-w-full text-left font-light text-sm`}>
@@ -32,7 +41,7 @@ const Emplpoyees = () => {
 
                         <tbody className="bg-gray-100">
                             {
-                                employeeMockData.map((row) => {
+                                currentTableData.map((row) => {
                                     return <tr key={row.tenderNumber} className='border hover:cursor-default'>
                                         <td className="whitespace-nowrap px-6 py-4 font-medium">{row.managerUuid}</td>
                                         <td className="whitespace-nowrap px-6 py-4">{row.lastName}</td>
@@ -57,6 +66,15 @@ const Emplpoyees = () => {
                             }
                         </tbody>
                     </table>
+                    <div className="w-full flex justify-between mt-4 p-2 bg-darkBlue text-gray-100">
+                        <EmployeePagination
+                            className=""
+                            currentPage={currentPage}
+                            totalCount={employeeData.length}
+                            pageSize={PageSize}
+                            onPageChange={page => setCurrentPage(page)}
+                        />
+                    </div>
                 </div>
             </div>
         </WorkspacePage>

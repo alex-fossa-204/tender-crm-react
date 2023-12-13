@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import WorkspacePage from '../WorkspacePage';
 import { SidebarLinkElement } from '../../../components/workspace';
 import { tendersMockData } from '../../../data/images/tenderMockList';
@@ -32,9 +32,24 @@ const Tenders = () => {
         setTenderFormModalOpen(!tenderFormModalOpen);
     }
 
+    //get tenders request fetch
+    const [testDataFromServer, setTestDataFromServer] = useState(null);
+    let requestParams = {
+        pageNumber: 0,
+        elementQuantity: 5
+    }
+    useEffect(() => {
+        fetch(`http://127.0.0.1:8080/tenders/management/all?pageNumber=${encodeURIComponent(requestParams.pageNumber)}&elementQuantity=${encodeURIComponent(requestParams.elementQuantity)}`, {
+            method: "GET"
+        })
+            .then(response => response.json())
+            .then(json => setTestDataFromServer(json))
+            .catch(err => console.error(`CUSTOM CALL: ${err}`))
+    }, []);
+
     return (
         <WorkspacePage>
-            {tenderFormModalOpen && <TenderFormModal setOpenTenderFormModal={setTenderFormModalOpen} tenders={tendersData}/>}
+            {tenderFormModalOpen && <TenderFormModal setOpenTenderFormModal={setTenderFormModalOpen} tenders={tendersData} />}
             {tenderModalOpen && <TenderModal setOpenTenderModal={setOpenTenderModal} tenderData={selectedTender} />}
             <div className={`${tenderFormModalOpen ? 'blur-sm' : ''} z-1}`}>
                 <div className={`w-full ${tenderModalOpen ? 'hidden' : ''}`}>
@@ -100,6 +115,9 @@ const Tenders = () => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div>
+                {JSON.stringify(testDataFromServer, null, 2)}
             </div>
         </WorkspacePage>
     );
