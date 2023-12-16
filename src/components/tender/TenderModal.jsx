@@ -33,8 +33,15 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
         setSelectedLotData(lot);
     };
 
-    const [tenderCreationDateState, setTenderCreationDateState] = useState();
+    //отслеживание состояния даты создания тендера
+    const [tenderCreationDateState, setTenderCreationDateState] = useState(
+        {
+            startDate: tenderData.tenderCreationTimestamp,
+            endDate: tenderData.tenderCreationTimestamp,
+        }
+    );
     const handleTenderCreationDateStateChange = (date) => {
+        console.log(date);
         setTenderCreationDateState(date);
     }
 
@@ -55,39 +62,46 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                 <div className={"grid grid-cols-1 gap-4 p-2 bg-slate-400"}>
                     <div className={"grid grid-cols-3 gap-4"}>
                         <div>
-                            <label for="tenderCreationDate" className="block mb-2 text-sm font-medium text-white">Дата создания тендера</label>
+                            <label for="tenderCreationTimestamp" className="block mb-2 text-sm font-medium text-white">Дата создания тендера</label>
                             <Datepicker
-                                displayFormat={"DD/MM/YYYY"}
+                                displayFormat={"DD/MM/YYYY HH:MM:ss"}
+                                i18n={"ru"}
+                                value={tenderCreationDateState}
                                 useRange={false}
                                 asSingle={true}
                                 primaryColor={"blue"}
-                                value={tenderData.tenderCreationDate}
                                 showShortcuts={true}
-                                onChange={handleTenderCreationDateStateChange}
+                                onChange={(date) => handleTenderCreationDateStateChange(date)}
+                                configs={{
+                                    footer: {
+                                        cancel: "Quitter",
+                                        apply: "Appliquer"
+                                    }
+                                }}
                             />
                         </div>
                         <div>
-                            <label for="tenderCreationDate" className="block mb-2 text-sm font-medium text-white">Дата создания тендера</label>
+                            <label for="tenderUpdateTimestamp" className="block mb-2 text-sm font-medium text-white">Дата обновления тендера тендера</label>
                             <Datepicker
-                                displayFormat={"DD/MM/YYYY"}
+                                displayFormat={"DD/MM/YYYY HH:MM:ss"}
+                                value={tenderCreationDateState}
                                 useRange={false}
                                 asSingle={true}
                                 primaryColor={"blue"}
-                                value={tenderData.tenderUpdateDate}
                                 showShortcuts={true}
-                                onChange={() => {}}
+                                onChange={(date) => handleTenderCreationDateStateChange(date)}
                             />
                         </div>
                         <div>
-                            <label for="tenderCreationDate" className="block mb-2 text-sm font-medium text-white">Дата завершения тендера</label>
+                            <label for="tenderDeadlineTimestamp" className="block mb-2 text-sm font-medium text-white">Дата завершения тендера</label>
                             <Datepicker
-                                displayFormat={"DD/MM/YYYY"}
+                                displayFormat={"DD/MM/YYYY HH:MM:ss"}
+                                value={tenderCreationDateState}
                                 useRange={false}
                                 asSingle={true}
                                 primaryColor={"blue"}
-                                value={tenderData.tenderDeadlineDate}
                                 showShortcuts={true}
-                                onChange={() => {}}
+                                onChange={(date) => handleTenderCreationDateStateChange(date)}
                             />
                         </div>
                     </div>
@@ -110,17 +124,17 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                             <label for="tenderBaseQuantityLots" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Валюта тендера</label>
                             <input type="text" id="tenderBaseQuantityLots" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="John" required
-                                value={tenderData.tenderCurrency}
+                                value={'WARNIGN_DEFAULT'} //todo убрать валюту тендера с UI
                             />
                         </div>
                     </div>
                     <div className={"flex flex-col justify-start gap-5"}>
                         <div className={`flex justify-start gap-5`}>
                             <div>
-                                <label for="currentTenderType" class="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Текущий тип тендера</label>
-                                <input type="text" id="currentTenderType" disabled className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                <label for="tenderTypeValue" class="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Текущий тип тендера</label>
+                                <input type="text" id="tenderTypeValue" disabled className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="John" required
-                                    value={tenderData.tenderType}
+                                    value={tenderData.tenderTypeValue}
                                 />
                             </div>
                             <div>
@@ -136,10 +150,10 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                         </div>
                         <div className={`flex justify-start gap-5`}>
                             <div>
-                                <label for="currentTenderStatus" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Текущий Статус тендера</label>
-                                <input type="text" id="currentTenderStatus" disabled className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                <label for="tenderGlobalState" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Текущий Статус тендера</label>
+                                <input type="text" id="tenderGlobalState" disabled className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="John" required
-                                    value={tenderData.tenderStatus}
+                                    value={tenderData.tenderGlobalState}
                                 />
                             </div>
                             <div>
@@ -163,7 +177,7 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                     <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg  ${isLotsHidden ? 'bg-veryLightBlue' : 'bg-red-500'}`} onClick={() => { handleLotsVisibilityTableClick(); }}>Управление лотами</button>
                     <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg bg-veryLightBlue`} onClick={() => { setOpenTenderModal(false); }}>Вернуться к тендерам</button>
                 </div>
-                
+
                 <table className={`w-full text-left font-light text-sm mt-5 mb-5 ${isLotsHidden ? 'hidden' : ''}`}>
                     <thead className="font-medium">
                         <tr>
@@ -181,9 +195,9 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                             return <tr className='border hover:cursor-default'>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.lotUuid}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.lotName}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotGlobalState}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotCreationTimeStamp.startDate}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotUpdateTimeStamp.startDate}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotState}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotCreationTimestamp}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotUpdateTimestamp}</td>
                                 <td>
                                     <button className={`text-gray-100 rounded-lg bg-red-700 p-4 `} onClick={() => { }}>
                                         <AiFillDelete className='w-5 h-5' />
