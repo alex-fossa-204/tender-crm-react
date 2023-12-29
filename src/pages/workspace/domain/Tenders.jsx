@@ -70,12 +70,12 @@ const Tenders = () => {
                         <tbody className="bg-gray-100">
                             {
                                 !isTendersDataLoading && tendersData.map((tender) => {
-                                    return <tr key={tender.tenderNumber} className='border hover:cursor-default'>
-                                        <td className="whitespace-nowrap px-6 py-4 font-medium">{tender.tenderNumber}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{tender.tenderName}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{tender.tenderGlobalState}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{tender.tenderTypeValue}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{tender.tenderCreationTimestamp}</td>
+                                    return <tr key={tender.tenderUuid} className='border hover:cursor-default'>
+                                        <td className="whitespace-nowrap px-6 py-4 font-medium">{tender.tenderUuid}</td>
+                                        <td className="whitespace-nowrap px-6 py-4">{tender.name}</td>
+                                        <td className="whitespace-nowrap px-6 py-4">{tender.tenderState}</td>
+                                        <td className="whitespace-nowrap px-6 py-4">{tender.typeValue}</td>
+                                        <td className="whitespace-nowrap px-6 py-4">{tender.creationTimestamp}</td>
                                         <td className="">
                                             <button className="p-2 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400 hover:cursor-pointer"
                                                 onClick={() => {

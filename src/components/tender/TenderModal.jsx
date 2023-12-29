@@ -36,12 +36,11 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
     //отслеживание состояния даты создания тендера
     const [tenderCreationDateState, setTenderCreationDateState] = useState(
         {
-            startDate: tenderData.tenderCreationTimestamp,
-            endDate: tenderData.tenderCreationTimestamp,
+            startDate: tenderData.creationTimestamp,
+            endDate: tenderData.creationTimestamp,
         }
     );
     const handleTenderCreationDateStateChange = (date) => {
-        console.log(date);
         setTenderCreationDateState(date);
     }
 
@@ -53,10 +52,10 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
             <div className={`${lotModalOpen ? 'blur-sm' : ''} z-1`}>
                 <div className={"w-full flex justify-between bg-darkBlue"}>
                     <div className="text-gray-100 p-2">
-                        Тендер: {tenderData.tenderName}
+                        Тендер: {tenderData.name}
                     </div>
                     <div className={"text-gray-100 p-2"}>
-                        ID: {tenderData.tenderNumber}
+                        ID: {tenderData.tenderUuid}
                     </div>
                 </div>
                 <div className={"grid grid-cols-1 gap-4 p-2 bg-slate-400"}>
@@ -105,36 +104,13 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                             />
                         </div>
                     </div>
-                    <div className={"grid grid-cols-3 gap-4"}>
-                        <div>
-                            <label for="tenderNmcCost" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Цена NMC</label>
-                            <input type="text" id="tenderNmcCost" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="John" required
-                                value={tenderData.tenderNmcCost}
-                            />
-                        </div>
-                        <div>
-                            <label for="tenderFinalCost" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Финальная цена</label>
-                            <input type="text" id="tenderFinalCost" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="John" required
-                                value={tenderData.tenderFinalCost}
-                            />
-                        </div>
-                        <div>
-                            <label for="tenderBaseQuantityLots" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Валюта тендера</label>
-                            <input type="text" id="tenderBaseQuantityLots" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="John" required
-                                value={'WARNIGN_DEFAULT'} //todo убрать валюту тендера с UI
-                            />
-                        </div>
-                    </div>
                     <div className={"flex flex-col justify-start gap-5"}>
                         <div className={`flex justify-start gap-5`}>
                             <div>
-                                <label for="tenderTypeValue" class="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Текущий тип тендера</label>
-                                <input type="text" id="tenderTypeValue" disabled className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                <label for="typeValue" class="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Текущий тип тендера</label>
+                                <input type="text" id="typeValue" disabled className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="John" required
-                                    value={tenderData.tenderTypeValue}
+                                    value={tenderData.typeValue}
                                 />
                             </div>
                             <div>
@@ -150,10 +126,10 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                         </div>
                         <div className={`flex justify-start gap-5`}>
                             <div>
-                                <label for="tenderGlobalState" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Текущий Статус тендера</label>
-                                <input type="text" id="tenderGlobalState" disabled className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                <label for="tenderState" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Текущий Статус тендера</label>
+                                <input type="text" id="tenderState" disabled className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     placeholder="John" required
-                                    value={tenderData.tenderGlobalState}
+                                    value={tenderData.tenderState}
                                 />
                             </div>
                             <div>
@@ -187,17 +163,16 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Дата Регистрации</th>
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Дата Обновления</th>
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100"></th>
-                            <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100"></th>
                         </tr>
                     </thead>
                     <tbody className="bg-gray-100">
                         {currentTableData.map(lotItem => {
                             return <tr className='border hover:cursor-default'>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.lotUuid}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotName}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{lotItem.name}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.lotState}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotCreationTimestamp}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{lotItem.lotUpdateTimestamp}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{lotItem.creationTimestamp}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{lotItem.updateTimestamp}</td>
                                 <td>
                                     <button className={`text-gray-100 rounded-lg bg-red-700 p-4 `} onClick={() => { }}>
                                         <AiFillDelete className='w-5 h-5' />
