@@ -107,15 +107,11 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                     <div className={"flex flex-col justify-start gap-5"}>
                         <div className={`flex justify-start gap-5`}>
                             <div>
-                                <label for="typeValue" class="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Текущий тип тендера</label>
-                                <input type="text" id="typeValue" disabled className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="John" required
-                                    value={tenderData.typeValue}
-                                />
-                            </div>
-                            <div>
                                 <label for="countries" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Тип тендера</label>
-                                <select id="countries" className="hover:cursor-pointer bg-veryLightBlue border border-veryLightBlue text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <select id="countries"
+                                    defaultValue={tenderData.typeValue}
+                                    className="hover:cursor-pointer bg-veryLightBlue border border-veryLightBlue text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                >
                                     <option selected>Выберите тип тендера</option>
                                     <option value="ПОДАЧА_КП">ПОДАЧА КП</option>
                                     <option value="АУКЦИОН">АУКЦИОН</option>
@@ -126,15 +122,11 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                         </div>
                         <div className={`flex justify-start gap-5`}>
                             <div>
-                                <label for="tenderState" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Текущий Статус тендера</label>
-                                <input type="text" id="tenderState" disabled className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="John" required
-                                    value={tenderData.tenderState}
-                                />
-                            </div>
-                            <div>
                                 <label for="countries" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Статус тендера</label>
-                                <select id="countries" className="hover:cursor-pointer bg-veryLightBlue border border-veryLightBlue text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <select id="countries"
+                                    defaultValue={tenderData.tenderState}
+                                    className="hover:cursor-pointer bg-veryLightBlue border border-veryLightBlue text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                >
                                     <option selected>Выберите статус тендера</option>
                                     <option value="ЗАЯВКА_ПОДАНА">ЗАЯВКА ПОДАНА</option>
                                     <option value="АКТИВНЫЙ">АКТИВНЫЙ</option>
@@ -162,7 +154,7 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Статус</th>
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Дата Регистрации</th>
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Дата Обновления</th>
-                            <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100"></th>
+                            {/* <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100"></th> */}
                         </tr>
                     </thead>
                     <tbody className="bg-gray-100">
@@ -173,11 +165,11 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.lotState}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.creationTimestamp}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.updateTimestamp}</td>
-                                <td>
+                                {/* <td>
                                     <button className={`text-gray-100 rounded-lg bg-red-700 p-4 `} onClick={() => { }}>
                                         <AiFillDelete className='w-5 h-5' />
                                     </button>
-                                </td>
+                                </td> */}
                             </tr>
                         })}
                     </tbody>

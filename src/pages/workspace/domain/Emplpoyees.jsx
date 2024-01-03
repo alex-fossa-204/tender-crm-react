@@ -40,41 +40,41 @@ const Emplpoyees = () => { //sber psw 2568541793SberCIB
                             <button className={"p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer"} onClick={() => { }}>Добавить Сторудника</button>
                         </div>
                     </div>
-                    <table className={`min-w-full text-left font-light text-sm`}>
+                    <table className={`w-full text-left font-light text-sm`}>
                         <thead className="border-b font-medium ">
-                            <tr>
-                                <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Номер</th>
-                                <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Фамилия</th>
-                                <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Имя</th>
-                                <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Отчество</th>
-                                <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Должность</th>
-                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
-                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
+                            <tr className={"bg-darkBlue text-gray-100"}>
+                                <th scope="col" className="px-6 py-4">Номер</th>
+                                <th scope="col" className="px-6 py-4">Фамилия</th>
+                                <th scope="col" className="px-6 py-4">Имя</th>
+                                <th scope="col" className="px-6 py-4">Отчество</th>
+                                <th scope="col" className="px-6 py-4">Должность</th>
+                                {/* <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
+                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th> */}
                             </tr>
                         </thead>
 
                         <tbody className="bg-gray-100">
                             {
                                 !isEmployeeDataLoading && employeeData.map((employee) => {
-                                    return <tr key={employee.managerUuid} className='border hover:cursor-default'>
-                                        <td className="whitespace-nowrap px-6 py-4 font-medium">{employee.managerUuid}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{employee.lastname}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{employee.firstname}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{employee.middlename}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{employee.generalInfo}</td>
-                                        <td className="">
+                                    return <tr key={employee.managerUuid} className='border hover:cursor-default font-medium'>
+                                        <td className="px-6 py-4">{employee.managerUuid}</td>
+                                        <td className="px-6 py-4">{employee.managerData.lastName}</td>
+                                        <td className="px-6 py-4">{employee.managerData.firstName}</td>
+                                        <td className="px-6 py-4">{employee.managerData.middleName}</td>
+                                        <td className="px-6 py-4">{employee.managerData.position}</td>
+                                        {/* <td className="">
                                             <button className="p-2 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400 hover:cursor-pointer"
                                                 onClick={() => {
                                                 }}
                                             >
                                                 Подробнее
                                             </button>
-                                        </td>
-                                        <td>
+                                        </td> */}
+                                        {/* <td>
                                             <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `} onClick={() => { }}>
                                                 <AiFillDelete className='w-4 h-4' />
                                             </button>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 })
                             }

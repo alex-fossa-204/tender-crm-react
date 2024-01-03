@@ -63,20 +63,19 @@ const Tenders = () => {
                                 <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Статус</th>
                                 <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Тип</th>
                                 <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Зарегистрирован</th>
-                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
-                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
+                                <th scope="col" className="bg-darkBlue"></th>
                             </tr>
                         </thead>
                         <tbody className="bg-gray-100">
                             {
                                 !isTendersDataLoading && tendersData.map((tender) => {
                                     return <tr key={tender.tenderUuid} className='border hover:cursor-default'>
-                                        <td className="whitespace-nowrap px-6 py-4 font-medium">{tender.tenderUuid}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{tender.name}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{tender.tenderState}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{tender.typeValue}</td>
-                                        <td className="whitespace-nowrap px-6 py-4">{tender.creationTimestamp}</td>
-                                        <td className="">
+                                        <td className="px-6 py-4 font-medium">{tender.tenderUuid}</td>
+                                        <td className="px-6 py-4">{tender.name}</td>
+                                        <td className="px-6 py-4">{tender.tenderState}</td>
+                                        <td className="px-6 py-4">{tender.typeValue}</td>
+                                        <td className="px-6 py-4">{tender.creationTimestamp}</td>
+                                        <td>
                                             <button className="p-2 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400 hover:cursor-pointer"
                                                 onClick={() => {
                                                     setOpenTenderModal(true);
@@ -86,15 +85,14 @@ const Tenders = () => {
                                                 Подробнее
                                             </button>
                                         </td>
-                                        <td>
+                                        {/* <td>
                                             <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `} onClick={() => { }}>
                                                 <AiFillDelete className='w-4 h-4' />
                                             </button>
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 })
                             }
-
                         </tbody>
                     </table>
                     {
