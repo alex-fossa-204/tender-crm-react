@@ -63,6 +63,7 @@ const Tenders = () => {
                                 <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Статус</th>
                                 <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Тип</th>
                                 <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Зарегистрирован</th>
+                                <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Менеджер</th>
                                 <th scope="col" className="bg-darkBlue"></th>
                             </tr>
                         </thead>
@@ -75,6 +76,7 @@ const Tenders = () => {
                                         <td className="px-6 py-4">{tender.tenderState}</td>
                                         <td className="px-6 py-4">{tender.typeValue}</td>
                                         <td className="px-6 py-4">{tender.creationTimestamp}</td>
+                                        <td className="px-6 py-4">{`${tender.tenderManager.managerData.lastName} ${tender.tenderManager.managerData.firstName}`}</td>
                                         <td>
                                             <button className="p-2 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400 hover:cursor-pointer"
                                                 onClick={() => {

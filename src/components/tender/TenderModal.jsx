@@ -1,11 +1,15 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './Modal.css';
 import LotPagination from './LotPagination';
 import LotModal from './LotModal';
 import Datepicker from 'react-tailwindcss-datepicker';
+import { BsChevronDoubleDown, BsChevronDoubleUp, BsChevronDown, BsChevronUp, BsEye, BsEyeSlash } from 'react-icons/bs';
+import { CSSTransition } from 'react-transition-group';
 import { AiFillDelete } from 'react-icons/ai';
+import axios from 'axios';
 
 let PageSize = 5;
+let ManagerPageSize = 1000
 
 const TenderModal = ({ setOpenTenderModal, tenderData }) => {
 
@@ -43,6 +47,30 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
     const handleTenderCreationDateStateChange = (date) => {
         setTenderCreationDateState(date);
     }
+
+    //отслеживание состояния менеджер тендера
+    const [isManagerViewEnabled, setIsManagerViewEnabled] = useState(false);
+    const [isManagerSelected, setIsManagerSelected] = useState(true);
+    const [selectedTenderManager, setTenderManager] = useState(tenderData.tenderManager);
+    const [managers, setManagers] = useState([]);
+    const [managersTotalCount, setManagersTotalCount] = useState(0);
+    const [isManagerDataLoading, setIsManagerDataLoading] = useState(true);
+    const handleManagerSelection = (boolean, manager) => {
+        console.log(manager);
+        setIsManagerSelected(boolean);
+        setTenderManager(manager);
+    };
+
+    const executeGetManagersPage = async (page, capacity) => {
+        const response = await axios.get(`http://127.0.0.1:8080/managers/page?id=${encodeURIComponent(page)}&items=${encodeURIComponent(capacity)}`);
+        setManagers(response.data.managers);
+        setManagersTotalCount(response.data.total);
+        setIsManagerDataLoading(false);
+    };
+
+    useEffect(() => {
+        executeGetManagersPage(0, ManagerPageSize);
+    }, []);
 
     return (
         <div>
@@ -104,44 +132,97 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                             />
                         </div>
                     </div>
-                    <div className={"flex flex-col justify-start gap-5"}>
-                        <div className={`flex justify-start gap-5`}>
-                            <div>
-                                <label for="countries" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Тип тендера</label>
-                                <select id="countries"
-                                    defaultValue={tenderData.typeValue}
-                                    className="hover:cursor-pointer bg-veryLightBlue border border-veryLightBlue text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                >
-                                    <option selected>Выберите тип тендера</option>
-                                    <option value="ПОДАЧА_КП">ПОДАЧА КП</option>
-                                    <option value="АУКЦИОН">АУКЦИОН</option>
-                                    <option value="АУКЦИОН_ПОСЛЕ_ДОПУСКА">АУКЦИОН ПОСЛЕ ДОПУСКА</option>
-                                    <option value="АНАЛИЗ_РЫНКА">АНАЛИЗ РЫНКА</option>
-                                </select>
+                    <div className={"flex flex-col justify-start"}>
+                        <div className={`flex justify-between`}>
+                            <div className="flex flex-col justify-end">
+                                <label for="tenderManagerInput" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Менеджер тендера</label>
+                                <div id='tenderManagerInput' className={`flex`}>
+                                    <div className='flex flex-col justify-end'>
+                                        <div className={`${isManagerSelected ? '' : 'hidden'} bg-green-600 rounded-md text-gray-100 p-3`}>{selectedTenderManager.managerData.lastName} {selectedTenderManager.managerData.firstName} {selectedTenderManager.managerData.middleName} - {selectedTenderManager.managerData.position}</div>
+                                    </div>
+                                    <div className='flex flex-col justify-end'>
+                                        <button className={`text-gray-100 rounded-lg bg-darkBlue p-3`}
+                                            onClick={() => { setIsManagerViewEnabled(!isManagerViewEnabled) }}
+                                        >
+                                            <BsChevronDoubleDown className={`w-6 h-6 ${isManagerViewEnabled && 'hidden'}`} />
+                                            <BsChevronDoubleUp className={`w-6 h-6 ${!isManagerViewEnabled && 'hidden'}`} />
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className={`${isManagerViewEnabled ? 'overflow-y' : 'hidden'}`}>
+                                    <table className={`absolute table-auto text-left font-light text-sm shadow-2xl`}>
+                                        <thead className="font-medium text-center bg-darkBlue">
+                                            <tr className="text-white">
+                                                <th scope="col" className="px-4 py-2">ID</th>
+                                                <th scope="col" className="px-4 py-2">Фамилия</th>
+                                                <th scope="col" className="px-4 py-2">Имя</th>
+                                                <th scope="col" className="px-4 py-2">Отчество</th>
+                                                <th scope="col" className="px-4 py-2">Статус</th>
+                                                <th scope="col" className="px-4 py-2">Должность</th>
+                                                <th scope="col" className="px-4 py-2">Дата Регистрации</th>
+                                                <th scope="col" className="px-4 py-2"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="bg-gray-100 font-medium text-center">
+                                            {
+                                                managers.map(item => {
+                                                    return (
+                                                        <tr className={`border hover:cursor-pointer hover:bg-gray-200 focus:bg-gray-200`}>
+                                                            <td className={`border`}>{item.managerUuid}</td>
+                                                            <td className={`border`}>{item.managerData.lastName}</td>
+                                                            <td className={`border`}>{item.managerData.firstName}</td>
+                                                            <td className={`border`}>{item.managerData.middleName}</td>
+                                                            <td className={`border`}>{item.managerState}</td>
+                                                            <td className={`border`}>{item.managerData.position}</td>
+                                                            <td className={`border`}>{item.registrationTimestamp}</td>
+                                                            <td className={`border`}>
+                                                                <button className={`px-3 py-1 mr-5 text-gray-100 rounded-lg bg-green-700`} onClick={
+                                                                    () => {
+                                                                        handleManagerSelection(true, item);
+                                                                        setIsManagerViewEnabled(false);
+                                                                    }
+                                                                }>Выбрать</button>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div className={"flex justify-start gap-5"}>
+                                <div>
+                                    <label for="temderTypeValueSelect" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Тип тендера</label>
+                                    <select id="temderTypeValueSelect"
+                                        defaultValue={tenderData.typeValue}
+                                        className="hover:cursor-pointer bg-veryLightBlue border border-veryLightBlue text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    >
+                                        <option selected>Выберите тип тендера</option>
+                                        <option value="ПОДАЧА_КП">ПОДАЧА КП</option>
+                                        <option value="АУКЦИОН">АУКЦИОН</option>
+                                        <option value="АУКЦИОН_ПОСЛЕ_ДОПУСКА">АУКЦИОН ПОСЛЕ ДОПУСКА</option>
+                                        <option value="АНАЛИЗ_РЫНКА">АНАЛИЗ РЫНКА</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="tenderStateSelect" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Статус тендера</label>
+                                    <select id="tenderStateSelect"
+                                        defaultValue={tenderData.tenderState}
+                                        className="hover:cursor-pointer bg-veryLightBlue border border-veryLightBlue text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    >
+                                        <option selected>Выберите статус тендера</option>
+                                        <option value="ЗАЯВКА_ПОДАНА">ЗАЯВКА ПОДАНА</option>
+                                        <option value="АКТИВНЫЙ">АКТИВНЫЙ</option>
+                                        <option value="ПРОДЛЕН">ПРОДЛЕН</option>
+                                        <option value="НЕАКТИВНЫЙ">НЕАКТИВНЫЙ</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div className={`flex justify-start gap-5`}>
-                            <div>
-                                <label for="countries" className="block mb-2 text-sm font-medium text-gray-100 dark:text-white">Статус тендера</label>
-                                <select id="countries"
-                                    defaultValue={tenderData.tenderState}
-                                    className="hover:cursor-pointer bg-veryLightBlue border border-veryLightBlue text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                >
-                                    <option selected>Выберите статус тендера</option>
-                                    <option value="ЗАЯВКА_ПОДАНА">ЗАЯВКА ПОДАНА</option>
-                                    <option value="АКТИВНЫЙ">АКТИВНЫЙ</option>
-                                    <option value="ПРОДЛЕН">ПРОДЛЕН</option>
-                                    <option value="НЕАКТИВНЫЙ">НЕАКТИВНЫЙ</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={"flex justify-end"}>
-                        <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg bg-veryLightBlue`}>Сохранить</button>
-                        <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg bg-veryLightBlue`}>Отменить</button>
                     </div>
                 </div>
-                <div className={"w-full flex justify-start mt-5"}>
+                <div className={"w-full flex justify-start mt-5 px-2"}>
                     <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg  ${isLotsHidden ? 'bg-veryLightBlue' : 'bg-red-500'}`} onClick={() => { handleLotsVisibilityTableClick(); }}>Управление лотами</button>
                     <button className={`px-5 py-2 mr-5 text-gray-100 rounded-lg bg-veryLightBlue`} onClick={() => { setOpenTenderModal(false); }}>Вернуться к тендерам</button>
                 </div>
@@ -154,7 +235,6 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Статус</th>
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Дата Регистрации</th>
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Дата Обновления</th>
-                            {/* <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100"></th> */}
                         </tr>
                     </thead>
                     <tbody className="bg-gray-100">
@@ -165,11 +245,6 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.lotState}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.creationTimestamp}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.updateTimestamp}</td>
-                                {/* <td>
-                                    <button className={`text-gray-100 rounded-lg bg-red-700 p-4 `} onClick={() => { }}>
-                                        <AiFillDelete className='w-5 h-5' />
-                                    </button>
-                                </td> */}
                             </tr>
                         })}
                     </tbody>

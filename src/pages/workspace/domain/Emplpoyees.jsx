@@ -4,10 +4,11 @@ import { AiFillDelete, AiOutlineLoading } from 'react-icons/ai';
 import { managerMockData } from '../../../data/images/tenderMockList';
 import EmployeePagination from '../../../components/employee/EmployeePagination';
 import axios from 'axios';
+import avatarBase from '../../../data/images/user-avatar.png';
 
 let PageSize = 5;
 
-const Emplpoyees = () => { //sber psw 2568541793SberCIB
+const Emplpoyees = () => {
 
     //Состояние. Пагинация номер страницы
     const [currentPage, setCurrentPage] = useState(1);
@@ -17,14 +18,17 @@ const Emplpoyees = () => { //sber psw 2568541793SberCIB
     const [employeeDataTotalCount, setEmployeeDataTotalCount] = useState(0);
     const [isEmployeeDataLoading, setIsEmployeeDataLoading] = useState(true);
 
-    //let currentTableData = employeeData.slice((currentPage - 1) * PageSize, (currentPage - 1) * PageSize + PageSize);
-
     const executeGetManagersPage = async (page, capacity) => {
-        const response = await axios.get(`http://127.0.0.1:8080/managers/page?id=${encodeURIComponent(page)}&items=${encodeURIComponent(capacity)}`);
-        setEmployeeData(response.data.managers);
-        setEmployeeDataTotalCount(response.data.total);
+        const getResponse = await axios.get(`http://127.0.0.1:8080/managers/page?id=${encodeURIComponent(page)}&items=${encodeURIComponent(capacity)}`);
+        setEmployeeData(getResponse.data.managers);
+        setEmployeeDataTotalCount(getResponse.data.total);
         setIsEmployeeDataLoading(false);
     };
+
+    const executeDeleteManager = async (uuid) => {
+        const deleteResponse = axios.delete(`http://127.0.0.1:8080/managers/deletion/${uuid}`);
+    };
+
 
     useEffect(() => {
         executeGetManagersPage(0, PageSize);
@@ -43,13 +47,14 @@ const Emplpoyees = () => { //sber psw 2568541793SberCIB
                     <table className={`w-full text-left font-light text-sm`}>
                         <thead className="border-b font-medium ">
                             <tr className={"bg-darkBlue text-gray-100"}>
+                                <th scope="col" className="px-6 py-4"></th>
                                 <th scope="col" className="px-6 py-4">Номер</th>
                                 <th scope="col" className="px-6 py-4">Фамилия</th>
                                 <th scope="col" className="px-6 py-4">Имя</th>
                                 <th scope="col" className="px-6 py-4">Отчество</th>
                                 <th scope="col" className="px-6 py-4">Должность</th>
-                                {/* <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
-                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th> */}
+                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
+                                {/* <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th> */}
                             </tr>
                         </thead>
 
@@ -57,6 +62,9 @@ const Emplpoyees = () => { //sber psw 2568541793SberCIB
                             {
                                 !isEmployeeDataLoading && employeeData.map((employee) => {
                                     return <tr key={employee.managerUuid} className='border hover:cursor-default font-medium'>
+                                        <td className="px-6 py-4">
+                                            <img src={avatarBase} className="rounded-full w-10 h-10" alt="" />
+                                        </td>
                                         <td className="px-6 py-4">{employee.managerUuid}</td>
                                         <td className="px-6 py-4">{employee.managerData.lastName}</td>
                                         <td className="px-6 py-4">{employee.managerData.firstName}</td>
@@ -70,11 +78,18 @@ const Emplpoyees = () => { //sber psw 2568541793SberCIB
                                                 Подробнее
                                             </button>
                                         </td> */}
-                                        {/* <td>
-                                            <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `} onClick={() => { }}>
+                                        <td>
+                                            <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `}
+                                                onClick={() => {
+                                                    var pageId = currentPage - 1;
+                                                    executeDeleteManager(employee.managerUuid);
+                                                    executeGetManagersPage(0, PageSize);
+                                                    setCurrentPage(1);
+                                                }}
+                                            >
                                                 <AiFillDelete className='w-4 h-4' />
                                             </button>
-                                        </td> */}
+                                        </td>
                                     </tr>
                                 })
                             }
@@ -90,10 +105,11 @@ const Emplpoyees = () => { //sber psw 2568541793SberCIB
                         <EmployeePagination
                             className=""
                             currentPage={currentPage}
-                            totalCount={employeeData.length}
+                            totalCount={employeeDataTotalCount}
                             pageSize={PageSize}
                             onPageChange={(page) => {
                                 setCurrentPage(page);
+                                executeGetManagersPage(page - 1, PageSize);
                             }}
                         />
                         <div className={"flex space-x-5"}>

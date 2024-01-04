@@ -272,24 +272,38 @@ const TenderFormModal = ({ setOpenTenderFormModal, tenders }) => {
                                 <label for="tenderCreationDate" className="block mb-2 text-sm font-medium text-black">Дата создания тендера</label>
                                 <Datepicker
                                     displayFormat={"DD/MM/YYYY"}
+                                    i18n={"ru"}
+                                    value={currentTenderCreationDate}
                                     useRange={false}
                                     asSingle={true}
                                     primaryColor={"blue"}
-                                    value={currentTenderCreationDate}
                                     showShortcuts={true}
                                     onChange={handleSelectionTenderCreationDate}
+                                    configs={{
+                                        footer: {
+                                            cancel: "Quitter",
+                                            apply: "Appliquer"
+                                        }
+                                    }}
                                 />
                             </div>
                             <div>
                                 <label for="tenderDeadlineDate" className="block mb-2 text-sm font-medium text-black">Дата завершения тендера</label>
                                 <Datepicker
                                     displayFormat={"DD/MM/YYYY"}
+                                    i18n={"ru"}
+                                    value={currentTenderDeadlineDate}
                                     useRange={false}
                                     asSingle={true}
                                     primaryColor={"blue"}
-                                    value={currentTenderDeadlineDate}
                                     showShortcuts={true}
                                     onChange={handleSelectionTenderDeadlineDate}
+                                    configs={{
+                                        footer: {
+                                            cancel: "Quitter",
+                                            apply: "Appliquer"
+                                        }
+                                    }}
                                 />
                             </div>
                         </div>
@@ -326,12 +340,12 @@ const TenderFormModal = ({ setOpenTenderFormModal, tenders }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={`flex justify-between ${isCustomerSelected ? '' : 'hidden'}`}>
+                            <div className={`flex justify-start ${isCustomerSelected ? '' : 'hidden'}`}>
                                 <div className='flex flex-col justify-center bg-green-600 p-1 rounded-md w-400'>
                                     <div className={`text-gray-100`}>{selectedCustomer.name}</div>
                                 </div>
                                 <div className='flex flex-col justify-center'>
-                                    <button className={`text-gray-100 rounded-lg bg-red-700 p-2`} onClick={() => { setIsCustomerSelected(false); }}>
+                                    <button className={`text-gray-100 rounded-lg bg-red-700 p-4`} onClick={() => { setIsCustomerSelected(false); }}>
                                         <AiFillDelete className='w-6 h-6' />
                                     </button>
                                 </div>
@@ -372,13 +386,13 @@ const TenderFormModal = ({ setOpenTenderFormModal, tenders }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={`flex justify-between ${isManagerSelected ? '' : 'hidden'}`}>
+                            <div className={`flex justify-start ${isManagerSelected ? '' : 'hidden'}`}>
                                 <div className='flex flex-col bg-green-600 p-1 rounded-md w-400'>
                                     <div className={`text-gray-100`}>{selectedTenderManager.managerData.lastName} {selectedTenderManager.managerData.firstName} {selectedTenderManager.managerData.middleName}</div>
                                     <div className={`text-gray-100`}>{selectedTenderManager.managerData.position}</div>
                                 </div>
                                 <div className='flex flex-col justify-center'>
-                                    <button className={`text-gray-100 rounded-lg bg-red-700 p-2`} onClick={() => { handleManagerSelection(false, selectedTenderManager); }}>
+                                    <button className={`text-gray-100 rounded-lg bg-red-700 p-4`} onClick={() => { handleManagerSelection(false, selectedTenderManager); }}>
                                         <AiFillDelete className='w-6 h-6' />
                                     </button>
                                 </div>
@@ -481,14 +495,14 @@ const TenderFormModal = ({ setOpenTenderFormModal, tenders }) => {
                                         </div>
                                     </div>
                                     <div className={`flex flex-col justify-center ${isLotManagerSelected ? '' : 'hidden'}`}>
-                                        <div className='flex gap-2'>
+                                        <div className='flex'>
                                             <div className='flex justify-center gap-5 py-4 px-3 bg-green-600 rounded-md'>
                                                 <div className={`text-gray-100`}>{selectedLotManager.managerData.lastName} {selectedLotManager.managerData.firstName} {selectedLotManager.managerData.middleName}</div>
                                                 <div className={`text-gray-100`}>{selectedLotManager.managerData.position}</div>
                                             </div>
-                                            <div className='flex flex-col justify-center'>
-                                                <button className={`text-gray-100 rounded-lg bg-red-700 p-4 `} onClick={() => { handleLotManagerSelection(false, selectedTenderManager); }}>
-                                                    <AiFillDelete className='w-5 h-5' />
+                                            <div className='flex flex-col justify-start'>
+                                                <button className={`text-gray-100 rounded-lg bg-red-700 p-4`} onClick={() => { handleLotManagerSelection(false, selectedTenderManager); }}>
+                                                    <AiFillDelete className='w-6 h-6' />
                                                 </button>
                                             </div>
                                         </div>
@@ -608,7 +622,7 @@ const TenderFormModal = ({ setOpenTenderFormModal, tenders }) => {
         }
     };
     return (
-        <div className='z-50 absolute bg-gray-50 p-5 shadow-2xl top-1/5 md:right-1/5 w-1200'>
+        <div className='z-50 absolute bg-gray-50 p-5 shadow-2xl top-1/5 right-1/5 w-1550'>
             <div className={"w-full flex justify-between bg-darkBlue"}>
                 <div className="text-gray-100 p-2">
                     Создать новый тендер
