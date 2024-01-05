@@ -19,9 +19,9 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
 
     const [lotModalOpen, setOpenLotModal] = useState(false);
 
-    const currentTableData = useMemo(() => {
-        return tenderData.lots.slice((currentPage - 1) * PageSize, (currentPage - 1) * PageSize + PageSize);
-    }, [currentPage]);
+    const [lotsData, setLotsData] = useState(tenderData.lots);
+
+    const currentTableData = lotsData.slice((currentPage - 1) * PageSize, (currentPage - 1) * PageSize + PageSize);
 
     const [selectedLot, setSelectedLotData] = useState(currentTableData[0]);
 
@@ -71,6 +71,18 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
     useEffect(() => {
         executeGetManagersPage(0, ManagerPageSize);
     }, []);
+
+    const executeDeleteLot = async (deleteLot) => {
+        const deleteResponse = await axios.delete(`http://127.0.0.1:8080/lots/management/deletion/${deleteLot.lotUuid}`);
+        if (deleteResponse.status == 200) {
+            const updatedLotArray = lotsData.filter(
+                (item) => {
+                    return item !== deleteLot;
+                }
+            );
+            setLotsData(updatedLotArray);
+        }
+    };
 
     return (
         <div>
@@ -235,6 +247,7 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Статус</th>
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Дата Регистрации</th>
                             <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Дата Обновления</th>
+                            <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100"></th>
                         </tr>
                     </thead>
                     <tbody className="bg-gray-100">
@@ -245,21 +258,26 @@ const TenderModal = ({ setOpenTenderModal, tenderData }) => {
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.lotState}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.creationTimestamp}</td>
                                 <td className="whitespace-nowrap px-6 py-4">{lotItem.updateTimestamp}</td>
+                                <td>
+                                    <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `} onClick={() => { executeDeleteLot(lotItem) }}>
+                                        <AiFillDelete className='w-4 h-4' />
+                                    </button>
+                                </td>
                             </tr>
                         })}
                     </tbody>
                 </table>
-                <div className={`flex justify-between mt-4 p-2 ${isLotsHidden ? 'hidden' : ''} ${tenderData.lots.length < 0 || tenderData.lots.length === PageSize ? '' : 'bg-darkBlue'} bg-darkBlue text-gray-100`}>
+                <div className={`flex justify-between mt-4 p-2 ${isLotsHidden ? 'hidden' : ''} ${lotsData.length < 0 || lotsData.length === PageSize ? '' : 'bg-darkBlue'} bg-darkBlue text-gray-100`}>
                     <LotPagination
                         className=""
                         currentPage={currentPage}
-                        totalCount={tenderData.lots.length}
+                        totalCount={lotsData.length}
                         pageSize={PageSize}
                         onPageChange={page => setCurrentPage(page)}
                     />
                     <div className={"flex space-x-5"}>
                         <div className={"bg-veryLightBlue rounded-md p-2"}>Текущая страница: {currentPage}</div>
-                        <div className={"bg-veryLightBlue rounded-md p-2"}>Лотов всего: {tenderData.lots.length}</div>
+                        <div className={"bg-veryLightBlue rounded-md p-2"}>Лотов всего: {lotsData.length}</div>
                     </div>
                 </div>
             </div>

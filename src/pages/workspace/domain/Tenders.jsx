@@ -39,6 +39,16 @@ const Tenders = () => {
         setIsTendersDataLoading(false);
     };
 
+    const executeDeleteTender = async (deleteItem) => {
+        const deleteResponse = await axios.delete(`http://127.0.0.1:8080/tenders/management/deletion/${deleteItem.tenderUuid}`);
+        if(deleteResponse.status == 200) {
+            setTendersData(() => {
+                let filteredData = tendersData.filter((item) => item !== deleteItem);
+                return filteredData;
+            });
+        }
+    };
+
     useEffect(() => {
         executeGetTendersPage(0, PageSize);
     }, []);
@@ -65,6 +75,7 @@ const Tenders = () => {
                                 <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Зарегистрирован</th>
                                 <th scope="col" className="px-6 py-4 bg-darkBlue text-gray-100">Менеджер</th>
                                 <th scope="col" className="bg-darkBlue"></th>
+                                <th scope="col" className="bg-darkBlue"></th>
                             </tr>
                         </thead>
                         <tbody className="bg-gray-100">
@@ -87,11 +98,11 @@ const Tenders = () => {
                                                 Подробнее
                                             </button>
                                         </td>
-                                        {/* <td>
-                                            <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `} onClick={() => { }}>
+                                        <td>
+                                            <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `} onClick={() => {executeDeleteTender(tender)}}>
                                                 <AiFillDelete className='w-4 h-4' />
                                             </button>
-                                        </td> */}
+                                        </td>
                                     </tr>
                                 })
                             }

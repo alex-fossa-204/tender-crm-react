@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import WorkspacePage from '../WorkspacePage';
 import { AiFillDelete, AiOutlineLoading } from 'react-icons/ai';
 import { managerMockData } from '../../../data/images/tenderMockList';
@@ -25,10 +25,15 @@ const Emplpoyees = () => {
         setIsEmployeeDataLoading(false);
     };
 
-    const executeDeleteManager = async (uuid) => {
-        const deleteResponse = axios.delete(`http://127.0.0.1:8080/managers/deletion/${uuid}`);
+    const executeDeleteManager = async (deleteManager) => {
+        const deleteResponse = await axios.delete(`http://127.0.0.1:8080/managers/deletion/${deleteManager.managerUuid}`);
+        if(deleteResponse.status == 200) {
+            setEmployeeData(() => {
+                let filteredData = employeeData.filter((item) => item !== deleteManager);
+                return filteredData;
+            });
+        }
     };
-
 
     useEffect(() => {
         executeGetManagersPage(0, PageSize);
@@ -80,12 +85,7 @@ const Emplpoyees = () => {
                                         </td> */}
                                         <td>
                                             <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `}
-                                                onClick={() => {
-                                                    var pageId = currentPage - 1;
-                                                    executeDeleteManager(employee.managerUuid);
-                                                    executeGetManagersPage(0, PageSize);
-                                                    setCurrentPage(1);
-                                                }}
+                                                onClick={() => executeDeleteManager(employee)}
                                             >
                                                 <AiFillDelete className='w-4 h-4' />
                                             </button>
