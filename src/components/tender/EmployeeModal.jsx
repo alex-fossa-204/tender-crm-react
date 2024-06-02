@@ -59,7 +59,7 @@ const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
     const [isTenderModalHidden, setIsTenderModalHidden] = useState(false);
 
     return (
-        <div className={`grid grid-rows-4 grid-cols-4 gap-4`}>
+        <div className={`grid grid-cols-4 grid-rows-2 gap-4`}>
             <div className='col-span-1 flex flex-col justify-start bg-blue-50 drop-shadow-xl p-4'>
                 <div className="grid grid-cols-1 justify-items-center bg-darkBlue text-white p-2 mx-5 rounded-lg">
                     <div className='p-2'>
@@ -68,19 +68,11 @@ const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
                     <div>
                         <p className='text-lg font-bold'>{`${currentUser.managerData.firstName} ${currentUser.managerData.middleName} ${currentUser.managerData.lastName}`}</p>
                     </div>
-                    {/* {currentUser.managerData.positions.map((position) => {
-                        return (
-                            <div>
-                                <p>{`${position.fullPosition} at ${position.companyName}`}</p>
-                            </div>
-                        );
-
-                    })} */}
                     <div>
                         <p>{`Stub position at stub org`}</p>
                     </div>
                 </div>
-                <div className='mt-10 p-2'>
+                <div className='mt-5 p-2'>
                     <div className='flex justify-between'>
                         Статус: <div>{`ЗАГЛУШКА`}</div>
                     </div>
@@ -89,130 +81,142 @@ const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
                     </div>
                 </div>
             </div>
-            <div className='col-span-3 row-span-1 bg-blue-50 drop-shadow-xl p-4'>
-                <div className='bg-darkBlue p-2 rounded-lg'>
-                    <p className='text-xl font-bold text-white'>Персональные данные пользователя</p>
-                </div>
-                <div className='grid grid-cols-4 mt-5 p-2 gap-5 border border-blue-600'>
-                    <div className='flex justify-start text-lg gap-5'>
-                        <div className='flex flex-col justify-center font-bold'>Фамилия:</div>
-                        <div className='font-medium'>
-                            <input type="text" id="profileuser-lastName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-                                defaultValue={currentUser.managerData.lastName}
-                                required
-                                onChange={() => {
-                                    setIsUserNameDataChanged(true);
-                                }}
-                            />
-                        </div>
+            <div className='col-span-3 col-start-2 row-start-1 bg-blue-50 drop-shadow-xl p-4'>
+                <div>
+                    <div className='bg-darkBlue p-2 rounded-lg'>
+                        <p className='text-xl font-bold text-white'>Персональные данные пользователя</p>
                     </div>
-                    <div className='flex justify-start text-lg gap-5'>
-                        <div className='flex flex-col justify-center font-bold'>Имя:</div>
-                        <input type="text" id="profileuser-firstname" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-                            defaultValue={currentUser.managerData.firstName}
-                            onChange={() => {
-                                setIsUserNameDataChanged(true);
-                            }}
-                        />
-                    </div>
-                    <div className='flex justify-start text-lg gap-5'>
-                        <div className='flex flex-col justify-center font-bold'>Отчество:</div>
-                        <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-                            defaultValue={currentUser.managerData.middleName}
-                            onChange={() => {
-                                setIsUserNameDataChanged(true);
-                            }}
-                        />
-                    </div>
-                    <div className='flex justify-end'>
-                        <button className={`text-gray-100 rounded-lg ${isUserNameDataChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
-                            onClick={() => {
-                                setIsUserNameDataChanged(false);
-                            }}
-                        >
-                            {isUserNameDataChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
-                        </button>
-                    </div>
-                </div>
-                <div className='grid grid-cols-2 mt-5 gap-3 border border-blue-600'>
-                    <div className='flex justify-between p-2'>
-                        <div className='text-lg font-bold'>Занимаемые позиции:</div>
-                        {/* {currentUser.personalInfo.positions.map((position) => {
-                                return (
-                                    <div className='text-lg'>
-                                        {`${position.fullPosition} at ${position.companyName}`}
-                                    </div>
-                                );
-                            })} */}
-                        <div>
-                            <p>{`Stub position at stub org`}</p>
-                        </div>
-                    </div>
-                </div>
-                <div className='grid grid-cols-2 mt-5 gap-3 border border-blue-600 p-2'>
-                    <div className='flex justify-between'>
-                        <div className='text-lg font-bold flex flex-col justify-center'>Контакты:</div>
-                        <div>
-                            {/* {currentUser.personalInfo.contacts.map((contanct) => {
-                                    return (
-                                        <div className='p-1 flex justify-between gap-5'>
-                                            <p className='font-semibold'>{`${contanct.contactType}:`}</p>
-                                            <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-                                                defaultValue={contanct.contactValue}
-                                                onChange={() => {
-                                                    setIsUserContactsChanged(true);
+                    <div className='grid grid-cols-2 grid-rows-1 gap-4'>
+                        <div className='grid grid-cols-1 grid-rows-3 gap-4'>
+                            <div>
+                                <div className='p-1 flex justify-between'>
+                                    <p className='flex flex-col justify-center font-semibold'>{`Фамилия:`}</p>
+                                    <div className='flex'>
+                                        <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto"
+                                            defaultValue={`Заглушка`}
+                                        />
+                                        <div className='flex flex-col justify-center'>
+                                            <button className={`text-gray-100 rounded-lg ${isUserContactsChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
+                                                onClick={() => {
+                                                    setIsUserContactsChanged(false)
                                                 }}
-                                            />
+                                            >
+                                                {isUserContactsChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
+                                            </button>
                                         </div>
-                                    );
-                                })} */}
-                            <div className='p-1 flex justify-between gap-5'>
-                                <p className='font-semibold'>{`заглушка:`}</p>
-                                <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-                                    defaultValue={`Заглушка`}
-                                // onChange={() => {
-                                //     setIsUserContactsChanged(true);
-                                // }}
-                                />
+                                    </div>
+                                </div>
                             </div>
-                            <div className='p-1 flex justify-between gap-5'>
-                                <p className='font-semibold'>{`заглушка:`}</p>
-                                <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-                                    defaultValue={`Заглушка`}
-                                // onChange={() => {
-                                //     setIsUserContactsChanged(true);
-                                // }}
-                                />
+                            <div>
+                                <div className='p-1 flex justify-between'>
+                                    <p className='flex flex-col justify-center font-semibold'>{`Имя:`}</p>
+                                    <div className='flex'>
+                                        <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto"
+                                            defaultValue={`Заглушка`}
+                                        />
+                                        <div className='flex flex-col justify-center'>
+                                            <button className={`text-gray-100 rounded-lg ${isUserContactsChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
+                                                onClick={() => {
+                                                    setIsUserContactsChanged(false)
+                                                }}
+                                            >
+                                                {isUserContactsChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
-                            <div className='p-1 flex justify-between gap-5'>
-                                <p className='font-semibold'>{`заглушка:`}</p>
-                                <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-                                    defaultValue={`Заглушка`}
-                                // onChange={() => {
-                                //     setIsUserContactsChanged(true);
-                                // }}
-                                />
-                            </div>
-                            <div className='p-1 flex justify-between gap-5'>
-                                <p className='font-semibold'>{`заглушка:`}</p>
-                                <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full"
-                                    defaultValue={`Заглушка`}
-                                // onChange={() => {
-                                //     setIsUserContactsChanged(true);
-                                // }}
-                                />
+                            <div>
+                                <div className='p-1 flex justify-between'>
+                                    <p className='flex flex-col justify-center font-semibold'>{`Фамилия:`}</p>
+                                    <div className='flex'>
+                                        <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto"
+                                            defaultValue={`Заглушка`}
+                                        />
+                                        <div className='flex flex-col justify-center'>
+                                            <button className={`text-gray-100 rounded-lg ${isUserContactsChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
+                                                onClick={() => {
+                                                    setIsUserContactsChanged(false)
+                                                }}
+                                            >
+                                                {isUserContactsChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div className='flex justify-end'>
-                        <div className='flex flex-col justify-center'>
-                            <button className={`text-gray-100 rounded-lg ${isUserContactsChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
-                                onClick={() => {
-                                    setIsUserContactsChanged(false)
-                                }}
-                            >
-                                {isUserContactsChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
-                            </button>
+                </div>
+            </div>
+            <div className='col-span-3 col-start-2 row-start-2 bg-blue-50 drop-shadow-xl p-4'>
+                <div>
+                    <div className='bg-darkBlue p-2 rounded-lg'>
+                        <p className='text-xl font-bold text-white'>Контакты пользователя</p>
+                    </div>
+                    <div className='grid grid-cols-2 grid-rows-1 gap-4'>
+                        <div className='grid grid-cols-1 grid-rows-3 gap-4'>
+                            <div>
+                                <div className='p-1 flex justify-between'>
+                                    <p className='flex flex-col justify-center font-semibold'>{`skype:`}</p>
+                                    <div className='flex'>
+                                        <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto"
+                                            defaultValue={`Заглушка`}
+                                        />
+                                        <div className='flex flex-col justify-center'>
+                                            <button className={`text-gray-100 rounded-lg ${isUserContactsChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
+                                                onClick={() => {
+                                                    setIsUserContactsChanged(false)
+                                                }}
+                                            >
+                                                {isUserContactsChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div className='p-1 flex justify-between'>
+                                    <p className='flex flex-col justify-center font-semibold'>{`mobile:`}</p>
+                                    <div className='flex'>
+                                        <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto"
+                                            defaultValue={`Заглушка`}
+                                        />
+                                        <div className='flex flex-col justify-center'>
+                                            <button className={`text-gray-100 rounded-lg ${isUserContactsChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
+                                                onClick={() => {
+                                                    setIsUserContactsChanged(false)
+                                                }}
+                                            >
+                                                {isUserContactsChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div>
+                                <div className='p-1 flex justify-between'>
+                                    <p className='flex flex-col justify-center font-semibold'>{`teams:`}</p>
+                                    <div className='flex'>
+                                        <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto"
+                                            defaultValue={`Заглушка`}
+                                        />
+                                        <div className='flex flex-col justify-center'>
+                                            <button className={`text-gray-100 rounded-lg ${isUserContactsChanged ? 'bg-yellow-400' : 'bg-green-400'} p-3`}
+                                                onClick={() => {
+                                                    setIsUserContactsChanged(false)
+                                                }}
+                                            >
+                                                {isUserContactsChanged ? <AiFillEdit className='w-4 h-4' /> : <AiFillCheckCircle className='w-4 h-4' />}
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
