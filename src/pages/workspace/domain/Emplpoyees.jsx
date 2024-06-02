@@ -5,6 +5,7 @@ import { managerMockData } from '../../../data/images/tenderMockList';
 import EmployeePagination from '../../../components/employee/EmployeePagination';
 import axios from 'axios';
 import avatarBase from '../../../data/images/user-avatar.png';
+import EmployeeModal from '../../../components/tender/EmployeeModal';
 
 let PageSize = 5;
 
@@ -17,6 +18,11 @@ const Emplpoyees = () => {
     const [employeeData, setEmployeeData] = useState([]);
     const [employeeDataTotalCount, setEmployeeDataTotalCount] = useState(0);
     const [isEmployeeDataLoading, setIsEmployeeDataLoading] = useState(true);
+    const [employeeViewOpen, setEmployeeViewOpen] = useState(true);
+
+    //Состояние модальное окно пользователя
+    const [employeeModalOpen, setEmployeeModalOpen] = useState(false);
+    const [selectedEmployeeData, setSelectedEmployeeData] = useState('');
 
     const executeGetManagersPage = async (page, capacity) => {
         const getResponse = await axios.get(`http://127.0.0.1:8080/managers/page?id=${encodeURIComponent(page)}&items=${encodeURIComponent(capacity)}`);
@@ -27,12 +33,18 @@ const Emplpoyees = () => {
 
     const executeDeleteManager = async (deleteManager) => {
         const deleteResponse = await axios.delete(`http://127.0.0.1:8080/managers/deletion/${deleteManager.managerUuid}`);
-        if(deleteResponse.status == 200) {
+        if (deleteResponse.status == 200) {
             setEmployeeData(() => {
                 let filteredData = employeeData.filter((item) => item !== deleteManager);
                 return filteredData;
             });
         }
+    };
+
+    const handleExactEmployeeModalOpen = () => {
+        setEmployeeViewOpen(!employeeViewOpen);
+        setEmployeeModalOpen(!employeeModalOpen);
+        
     };
 
     useEffect(() => {
@@ -41,7 +53,8 @@ const Emplpoyees = () => {
 
     return (
         <WorkspacePage>
-            <div className={``}>
+            {employeeModalOpen && <EmployeeModal setOpenEmployeeModal={handleExactEmployeeModalOpen} employeeExactData={selectedEmployeeData} />}
+            <div className={`${employeeViewOpen ? '' : 'hidden'}`}>
                 <div className={`w-full`}>
                     <div className="flex justify-between space-x-10 pb-5 bg-slate-100">
                         <p className={"p-2 text-gray-900 font-bold"}>Упраление Сотрудниками</p>
@@ -59,7 +72,7 @@ const Emplpoyees = () => {
                                 <th scope="col" className="px-6 py-4">Отчество</th>
                                 <th scope="col" className="px-6 py-4">Должность</th>
                                 <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
-                                {/* <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th> */}
+                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
                             </tr>
                         </thead>
 
@@ -75,14 +88,17 @@ const Emplpoyees = () => {
                                         <td className="px-6 py-4">{employee.managerData.firstName}</td>
                                         <td className="px-6 py-4">{employee.managerData.middleName}</td>
                                         <td className="px-6 py-4">{employee.managerData.position}</td>
-                                        {/* <td className="">
+                                        <td className="">
                                             <button className="p-2 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400 hover:cursor-pointer"
                                                 onClick={() => {
+                                                    console.log("Attempt to show user detailed info")
+                                                    handleExactEmployeeModalOpen();
+                                                    setSelectedEmployeeData(employee);
                                                 }}
                                             >
                                                 Подробнее
                                             </button>
-                                        </td> */}
+                                        </td>
                                         <td>
                                             <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `}
                                                 onClick={() => executeDeleteManager(employee)}
