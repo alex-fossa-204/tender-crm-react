@@ -22,6 +22,7 @@ import { CSSTransition } from 'react-transition-group';
 </div>
 </div> */}
 
+// ПОЛЕЗНО: https://www.tailwindgen.com/
 const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
 
     const [currentUser, setCurrentUserState] = useState(employeeExactData);
@@ -88,9 +89,9 @@ const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
                     </div>
                     <div className='grid grid-cols-2 grid-rows-1 gap-4'>
                         <div className='grid grid-cols-1 grid-rows-3 gap-4'>
-                            <div>
+                            <div className='bg-blue-100 p-1'>
                                 <div className='p-1 flex justify-between'>
-                                    <p className='flex flex-col justify-center font-semibold'>{`Фамилия:`}</p>
+                                    <p className='flex flex-col justify-center font-bold'>{`Фамилия:`}</p>
                                     <div className='flex'>
                                         <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto"
                                             defaultValue={`Заглушка`}
@@ -107,9 +108,9 @@ const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div className='bg-blue-100 p-1'>
                                 <div className='p-1 flex justify-between'>
-                                    <p className='flex flex-col justify-center font-semibold'>{`Имя:`}</p>
+                                    <p className='flex flex-col justify-center font-bold'>{`Имя:`}</p>
                                     <div className='flex'>
                                         <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto"
                                             defaultValue={`Заглушка`}
@@ -127,9 +128,9 @@ const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
 
                                 </div>
                             </div>
-                            <div>
+                            <div className='bg-blue-100 p-1'>
                                 <div className='p-1 flex justify-between'>
-                                    <p className='flex flex-col justify-center font-semibold'>{`Фамилия:`}</p>
+                                    <p className='flex flex-col justify-center font-bold'>{`Фамилия:`}</p>
                                     <div className='flex'>
                                         <input type="text" id="profileuser-middleName" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-auto"
                                             defaultValue={`Заглушка`}
@@ -145,10 +146,19 @@ const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
                                         </div>
                                     </div>
 
+                                </div>
+                            </div>
+                            <div className='bg-blue-100 p-1'>
+                                    <div className='flex justify-between p-2'>
+                                        <p className='font-bold'>Занимаемые позиции:</p>
+                                        <div className=''>
+                                            {`Project coordinator at Aston Soft`}
+                                        </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <div className='col-span-3 col-start-2 row-start-2 bg-blue-50 drop-shadow-xl p-4'>
@@ -158,7 +168,7 @@ const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
                     </div>
                     <div className='grid grid-cols-2 grid-rows-1 gap-4'>
                         <div className='grid grid-cols-1 grid-rows-3 gap-4'>
-                            <div>
+                            <div className='bg-blue-100 p-1'>
                                 <div className='p-1 flex justify-between'>
                                     <p className='flex flex-col justify-center font-semibold'>{`skype:`}</p>
                                     <div className='flex'>
@@ -177,7 +187,7 @@ const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div className='bg-blue-100 p-1'>
                                 <div className='p-1 flex justify-between'>
                                     <p className='flex flex-col justify-center font-semibold'>{`mobile:`}</p>
                                     <div className='flex'>
@@ -197,7 +207,7 @@ const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
 
                                 </div>
                             </div>
-                            <div>
+                            <div className='bg-blue-100 p-1'>
                                 <div className='p-1 flex justify-between'>
                                     <p className='flex flex-col justify-center font-semibold'>{`teams:`}</p>
                                     <div className='flex'>
