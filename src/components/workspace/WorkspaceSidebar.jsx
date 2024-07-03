@@ -9,11 +9,12 @@ const WorkspaceSidebar = () => {
     const [isUserManagementFeaturesEnabled, setIsUserManagementFeaturesEnabled] = useState(true);
     const [isAdditionalFeaturesEnabledState, setIsAdditionalFeaturesEnabledState] = useState(false);
     const [isTendersFeaturesEnabledState, setIsTendersFeaturesEnabledState] = useState(false);
+    //todo добавить с бэкэнда данные контактов пользователя
     return (
         <div className={`w-72 h-full px-3 py-4 overflow-hidden hover:overflow-scroll bg-blue-50 drop-shadow-xl ${activeSidebar ? '' : 'hidden'}`}>
             <WorkspaceLogo />
             <div className="flex flex-col">
-
+            
                 {
                     isUserSpaceFeaturesEnabled &&
                     <div>

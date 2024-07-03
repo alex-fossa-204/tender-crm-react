@@ -23,10 +23,11 @@ import { CSSTransition } from 'react-transition-group';
 </div> */}
 
 // ПОЛЕЗНО: https://www.tailwindgen.com/
+// todo: при удалении пользователя не обновляется счетчик пользователей всего
 const EmployeeModal = ({ setOpenEmployeeModal, employeeExactData }) => {
 
     //Фичатоглы
-    const [enabledUserContactsView, setEnabledUserContactsView] = useState(true);
+    const [enabledUserContactsView, setEnabledUserContactsView] = useState(false);
 
     const [currentUser, setCurrentUserState] = useState(employeeExactData);
 

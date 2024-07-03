@@ -6,6 +6,7 @@ import EmployeePagination from '../../../components/employee/EmployeePagination'
 import axios from 'axios';
 import avatarBase from '../../../data/images/user-avatar.png';
 import EmployeeModal from '../../../components/tender/EmployeeModal';
+import TestPopupModal from '../../../components/tender/TestPopupModal';
 
 let PageSize = 5;
 
@@ -23,6 +24,9 @@ const Emplpoyees = () => {
     //Состояние модальное окно пользователя
     const [employeeModalOpen, setEmployeeModalOpen] = useState(false);
     const [selectedEmployeeData, setSelectedEmployeeData] = useState('');
+
+    //Состояние: тестовое модальное окно
+    const [testModalPopup, setTestModalPopup] = useState(false);
 
     const executeGetManagersPage = async (page, capacity) => {
         const getResponse = await axios.get(`http://127.0.0.1:8080/managers/page?id=${encodeURIComponent(page)}&items=${encodeURIComponent(capacity)}`);
@@ -44,7 +48,10 @@ const Emplpoyees = () => {
     const handleExactEmployeeModalOpen = () => {
         setEmployeeViewOpen(!employeeViewOpen);
         setEmployeeModalOpen(!employeeModalOpen);
-        
+    };
+
+    const handleOpenNewEmployeeModal = () => {
+        setTestModalPopup(!testModalPopup);
     };
 
     useEffect(() => {
@@ -54,12 +61,19 @@ const Emplpoyees = () => {
     return (
         <WorkspacePage>
             {employeeModalOpen && <EmployeeModal setOpenEmployeeModal={handleExactEmployeeModalOpen} employeeExactData={selectedEmployeeData} />}
+            {testModalPopup && <TestPopupModal setOpenNewEmployeeModal={handleOpenNewEmployeeModal} />}
             <div className={`${employeeViewOpen ? '' : 'hidden'}`}>
                 <div className={`w-full`}>
                     <div className="flex justify-between space-x-10 pb-5 bg-slate-100">
                         <p className={"p-2 text-gray-900 font-bold"}>Упраление Сотрудниками</p>
                         <div className={"space-x-5"}>
-                            <button className={"p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer"} onClick={() => { }}>Добавить Сторудника</button>
+                            <button className={"p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer"}
+                                onClick={() => {
+                                    setTestModalPopup(!testModalPopup);
+                                }}
+                            >
+                                Добавить Сторудника
+                            </button>
                         </div>
                     </div>
                     <table className={`w-full text-left font-light text-sm`}>
