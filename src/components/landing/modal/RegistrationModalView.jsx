@@ -1,5 +1,5 @@
 import React from 'react';
-import { LandingButton } from "../index";
+import { Dropdown, LandingButton } from "../index";
 import { useLandingStateContext } from "../context/LandingContext";
 
 const RegistrationModalView = ({ open, onClose }) => {
@@ -28,11 +28,11 @@ const RegistrationModalView = ({ open, onClose }) => {
                                             Фамилия
                                         </label>
                                         <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
-                                            type="email"
-                                            name="email"
-                                            id="email"
+                                            type="text"
+                                            name="firstname"
+                                            id="firstname-fld"
                                             placeholder='Ваше имя'
-                                            required
+                                            
                                         />
                                     </div>
                                     <div>
@@ -40,11 +40,11 @@ const RegistrationModalView = ({ open, onClose }) => {
                                             Имя
                                         </label>
                                         <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
-                                            type="email"
-                                            name="email"
-                                            id="email"
+                                            type="text"
+                                            name="surname"
+                                            id="surname-fld"
                                             placeholder='Ваша фамилия'
-                                            required
+                                            
                                         />
                                     </div>
                                     <div>
@@ -52,11 +52,11 @@ const RegistrationModalView = ({ open, onClose }) => {
                                             Отчество
                                         </label>
                                         <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
-                                            type="email"
-                                            name="email"
-                                            id="email"
+                                            type="text"
+                                            name="second-name"
+                                            id="second-name-fld"
                                             placeholder='Ваше отчество'
-                                            required
+                                            
                                         />
                                     </div>
                                 </div>
@@ -69,11 +69,11 @@ const RegistrationModalView = ({ open, onClose }) => {
                                             Мобильный телефон
                                         </label>
                                         <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
-                                            type="email"
-                                            name="email"
-                                            id="email"
-                                            placeholder='Ваше имя'
-                                            required
+                                            type="text"
+                                            name="mobile-phone"
+                                            id="mobile-phone-fld"
+                                            placeholder='Мобильный телефон'
+                                            
                                         />
                                     </div>
                                     <div>
@@ -84,8 +84,8 @@ const RegistrationModalView = ({ open, onClose }) => {
                                             type="email"
                                             name="email"
                                             id="email"
-                                            placeholder='Ваша фамилия'
-                                            required
+                                            placeholder='Ваш email'
+                                            
                                         />
                                     </div>
                                     <div>
@@ -93,11 +93,11 @@ const RegistrationModalView = ({ open, onClose }) => {
                                             skype
                                         </label>
                                         <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
-                                            type="email"
-                                            name="email"
-                                            id="email"
-                                            placeholder='Ваше отчество'
-                                            required
+                                            type="text"
+                                            name="skype"
+                                            id="skype-fld"
+                                            placeholder='Skype Логин'
+                                            
                                         />
                                     </div>
                                 </div>
@@ -106,16 +106,10 @@ const RegistrationModalView = ({ open, onClose }) => {
                                 <p className='font-bold text-gray-900'>Данные сотрудника</p>
                                 <div className='flex justify-between'>
                                     <div>
-                                        <label htmlFor="email" className='block mb-2 text-sm font-semibold text-gray-900'>
+                                        <label  className='block mb-2 text-sm font-semibold text-gray-900'>
                                             Позиция
                                         </label>
-                                        <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
-                                            type="email"
-                                            name="email"
-                                            id="email"
-                                            placeholder='Ваше имя'
-                                            required
-                                        />
+                                        <Dropdown/>
                                     </div>
                                 </div>
                             </div>
