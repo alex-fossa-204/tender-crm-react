@@ -5,9 +5,8 @@ import avatar2 from '../../data/images/avatar2.png';
 import {useLandingStateContext} from "./context/LandingContext";
 
 const LandingSpace = ({}) => {
-    const {activeLoginForm, activeRegistrationForm} = useLandingStateContext();
     return (
-        <div className={`${activeLoginForm | activeRegistrationForm ? 'hidden' : ''}`}>
+        <div className={``}>
             <div className={`container flex flex-col-reverse items-center px-6 py-4 mx-auto mt-10 space-y-0 md:space-y-0 md:flex-row shadow-lg`}>
                 <div className={"flex flex-col mb-32 space-y-12 md:w-1/2"}>
                     <h1 className={"max-w-auto text-4xl font-bold text-center md:text-5xl md:text-left"}>

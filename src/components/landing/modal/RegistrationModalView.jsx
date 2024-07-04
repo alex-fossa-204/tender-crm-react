@@ -2,40 +2,129 @@ import React from 'react';
 import { LandingButton } from "../index";
 import { useLandingStateContext } from "../context/LandingContext";
 
-const RegistrationModalView = ({ handleRegistrationModalView }) => {
-    const { activeRegistrationForm, setActiveRegistrationForm } = useLandingStateContext();
-    const toggleRegistrationModalView = () => {
-        setActiveRegistrationForm(!activeRegistrationForm);
-    };
+const RegistrationModalView = ({ open, onClose }) => {
     return (
-        <div>
-            <div>
-                <div className={`flex h-screen w-full items-center justify-center bg-cover bg-no-repeat ${activeRegistrationForm ? '' : 'hidden'}`}>
-                    <div className="fixed rounded-xl bg-darkBlue px-16 py-10 shadow-lg backdrop-blur-md max-sm:px-8">
-                        <div className="text-white">
-                            <div className="mb-5 flex flex-col items-center">
-                                <h1 className="mb- text-2xl">Tender CRM</h1>
-                                <span className="text-gray-300">Введите персональные данные</span>
+        <div onClick={onClose} className={`fixed inset-0 flex justify-center items-center transition-colors ${open ? "visible bg-black/20" : "invisible"}`}
+        >
+            <div onClick={(e) => e.stopPropagation()} className={`w-1000 bg-white rounded-xl shadow p-6 transition-all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}
+            >
+                <button onClick={onClose} className="absolute top-2 right-2 p-1 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600"
+                >
+                    X
+                </button>
+                <div className='bg-white p-2 rounded'>
+                    <div className='py-6 px-6 lg:px-8 text-left'>
+                        <h3 className='mb-4 text-xl font-bold text-gray-900'>
+                            Создайте заявку на регистрацию в системе
+                        </h3>
+                        <form className='space-y-6'
+                            action="#"
+                        >
+                            <div className='bg-gray-100 p-2 rounded-md'>
+                                <p className='font-bold text-gray-900'>Песональные данные пользователя</p>
+                                <div className='flex justify-between'>
+                                    <div>
+                                        <label htmlFor="email" className='block mb-2 text-sm font-semibold text-gray-900'>
+                                            Фамилия
+                                        </label>
+                                        <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            placeholder='Ваше имя'
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="email" className='block mb-2 text-sm font-semibold text-gray-900'>
+                                            Имя
+                                        </label>
+                                        <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            placeholder='Ваша фамилия'
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="email" className='block mb-2 text-sm font-semibold text-gray-900'>
+                                            Отчество
+                                        </label>
+                                        <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            placeholder='Ваше отчество'
+                                            required
+                                        />
+                                    </div>
+                                </div>
                             </div>
-                            <form action="src/components/landing/modal/RegistrationModalView#" className="flex flex-col items-center">
-                                <div className="mb-4 text-lg">
-                                    <input className="rounded-xl border-none bg-white px-12 py-2 text-center text-inherit shadow-lg outline-none" type="text" name="name" placeholder="Имя" />
+                            <div className='bg-gray-100 p-2 rounded-md'>
+                                <p className='font-bold text-gray-900'>Ваши контакты</p>
+                                <div className='flex justify-between'>
+                                    <div>
+                                        <label htmlFor="email" className='block mb-2 text-sm font-semibold text-gray-900'>
+                                            Мобильный телефон
+                                        </label>
+                                        <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            placeholder='Ваше имя'
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="email" className='block mb-2 text-sm font-semibold text-gray-900'>
+                                            email
+                                        </label>
+                                        <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            placeholder='Ваша фамилия'
+                                            required
+                                        />
+                                    </div>
+                                    <div>
+                                        <label htmlFor="email" className='block mb-2 text-sm font-semibold text-gray-900'>
+                                            skype
+                                        </label>
+                                        <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            placeholder='Ваше отчество'
+                                            required
+                                        />
+                                    </div>
                                 </div>
-                                <div className="mb-4 text-lg">
-                                    <input className="rounded-xl border-none bg-white px-12 py-2 text-center text-inherit shadow-lg outline-none" type="text" name="name" placeholder="Фамилия" />
+                            </div>
+                            <div className='bg-gray-100 p-2 rounded-md'>
+                                <p className='font-bold text-gray-900'>Данные сотрудника</p>
+                                <div className='flex justify-between'>
+                                    <div>
+                                        <label htmlFor="email" className='block mb-2 text-sm font-semibold text-gray-900'>
+                                            Позиция
+                                        </label>
+                                        <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
+                                            type="email"
+                                            name="email"
+                                            id="email"
+                                            placeholder='Ваше имя'
+                                            required
+                                        />
+                                    </div>
                                 </div>
-                                <div className="mb-4 text-lg">
-                                    <input className="rounded-xl border-none bg-white px-12 py-2 text-center text-inherit shadow-lg outline-none" type="text" name="name" placeholder="Отчество" />
-                                </div>
-                                <div className="mb-4 text-lg">
-                                    <input className="rounded-xl border-none bg-white px-12 py-2 text-center text-inherit shadow-lg outline-none" type="text" name="name" placeholder="email" />
-                                </div>
-                                <div className="mt-8 flex justify-center text-lg text-black gap-16">
-                                    <LandingButton type={"button"} content={"Создать заявку"} />
-                                    <LandingButton type={"button"} content={"Close"} onClickCustomFun={() => toggleRegistrationModalView()} />
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                            <button className='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
+                                type="submit"
+                            >
+                                Создать заявку
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

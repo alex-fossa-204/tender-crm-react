@@ -8,12 +8,15 @@ export const LandingContext = ({children}) => {
 
     const [activeHamburger, setActiveHamburger] = useState(false);
 
+    const [activeBeautifulForm, setActiveBeautifulForm] = useState(false);
+
     return (
         <LandingStateContext.Provider value={
             {
                 activeHamburger, setActiveHamburger,
                 activeLoginForm, setActiveLoginForm,
-                activeRegistrationForm, setActiveRegistrationForm
+                activeRegistrationForm, setActiveRegistrationForm,
+                activeBeautifulForm, setActiveBeautifulForm
             }
         }>
             {children}

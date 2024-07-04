@@ -5,10 +5,9 @@ import { useLandingStateContext } from "./context/LandingContext";
 
 const LandingNavbar = () => {
   const {
-    activeLoginForm,
-    setActiveLoginForm,
-    activeRegistrationForm,
-    setActiveRegistrationForm,
+    activeLoginForm, setActiveLoginForm,
+    activeRegistrationForm, setActiveRegistrationForm,
+    activeBeautifulForm, setActiveBeautifulForm
   } = useLandingStateContext();
 
   const toggleLoginModalView = () => {
@@ -21,6 +20,10 @@ const LandingNavbar = () => {
     setActiveLoginForm(false);
   };
 
+  const toggleBeautifulModalView = () => {
+    setActiveBeautifulForm(!activeBeautifulForm);
+  };
+
   return (
     <nav className={"flex justify-between mb-4 p-4 shadow-lg"}>
       <LandingLogo content={"Tender CRM"} />
@@ -29,7 +32,7 @@ const LandingNavbar = () => {
         <LandingButton
           id={"landing-login-button"}
           type={"button"}
-          content={"Войти"}
+          content={"Войти в систему"}
           onClickCustomFun={() => toggleLoginModalView()}
         />
         <LandingButton

@@ -1,16 +1,21 @@
 import React from 'react';
-import {LandingFooter, LandingNavbar, LandingSpace, LoginModalView, RegistrationModalView} from "../../components/landing/index";
-import {useLandingStateContext} from "../../components/landing/context/LandingContext";
+import { LandingBeautifulModal, LandingFooter, LandingNavbar, LandingSpace, LoginModalView, RegistrationModalView } from "../../components/landing/index";
+import { useLandingStateContext } from "../../components/landing/context/LandingContext";
 
 const LandingPage = () => {
-    const {activeLoginForm, activeLanding} = useLandingStateContext();
+    const {
+        activeLoginForm, setActiveLoginForm,
+        activeRegistrationForm, setActiveRegistrationForm,
+        activeLanding,
+        activeBeautifulForm, setActiveBeautifulForm
+    } = useLandingStateContext();
     return (
         <div>
-            <LandingNavbar/>
-            <LoginModalView isActive={activeLoginForm}/>
-            <RegistrationModalView/>
-            <LandingSpace/>
-            <LandingFooter/>
+            <LandingNavbar />
+            <LoginModalView open={activeLoginForm} onClose={() => { setActiveLoginForm(!activeLoginForm) }} />
+            <RegistrationModalView open={activeRegistrationForm} onClose={() => { setActiveRegistrationForm(!activeRegistrationForm) }}/>
+            <LandingSpace />
+            <LandingFooter />
         </div>
     );
 };
