@@ -5,6 +5,7 @@ const LandingStateContext = createContext();
 export const LandingContext = ({children}) => {
     const [activeLoginForm, setActiveLoginForm] = useState(false);
     const [activeRegistrationForm, setActiveRegistrationForm] = useState(false);
+    const [activeLandingPositionDropdown, setActiveLandingPositionDropdown] = useState(false);
 
     const [activeHamburger, setActiveHamburger] = useState(false);
 
@@ -16,7 +17,8 @@ export const LandingContext = ({children}) => {
                 activeHamburger, setActiveHamburger,
                 activeLoginForm, setActiveLoginForm,
                 activeRegistrationForm, setActiveRegistrationForm,
-                activeBeautifulForm, setActiveBeautifulForm
+                activeBeautifulForm, setActiveBeautifulForm,
+                activeLandingPositionDropdown, setActiveLandingPositionDropdown
             }
         }>
             {children}

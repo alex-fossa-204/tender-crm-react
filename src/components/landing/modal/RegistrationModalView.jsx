@@ -1,8 +1,30 @@
-import React from 'react';
-import { Dropdown, LandingButton } from "../index";
+import React, { useState } from 'react';
+import { LandingDropdown, LandingButton } from "../index";
 import { useLandingStateContext } from "../context/LandingContext";
 
 const RegistrationModalView = ({ open, onClose }) => {
+    const {
+        activeLandingPositionDropdown, setActiveLandingPositionDropdown
+    } = useLandingStateContext();
+    const [positions, setPositions] = useState(
+        [
+            {
+                id: 1,
+                posShortCut: "PC",
+                posName: "Project coordinator"
+            },
+            {
+                id: 2,
+                posShortCut: "SPC",
+                posName: "Senior Project coordinator"
+            },
+            {
+                id: 3,
+                posShortCut: "DM",
+                posName: "Lead Project coordinator"
+            }
+        ]
+    );
     return (
         <div onClick={onClose} className={`fixed inset-0 flex justify-center items-center transition-colors ${open ? "visible bg-black/20" : "invisible"}`}
         >
@@ -109,7 +131,7 @@ const RegistrationModalView = ({ open, onClose }) => {
                                         <label  className='block mb-2 text-sm font-semibold text-gray-900'>
                                             Позиция
                                         </label>
-                                        <Dropdown/>
+                                        <LandingDropdown openState={activeLandingPositionDropdown} openFunction={setActiveLandingPositionDropdown} data = {positions}/>
                                     </div>
                                 </div>
                             </div>
