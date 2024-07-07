@@ -323,7 +323,7 @@ const Profile = () => {
                                     <p className='text-2xl font-bold'>Служебная информация</p>
                                 </div>
                                 <div className='flex flex-row justify-between'>
-                                    <div className='flex flex-col gap-3 p-2'>
+                                    <div className='flex flex-col gap-3 p-2 bg-blue-200 drop-shadow-xl'>
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Департамент</p>
@@ -365,10 +365,10 @@ const Profile = () => {
                                 <div>
                                     <p className='text-2xl font-bold'>Контактные данные пользователя</p>
                                 </div>
-                                <div className='flex flex-col gap-3 ml-5'>
+                                <div className='flex flex-col gap-3 p-2 bg-blue-200 drop-shadow-xl'>
                                     {currentUser.personalInfo.contacts.map((contact) => {
                                         return (
-                                            <div className='flex flex-row justify-between'>
+                                            <div className='flex flex-row justify-between ml-5'>
                                                 <p className='font-bold'>{contact.contactType}</p>
                                                 <p className='ml-20'>{contact.contactValue}</p>
                                             </div>
