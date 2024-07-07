@@ -265,7 +265,7 @@ const Profile = () => {
             <div className={`grid grid-cols-3 grid-rows-4 gap-4`}>
                 <div className='col-span-3 row-span-4'>
                     {/* Навигация профиля клиента */}
-                    <div className='flex flex-row gap-4 bg-darkBlue p-4 rounded-lg text-white text-xl font-bold' >
+                    <div className='flex flex-row gap-4 bg-darkBlue p-4 rounded-lg text-white text-xl font-bold drop-shadow-xl' >
                         <div className={`border-4 border-darkBlue p-2 ${selectedPersonalDataNavButton && selectedNavItemStyle} hover:cursor-pointer`}
                             onClick={() => { handleNavButtonClick() }}
                         >
@@ -277,10 +277,10 @@ const Profile = () => {
                             Фидбеки
                         </div>
                     </div>
-                    <div className={`${!isPersonalDataModalOpen && 'hidden'}`}>
+                    <div className={`${!isPersonalDataModalOpen && 'hidden'} drop-shadow-xl`}>
                         {/* Данные профиля клиента */}
                         <div className='flex flex-row justify-between p-2 bg-blue-50'>
-                            <div className="flex flex-col">
+                            <div className="flex flex-col drop-shadow-xl">
                                 <div className='flex flex-row p-2 items-center gap-5'>
                                     <div className='flex flex-col items-center'>
                                         <div>
@@ -323,29 +323,29 @@ const Profile = () => {
                                     <p className='text-2xl font-bold'>Служебная информация</p>
                                 </div>
                                 <div className='flex flex-row justify-between'>
-                                    <div className='flex flex-col gap-3 p-2 bg-blue-200 drop-shadow-xl'>
+                                    <div className='flex flex-col gap-3 p-2 bg-blue-50 drop-shadow-xl w-600'>
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Департамент</p>
-                                                <p className='ml-20'>{currentUser.department.name} ({currentUser.department.shortcut})</p>
+                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.department.name} ({currentUser.department.shortcut})</p>
                                             </div>
                                         </div>
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Руководитель</p>
-                                                <p className='ml-20 flex'>{currentUser.department.leader.personalInfo.lastName} {currentUser.department.leader.personalInfo.firstName} {currentUser.department.leader.personalInfo.middleName}</p>
+                                                <p className='ml-20 flex hover:cursor-pointer hover:underline'>{currentUser.department.leader.personalInfo.lastName} {currentUser.department.leader.personalInfo.firstName} {currentUser.department.leader.personalInfo.middleName}</p>
                                             </div>
                                         </div>
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Позиция</p>
-                                                <p className='ml-20'>{currentUser.department.position.name} ({currentUser.department.position.shortcut})</p>
+                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.department.position.name} ({currentUser.department.position.shortcut})</p>
                                             </div>
                                         </div>
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Дата Рождения</p>
-                                                <p className='ml-20'>{currentUser.personalInfo.birthDate}</p>
+                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.personalInfo.birthDate}</p>
                                             </div>
                                         </div>
 
@@ -365,12 +365,12 @@ const Profile = () => {
                                 <div>
                                     <p className='text-2xl font-bold'>Контактные данные пользователя</p>
                                 </div>
-                                <div className='flex flex-col gap-3 p-2 bg-blue-200 drop-shadow-xl'>
+                                <div className='flex flex-col gap-3 p-2 bg-blue-50 drop-shadow-xl w-600'>
                                     {currentUser.personalInfo.contacts.map((contact) => {
                                         return (
                                             <div className='flex flex-row justify-between ml-5'>
                                                 <p className='font-bold'>{contact.contactType}</p>
-                                                <p className='ml-20'>{contact.contactValue}</p>
+                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{contact.contactValue}</p>
                                             </div>
                                         );
                                     })}
@@ -389,27 +389,27 @@ const Profile = () => {
                                         return (
                                             <div className='flex flex-col gap-3 bg-darkBlue text-white p-2 rounded-lg'>
                                                 <div className='flex flex-row p-1 rounded-lg justify-between bg-blue-600 hover:cursor-pointer hover:bg-blue-500'>
-                                                    <p className='font-bold'>Название команды</p>
+                                                    <p className='font-bold hover:cursor-pointer'>Название команды</p>
                                                     <p className='ml-20'>{team.name}</p>
                                                 </div>
                                                 <div className='flex flex-row justify-between'>
-                                                    <p className='font-bold'>Позиция</p>
+                                                    <p className='font-bold hover:cursor-pointer'>Позиция</p>
                                                     <p className='ml-20'>{team.position}</p>
                                                 </div>
                                                 <div className='flex flex-row justify-between'>
-                                                    <p className='font-bold'>Аллокация</p>
+                                                    <p className='font-bold hover:cursor-pointer'>Аллокация</p>
                                                     <p className='ml-20'>{team.allocation}</p>
                                                 </div>
                                                 <div className='flex flex-row justify-between'>
-                                                    <p className='font-bold'>Дата старта</p>
+                                                    <p className='font-bold hover:cursor-pointer'>Дата старта</p>
                                                     <p className='ml-20'>{team.startDate}</p>
                                                 </div>
                                                 <div className='flex flex-row justify-between'>
-                                                    <p className='font-bold'>Дата завершения</p>
+                                                    <p className='font-bold hover:cursor-pointer'>Дата завершения</p>
                                                     <p className='ml-20'>{team.endDate}</p>
                                                 </div>
                                                 <div className='flex flex-row justify-between'>
-                                                    <p className='font-bold'>Руководитель</p>
+                                                    <p className='font-bold hover:cursor-pointer'>Руководитель</p>
                                                     <p className='ml-20'>{team.leader.personalInfo.lastName} {team.leader.personalInfo.firstName} {team.leader.personalInfo.middleName}</p>
                                                 </div>
                                             </div>
