@@ -17,6 +17,7 @@ const Profile = () => {
             firstName: "Дмитрий",
             middleName: "Иванович",
             lastName: "Петров",
+            birthDate: '1995-07-13',
             positions: [
                 {
                     shortcut: "PC",
@@ -299,7 +300,7 @@ const Profile = () => {
                                         })}
                                     </div>
                                 </div>
-                                <div className='flex flex-row gap-4 p-1 rounded-md justify-center bg-darkBlue text-white'>
+                                <div className='flex flex-row gap-4 p-1 rounded-md justify-center bg-darkBlue text-white hover:cursor-pointer hover:bg-blue-900'>
                                     <p className='font-bold'>Роль в системе:</p>
                                     <p>Администратор</p>
                                 </div>
@@ -318,7 +319,7 @@ const Profile = () => {
                         {/* Данные департамента клиента */}
                         <div className='justify-between p-2 bg-blue-50 mt-2'>
                             <div className='p-2'>
-                                <div>
+                                <div className='flex flex-row justify-start'>
                                     <p className='text-2xl font-bold'>Служебная информация</p>
                                 </div>
                                 <div className='flex flex-row justify-between'>
@@ -339,6 +340,12 @@ const Profile = () => {
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Позиция</p>
                                                 <p className='ml-20'>{currentUser.department.position.name} ({currentUser.department.position.shortcut})</p>
+                                            </div>
+                                        </div>
+                                        <div className='flex flex-col gap-3 ml-5'>
+                                            <div className='flex flex-row justify-between'>
+                                                <p className='font-bold'>Дата Рождения</p>
+                                                <p className='ml-20'>{currentUser.personalInfo.birthDate}</p>
                                             </div>
                                         </div>
 
@@ -381,7 +388,7 @@ const Profile = () => {
                                     {currentUser.department.teams.map((team) => {
                                         return (
                                             <div className='flex flex-col gap-3 bg-darkBlue text-white p-2 rounded-lg'>
-                                                <div className='flex flex-row p-1 rounded-lg justify-between bg-blue-600'>
+                                                <div className='flex flex-row p-1 rounded-lg justify-between bg-blue-600 hover:cursor-pointer hover:bg-blue-500'>
                                                     <p className='font-bold'>Название команды</p>
                                                     <p className='ml-20'>{team.name}</p>
                                                 </div>
