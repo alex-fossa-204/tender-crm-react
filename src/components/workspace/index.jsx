@@ -4,3 +4,5 @@ export {default as WorkspaceLogo} from './sidebar/WorkspaceLogo';
 export {default as WorkspaceButton} from './sidebar/WorkspaceButton';
 export {default as SidebarLinkElement} from './sidebar/SidebarLinkElement';
 export {default as WorkspacePage} from '../../pages/workspace/WorkspacePage';
+export {default as FidbackDataArea} from './FidbackDataArea';
+export {default as FidbackModal} from './FidbackModal';
