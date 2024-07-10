@@ -33,7 +33,14 @@ const Emplpoyees = () => {
     const [employeeRegistrationModalOpen, setEmployeeRegistrationModalOpen] = useState(false);
 
     const executeGetManagersPage = async (page, capacity) => {
-        const getResponse = await axios.get(`http://127.0.0.1:8080/managers/page?id=${encodeURIComponent(page)}&items=${encodeURIComponent(capacity)}`);
+        const getResponse = await axios.request(
+            {
+                method: 'GET',
+                url: `http://127.0.0.1:8080/managers/page?id=${encodeURIComponent(page)}&items=${encodeURIComponent(capacity)}`,
+                timeout: 2000,
+                signal: AbortSignal.timeout(2000)
+            }
+        )
         setEmployeeData(getResponse.data.managers);
         setEmployeeDataTotalCount(getResponse.data.total);
         setIsEmployeeDataLoading(false);

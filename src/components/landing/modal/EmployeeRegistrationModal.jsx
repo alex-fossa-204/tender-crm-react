@@ -51,6 +51,30 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
     const [openEmployeeDepartmentDropdown, setOpenEmployeeDepartmentDropdown] = useState(false);
     const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
 
+    //Состояние: выпадающий список отдела сотрудника
+    const [roles, setRoles] = useState(
+        [
+            {
+                id: 'role-0',
+                name: "Выберите роль"
+            },
+            {
+                id: 'role-1',
+                name: "USER"
+            },
+            {
+                id: 'role-2',
+                name: "MASTER-USER"
+            },
+            {
+                id: 'role-3',
+                name: "ADMIN-USER"
+            }
+        ]
+    );
+    const [openEmployeeRoleDropdown, setOpenEmployeeRoleDropdown] = useState(false);
+    const [selectedRole, setSelectedRole] = useState(roles[0]);
+
 
     //отслеживание состояния даты создания тендера
     const [employeeBirthDate, setEmployeeBirthDate] = useState(
@@ -62,16 +86,13 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
 
     const personalDataInputWidth = 250;
     return (
-        <div onClick={onClose} className={`fixed h-screen overflow-y-auto inset-1 mt-10 flex justify-center items-center transition-colors ${open ? "visible bg-black/20" : "invisible"}`}
-        >
-            <div onClick={(e) => e.stopPropagation()} className={`w-1000 bg-white rounded-xl shadow p-2 transition-all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}
-            >
-                <button onClick={onClose} className="absolute top-2 right-2 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600"
-                >
+        <div onClick={onClose} className={`fixed h-screen overflow-y-auto inset-1 top-10 flex justify-center items-center transition-colors ${open ? "visible bg-black/20" : "invisible"}`}>
+            <div onClick={(e) => e.stopPropagation()} className={`w-1000 bg-white rounded-xl shadow p-2 transition-all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}>
+                <button onClick={onClose} className="absolute top-2 right-2 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600">
                     <IoClose className='h-10 w-10' />
                 </button>
-                <div className='bg-white p-2 rounded'>
-                    <div className='py-6 px-6 lg:px-8 text-left'>
+                <div className='bg-white rounded'>
+                    <div className='py-5 px-5 text-left'>
                         <h3 className='mb-4 text-xl font-bold text-gray-900'>
                             Заполните форму на создание новой учетной записи сотрудника
                         </h3>
@@ -206,45 +227,66 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                 onClick={() => {
                                     openEmployeePositionDropdown && setOpenEmployeePositionDropdown(false);
                                     openEmployeeDepartmentDropdown && setOpenEmployeeDepartmentDropdown(false);
+                                    openEmployeeRoleDropdown && setOpenEmployeeRoleDropdown(false);
                                 }}
                             >
                                 <p className='font-bold text-gray-900'>Служебные данные сотрудника</p>
                                 <div className='flex flex-col gap-4'>
-                                    <div className='flex justify-between'>
-                                        <div>
-                                            <label className='block mb-2 text-sm font-semibold text-gray-900'>
-                                                Выберите департамент
-                                            </label>
-                                            <div className='flex flex-row'>
-                                                <EmployeePositionDropDown
-                                                    id={'employee-dep-drop-down'}
-                                                    openState={openEmployeeDepartmentDropdown}
-                                                    openFunction={setOpenEmployeeDepartmentDropdown}
-                                                    data={departments}
-                                                    selectState={selectedDepartment}
-                                                    selectFunction={setSelectedDepartment}
-                                                />
+                                    <div className='flex flex-row gap-10'>
+                                        <div className='flex justify-between'>
+                                            <div>
+                                                <label className='block mb-2 text-sm font-semibold text-gray-900'>
+                                                    Выберите департамент
+                                                </label>
+                                                <div className='flex flex-row'>
+                                                    <EmployeePositionDropDown
+                                                        id={'employee-dep-drop-down'}
+                                                        openState={openEmployeeDepartmentDropdown}
+                                                        openFunction={setOpenEmployeeDepartmentDropdown}
+                                                        data={departments}
+                                                        selectState={selectedDepartment}
+                                                        selectFunction={setSelectedDepartment}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='flex justify-between'>
+                                            <div>
+                                                <label className='block mb-2 text-sm font-semibold text-gray-900'>
+                                                    Позиция в департаменте
+                                                </label>
+                                                <div className='flex flex-row'>
+                                                    <EmployeePositionDropDown
+                                                        id={'employee-pos-drop-down'}
+                                                        openState={openEmployeePositionDropdown}
+                                                        openFunction={setOpenEmployeePositionDropdown}
+                                                        data={positions}
+                                                        selectState={selectedPosition}
+                                                        selectFunction={setSelectedPosition}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className='flex justify-between'>
-                                        <div>
-                                            <label className='block mb-2 text-sm font-semibold text-gray-900'>
-                                                Позиция
-                                            </label>
-                                            <div className='flex flex-row'>
-                                                <EmployeePositionDropDown
-                                                    id={'employee-pos-drop-down'}
-                                                    openState={openEmployeePositionDropdown}
-                                                    openFunction={setOpenEmployeePositionDropdown}
-                                                    data={positions}
-                                                    selectState={selectedPosition}
-                                                    selectFunction={setSelectedPosition}
-                                                />
+                                    <div className='flex flex-row'>
+                                        <div className='flex justify-between'>
+                                            <div>
+                                                <label className='block mb-2 text-sm font-semibold text-gray-900'>
+                                                    Выберите роль сотрудника в системе
+                                                </label>
+                                                <div className='flex flex-row'>
+                                                    <EmployeePositionDropDown
+                                                        id={'employee-role-drop-down'}
+                                                        openState={openEmployeeRoleDropdown}
+                                                        openFunction={setOpenEmployeeRoleDropdown}
+                                                        data={roles}
+                                                        selectState={selectedRole}
+                                                        selectFunction={setSelectedRole}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
                                 </div>
                             </div>
                             <button className='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
