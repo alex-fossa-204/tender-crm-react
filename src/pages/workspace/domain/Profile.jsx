@@ -310,6 +310,12 @@ const Profile = () => {
         }
     }
 
+    //Фичатоглы
+    // Отображение данных о командах пользователя
+    const [isTeamDataViewEnabled, setIsTeamDataViewEnabled] = useState(false);
+    const [isFidbackDataViewEnabled, setIsFidbackDataViewEnabled] = useState(false);
+
+    // Состояние: текущий вошедший пользователь
     const [currentUser, setCurrentUserState] = useState(userMockData);
 
     //nav-bar
@@ -324,13 +330,18 @@ const Profile = () => {
 
     //handle functions
     const handleNavButtonClick = () => {
-        //personal data
-        setSelectedPersonalDataNavButton(!selectedPersonalDataNavButton);
-        setIsPersonalDataModalOpen(!isPersonalDataModalOpen);
 
-        //fidback
-        setSelectedFidbacksNavButton(!selectedFidbacksNavButton);
-        setIsFidbackDataModalOpen(!isFidbackDataModalOpen);
+
+        if (isFidbackDataViewEnabled) {
+            //personal data
+            setSelectedPersonalDataNavButton(!selectedPersonalDataNavButton);
+            setIsPersonalDataModalOpen(!isPersonalDataModalOpen);
+
+            //fidback
+            setSelectedFidbacksNavButton(!selectedFidbacksNavButton);
+            setIsFidbackDataModalOpen(!isFidbackDataModalOpen);
+        }
+
     };
     return (
         <WorkspacePage>
@@ -343,11 +354,14 @@ const Profile = () => {
                         >
                             Персональные даные
                         </div>
-                        <div className={`border-4 border-darkBlue p-2 ${selectedFidbacksNavButton && selectedNavItemStyle} hover:cursor-pointer`}
-                            onClick={() => { handleNavButtonClick() }}
-                        >
-                            Фидбеки
-                        </div>
+                        {
+                            isFidbackDataViewEnabled &&
+                            <div className={`border-4 border-darkBlue p-2 ${selectedFidbacksNavButton && selectedNavItemStyle} hover:cursor-pointer`}
+                                onClick={() => { handleNavButtonClick() }}
+                            >
+                                Фидбеки
+                            </div>
+                        }
                     </div>
                     <div className={`${!isPersonalDataModalOpen && 'hidden'} drop-shadow-xl`}>
                         {/* Данные профиля клиента */}
@@ -450,52 +464,55 @@ const Profile = () => {
                             </div>
                         </div>
                         {/* Контактные данные клиента */}
-                        <div className='flex flex-row justify-between p-2 bg-blue-50 mt-2 mb-20'>
-                            <div className='flex flex-col gap-3 p-2'>
-                                <div>
-                                    <p className='text-2xl font-bold'>Команды</p>
-                                </div>
+                        {
+                            isTeamDataViewEnabled &&
+                            <div className='flex flex-row justify-between p-2 bg-blue-50 mt-2 mb-20'>
+                                <div className='flex flex-col gap-3 p-2'>
+                                    <div>
+                                        <p className='text-2xl font-bold'>Команды</p>
+                                    </div>
 
-                                <div className='flex flex-row gap-10'>
-                                    {currentUser.department.teams.map((team) => {
-                                        return (
-                                            <div className='flex flex-col gap-3 bg-darkBlue text-white p-2 rounded-lg'>
-                                                <div className='flex flex-row p-1 rounded-lg justify-between bg-blue-600 hover:cursor-pointer hover:bg-blue-500'>
-                                                    <p className='font-bold hover:cursor-pointer'>Название команды</p>
-                                                    <p className='ml-20'>{team.name}</p>
+                                    <div className='flex flex-row gap-10'>
+                                        {currentUser.department.teams.map((team) => {
+                                            return (
+                                                <div className='flex flex-col gap-3 bg-darkBlue text-white p-2 rounded-lg'>
+                                                    <div className='flex flex-row p-1 rounded-lg justify-between bg-blue-600 hover:cursor-pointer hover:bg-blue-500'>
+                                                        <p className='font-bold hover:cursor-pointer'>Название команды</p>
+                                                        <p className='ml-20'>{team.name}</p>
+                                                    </div>
+                                                    <div className='flex flex-row justify-between'>
+                                                        <p className='font-bold hover:cursor-pointer'>Позиция</p>
+                                                        <p className='ml-20'>{team.position}</p>
+                                                    </div>
+                                                    <div className='flex flex-row justify-between'>
+                                                        <p className='font-bold hover:cursor-pointer'>Аллокация</p>
+                                                        <p className='ml-20'>{team.allocation}</p>
+                                                    </div>
+                                                    <div className='flex flex-row justify-between'>
+                                                        <p className='font-bold hover:cursor-pointer'>Дата старта</p>
+                                                        <p className='ml-20'>{team.startDate}</p>
+                                                    </div>
+                                                    <div className='flex flex-row justify-between'>
+                                                        <p className='font-bold hover:cursor-pointer'>Дата завершения</p>
+                                                        <p className='ml-20'>{team.endDate}</p>
+                                                    </div>
+                                                    <div className='flex flex-row justify-between'>
+                                                        <p className='font-bold hover:cursor-pointer'>Руководитель</p>
+                                                        <p className='ml-20'>{team.leader.personalInfo.lastName} {team.leader.personalInfo.firstName} {team.leader.personalInfo.middleName}</p>
+                                                    </div>
                                                 </div>
-                                                <div className='flex flex-row justify-between'>
-                                                    <p className='font-bold hover:cursor-pointer'>Позиция</p>
-                                                    <p className='ml-20'>{team.position}</p>
-                                                </div>
-                                                <div className='flex flex-row justify-between'>
-                                                    <p className='font-bold hover:cursor-pointer'>Аллокация</p>
-                                                    <p className='ml-20'>{team.allocation}</p>
-                                                </div>
-                                                <div className='flex flex-row justify-between'>
-                                                    <p className='font-bold hover:cursor-pointer'>Дата старта</p>
-                                                    <p className='ml-20'>{team.startDate}</p>
-                                                </div>
-                                                <div className='flex flex-row justify-between'>
-                                                    <p className='font-bold hover:cursor-pointer'>Дата завершения</p>
-                                                    <p className='ml-20'>{team.endDate}</p>
-                                                </div>
-                                                <div className='flex flex-row justify-between'>
-                                                    <p className='font-bold hover:cursor-pointer'>Руководитель</p>
-                                                    <p className='ml-20'>{team.leader.personalInfo.lastName} {team.leader.personalInfo.firstName} {team.leader.personalInfo.middleName}</p>
-                                                </div>
-                                            </div>
-                                        );
-                                    })}
+                                            );
+                                        })}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     </div>
                     <div className={`${!isFidbackDataModalOpen && 'hidden'}`}>
                         {
                             currentUser.department.teams.map((team) => {
                                 return (
-                                    <FidbackModal teamData={team}/>
+                                    <FidbackModal teamData={team} />
                                 );
                             })
                         }

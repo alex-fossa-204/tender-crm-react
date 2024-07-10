@@ -8,4 +8,6 @@ export {default as LandingLogo} from './LandingLogo';
 export {default as LandingDropdown} from './LandingDropdown';
 export {default as LoginModalView} from './modal/LoginModalView';
 export {default as RegistrationModalView} from './modal/RegistrationModalView';
+export {default as EmployeeRegistrationModal} from './modal/EmployeeRegistrationModal';
+export {default as EmployeePositionDropDown} from './modal/EmployeePositionDropDown';
 export {default as LandingPage} from '../../pages/landing/LandingPage';

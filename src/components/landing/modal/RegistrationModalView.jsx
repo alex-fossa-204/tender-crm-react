@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LandingDropdown, LandingButton } from "../index";
+import { LandingDropdown } from "../index";
 import { useLandingStateContext } from "../context/LandingContext";
 
 const RegistrationModalView = ({ open, onClose }) => {

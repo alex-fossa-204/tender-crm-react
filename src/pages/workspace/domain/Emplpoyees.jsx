@@ -7,6 +7,7 @@ import axios from 'axios';
 import avatarBase from '../../../data/images/user-avatar.png';
 import EmployeeModal from '../../../components/tender/EmployeeModal';
 import TestPopupModal from '../../../components/tender/TestPopupModal';
+import { EmployeeRegistrationModal } from '../../../components/landing';
 
 let PageSize = 5;
 
@@ -27,6 +28,9 @@ const Emplpoyees = () => {
 
     //Состояние: тестовое модальное окно
     const [testModalPopup, setTestModalPopup] = useState(false);
+
+    //Состояние окно регистрации пользователя
+    const [employeeRegistrationModalOpen, setEmployeeRegistrationModalOpen] = useState(false);
 
     const executeGetManagersPage = async (page, capacity) => {
         const getResponse = await axios.get(`http://127.0.0.1:8080/managers/page?id=${encodeURIComponent(page)}&items=${encodeURIComponent(capacity)}`);
@@ -61,7 +65,7 @@ const Emplpoyees = () => {
     return (
         <WorkspacePage>
             {employeeModalOpen && <EmployeeModal setOpenEmployeeModal={handleExactEmployeeModalOpen} employeeExactData={selectedEmployeeData} />}
-            {testModalPopup && <TestPopupModal setOpenNewEmployeeModal={handleOpenNewEmployeeModal} />}
+            {employeeRegistrationModalOpen && <EmployeeRegistrationModal open={employeeRegistrationModalOpen} onClose={ () => {setEmployeeRegistrationModalOpen(!employeeRegistrationModalOpen)} }/>}
             <div className={`${employeeViewOpen ? '' : 'hidden'}`}>
                 <div className={`w-full`}>
                     <div className="flex justify-between space-x-10 pb-5 bg-slate-100">
@@ -69,7 +73,8 @@ const Emplpoyees = () => {
                         <div className={"space-x-5"}>
                             <button className={"p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer"}
                                 onClick={() => {
-                                    setTestModalPopup(!testModalPopup);
+                                    //setTestModalPopup(!testModalPopup);
+                                    setEmployeeRegistrationModalOpen(true);
                                 }}
                             >
                                 Добавить Сторудника
@@ -92,7 +97,7 @@ const Emplpoyees = () => {
 
                         <tbody className="bg-gray-100">
                             {
-                                !isEmployeeDataLoading && employeeData.map((employee) => {
+                                !isEmployeeDataLoading && employeeData.length > 0 && employeeData.map((employee) => {
                                     return <tr key={employee.managerUuid} className='border hover:cursor-default font-medium'>
                                         <td className="px-6 py-4">
                                             <img src={avatarBase} className="rounded-full w-10 h-10" alt="" />
@@ -122,6 +127,16 @@ const Emplpoyees = () => {
                                         </td>
                                     </tr>
                                 })
+                            }
+                            {
+                                !isEmployeeDataLoading && employeeData.length <= 0 &&   <tr className='border hover:cursor-default font-medium'>
+                                                                                            <td className="px-6 py-4">Данные отсутствуют</td>
+                                                                                            <td className="px-6 py-4"></td>
+                                                                                            <td className="px-6 py-4"></td>
+                                                                                            <td className="px-6 py-4"></td>
+                                                                                            <td className="px-6 py-4"></td>
+                                                                                            <td className="px-6 py-4"></td>
+                                                                                        </tr>
                             }
                         </tbody>
                     </table>
