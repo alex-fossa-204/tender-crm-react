@@ -396,10 +396,14 @@ const Profile = () => {
                                     <div className='text-lg font-bold'>Дата регистрации:</div>
                                     <div>{`${currentUser.authorityInfo.registrationDate}`}</div>
                                 </div>
-                                <div className='flex flex-col'>
-                                    <div className='text-lg font-bold'>Был онлайн:</div>
-                                    <div>{`${currentUser.authorityInfo.registrationDate}`}</div>
-                                </div>
+
+                                {
+                                    (currentUser.authorityInfo.registrationDate != null) &&
+                                    <div className='flex flex-col'>
+                                        <div className='text-lg font-bold'>Был онлайн:</div>
+                                        <div>{`${currentUser.authorityInfo.registrationDate}`}</div>
+                                    </div>
+                                }
                             </div>
                         </div>
                         {/* Данные департамента клиента */}
@@ -436,7 +440,7 @@ const Profile = () => {
                                         </div>
 
                                     </div>
-                                    <div className='flex flex-col mr-10 justify-center'>
+                                    <div className='flex flex-col mr-10 justify-start'>
                                         <div className='flex flex-col'>
                                             <div className='text-lg font-bold'>Дата назначения:</div>
                                             <div>{`${currentUser.authorityInfo.registrationDate}`}</div>

@@ -1,13 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import WorkspacePage from '../WorkspacePage';
-import { AiFillDelete, AiOutlineLoading } from 'react-icons/ai';
+import { AiFillDelete, AiFillEdit, AiOutlineLoading } from 'react-icons/ai';
+import { LuRefreshCcw, LuRefreshCw } from "react-icons/lu";
 import { managerMockData } from '../../../data/images/tenderMockList';
 import EmployeePagination from '../../../components/employee/EmployeePagination';
 import axios from 'axios';
 import avatarBase from '../../../data/images/user-avatar.png';
 import EmployeeModal from '../../../components/tender/EmployeeModal';
 import TestPopupModal from '../../../components/tender/TestPopupModal';
-import { EmployeeRegistrationModal } from '../../../components/landing';
+import { EmployeeDeleteAlertModal, EmployeeInfoModal, EmployeeRegistrationModal } from '../../../components/landing';
 
 let PageSize = 5;
 
@@ -56,36 +57,54 @@ const Emplpoyees = () => {
         }
     };
 
-    const handleExactEmployeeModalOpen = () => {
-        setEmployeeViewOpen(!employeeViewOpen);
-        setEmployeeModalOpen(!employeeModalOpen);
-    };
-
-    const handleOpenNewEmployeeModal = () => {
-        setTestModalPopup(!testModalPopup);
+    const executeRefreshUserTable = (page, pageSize) => {
+        setCurrentPage(page);
+        executeGetManagersPage(page - 1, pageSize);
     };
 
     useEffect(() => {
         executeGetManagersPage(0, PageSize);
     }, []);
 
+    // Новое модальное окно для отображения пользователя
+    const [managerViewOpen, setManagerViewOpen] = useState(false);
+    const handleManagerDataModalOpen = () => {
+        setManagerViewOpen(!managerViewOpen);
+    };
+    const [selectedManagerData, setSelectedManagerdata] = useState({});
+
+    //Новое модальное окно для отображения удаления опльзователя
+    const [managerDeleteAlertViewOpen, setManagerDeleteAlertViewOpen] = useState(false);
+    const handleManagerDeleteAlertModalOpen = () => {
+        setManagerDeleteAlertViewOpen(!managerDeleteAlertViewOpen);
+    };
+
     return (
         <WorkspacePage>
-            {employeeModalOpen && <EmployeeModal setOpenEmployeeModal={handleExactEmployeeModalOpen} employeeExactData={selectedEmployeeData} />}
+            {managerViewOpen && <EmployeeInfoModal open={managerViewOpen} onClose={() => {setManagerViewOpen(!managerViewOpen)}} data={selectedManagerData} dataFunction={() => {}} />}
+            {managerDeleteAlertViewOpen && <EmployeeDeleteAlertModal open={managerDeleteAlertViewOpen} onClose={() => {setManagerDeleteAlertViewOpen(!managerDeleteAlertViewOpen)}} data={selectedManagerData} dataFunction={() => {executeDeleteManager(selectedManagerData)}} />}
             {employeeRegistrationModalOpen && <EmployeeRegistrationModal open={employeeRegistrationModalOpen} onClose={ () => {setEmployeeRegistrationModalOpen(!employeeRegistrationModalOpen)} }/>}
             <div className={`${employeeViewOpen ? '' : 'hidden'}`}>
                 <div className={`w-full`}>
                     <div className="flex justify-between space-x-10 pb-5 bg-slate-100">
                         <p className={"p-2 text-gray-900 font-bold"}>Упраление Сотрудниками</p>
-                        <div className={"space-x-5"}>
+                        <div className={"flex flex-row gap-4"}>
                             <button className={"p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer"}
                                 onClick={() => {
-                                    //setTestModalPopup(!testModalPopup);
+                                    executeRefreshUserTable(currentPage, PageSize);
+                                }}
+                            >
+                                <LuRefreshCcw onClick={() => {}} className='w-6 h-6'/>
+                            </button>
+                            
+                            <button className={"p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer"}
+                                onClick={() => {
                                     setEmployeeRegistrationModalOpen(true);
                                 }}
                             >
                                 Добавить Сторудника
                             </button>
+
                         </div>
                     </div>
                     <table className={`w-full text-left font-light text-sm`}>
@@ -110,26 +129,28 @@ const Emplpoyees = () => {
                                             <img src={avatarBase} className="rounded-full w-10 h-10" alt="" />
                                         </td>
                                         <td className="px-6 py-4">{employee.managerUuid}</td>
-                                        <td className="px-6 py-4">{employee.managerData.lastName}</td>
-                                        <td className="px-6 py-4">{employee.managerData.firstName}</td>
-                                        <td className="px-6 py-4">{employee.managerData.middleName}</td>
-                                        <td className="px-6 py-4">{employee.managerData.position}</td>
-                                        <td className="">
-                                            <button className="p-2 text-gray-100 rounded-lg dark:text-white bg-veryLightBlue hover:bg-blue-400 hover:cursor-pointer"
+                                        <td className="px-6 py-4">{employee.managerData.personalInfo.lastName}</td>
+                                        <td className="px-6 py-4">{employee.managerData.personalInfo.firstName}</td>
+                                        <td className="px-6 py-4">{employee.managerData.personalInfo.middleName}</td>
+                                        <td className="px-6 py-4">{employee.managerData.personalInfo.positions[0].shortcut}</td>
+                                        <td>
+                                            <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `}
                                                 onClick={() => {
-                                                    console.log("Attempt to show user detailed info")
-                                                    handleExactEmployeeModalOpen();
-                                                    setSelectedEmployeeData(employee);
+                                                    setSelectedManagerdata(employee);
+                                                    handleManagerDeleteAlertModalOpen();
                                                 }}
                                             >
-                                                Подробнее
+                                                <AiFillDelete className='w-4 h-4' />
                                             </button>
                                         </td>
                                         <td>
-                                            <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `}
-                                                onClick={() => executeDeleteManager(employee)}
+                                            <button className={`text-gray-100 rounded-lg bg-yellow-400 p-3 `}
+                                                onClick={() => {
+                                                    setSelectedManagerdata(employee);
+                                                    handleManagerDataModalOpen();
+                                                }}
                                             >
-                                                <AiFillDelete className='w-4 h-4' />
+                                                <AiFillEdit className='w-4 h-4'/>
                                             </button>
                                         </td>
                                     </tr>
