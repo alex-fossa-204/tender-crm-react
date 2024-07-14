@@ -35,7 +35,7 @@ const FidbackDataArea = ({ fidback }) => {
                 </div>
                 <div className='flex flex-col gap-2'>
                     <p className='font-bold border-2 border-white border-b-blue-600 w-150 hover:cursor-pointer'>Оставил фидбек</p>
-                    <p className='hover:cursor-default'>{fidback.owner.personalInfo.lastName} {`${Array.from(fidback.owner.personalInfo.firstName)[0]}.${Array.from(fidback.owner.personalInfo.middleName)[0]}.`} ({fidback.owner.personalInfo.positions[0].shortcut})</p>
+                    <p className='hover:cursor-default'>{fidback.owner.lastName} {`${Array.from(fidback.owner.firstName)[0]}.${Array.from(fidback.owner.middleName)[0]}.`} ({fidback.owner.positions[0].shortcut})</p>
                 </div>
                 <div className='flex flex-col gap-2'>
                     <p className='font-bold border-2 border-white border-b-blue-600 hover:cursor-pointer'>Сильные стороны</p>

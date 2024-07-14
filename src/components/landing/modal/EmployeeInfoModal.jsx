@@ -169,7 +169,7 @@ const EmployeeInfoModal = ({ open, onClose, data, dataFunction }) => {
                             </div>
                         }
                         <div className='flex flex-row justify-end bg-white-50 mt-2'>
-                            <button onClick={onClose} className="p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer">
+                            <button onClick={onClose} className="p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-green-500 hover:cursor-pointer">
                                 Закрыть
                             </button>
                         </div>

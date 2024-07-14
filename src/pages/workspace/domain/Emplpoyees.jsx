@@ -81,23 +81,23 @@ const Emplpoyees = () => {
 
     return (
         <WorkspacePage>
-            {managerViewOpen && <EmployeeInfoModal open={managerViewOpen} onClose={() => {setManagerViewOpen(!managerViewOpen)}} data={selectedManagerData} dataFunction={() => {}} />}
-            {managerDeleteAlertViewOpen && <EmployeeDeleteAlertModal open={managerDeleteAlertViewOpen} onClose={() => {setManagerDeleteAlertViewOpen(!managerDeleteAlertViewOpen)}} data={selectedManagerData} dataFunction={() => {executeDeleteManager(selectedManagerData)}} />}
-            {employeeRegistrationModalOpen && <EmployeeRegistrationModal open={employeeRegistrationModalOpen} onClose={ () => {setEmployeeRegistrationModalOpen(!employeeRegistrationModalOpen)} }/>}
-            <div className={`${employeeViewOpen ? '' : 'hidden'}`}>
+            {managerViewOpen && <EmployeeInfoModal open={managerViewOpen} onClose={() => { setManagerViewOpen(!managerViewOpen) }} data={selectedManagerData} dataFunction={() => { }} />}
+            {managerDeleteAlertViewOpen && <EmployeeDeleteAlertModal open={managerDeleteAlertViewOpen} onClose={() => { setManagerDeleteAlertViewOpen(!managerDeleteAlertViewOpen) }} data={selectedManagerData} dataFunction={() => { executeDeleteManager(selectedManagerData) }} />}
+            {employeeRegistrationModalOpen && <EmployeeRegistrationModal open={employeeRegistrationModalOpen} onClose={() => { setEmployeeRegistrationModalOpen(!employeeRegistrationModalOpen) }} />}
+            <div className={`${employeeViewOpen ? 'cursor-default' : 'hidden'}`}>
                 <div className={`w-full`}>
-                    <div className="flex justify-between space-x-10 pb-5 bg-slate-100">
-                        <p className={"p-2 text-gray-900 font-bold"}>Упраление Сотрудниками</p>
+                    <div className="flex justify-between bg-slate-100">
+                        <p className={"p-2 text-gray-900 font-bold text-lg"}>Упраление Сотрудниками</p>
                         <div className={"flex flex-row gap-4"}>
-                            <button className={"p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer"}
+                            <button className={"m-1 p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-green-500 cursor-pointer"}
                                 onClick={() => {
                                     executeRefreshUserTable(currentPage, PageSize);
                                 }}
                             >
-                                <LuRefreshCcw onClick={() => {}} className='w-6 h-6'/>
+                                <LuRefreshCcw onClick={() => { }} className='w-6 h-6' />
                             </button>
-                            
-                            <button className={"p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-blue-400 hover:cursor-pointer"}
+
+                            <button className={"m-1 p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-green-500 hover:cursor-pointer"}
                                 onClick={() => {
                                     setEmployeeRegistrationModalOpen(true);
                                 }}
@@ -107,64 +107,117 @@ const Emplpoyees = () => {
 
                         </div>
                     </div>
-                    <table className={`w-full text-left font-light text-sm`}>
-                        <thead className="border-b font-medium ">
-                            <tr className={"bg-darkBlue text-gray-100"}>
-                                <th scope="col" className="px-6 py-4"></th>
-                                <th scope="col" className="px-6 py-4">Номер</th>
-                                <th scope="col" className="px-6 py-4">Фамилия</th>
-                                <th scope="col" className="px-6 py-4">Имя</th>
-                                <th scope="col" className="px-6 py-4">Отчество</th>
-                                <th scope="col" className="px-6 py-4">Должность</th>
-                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
-                                <th scope="col" className="py-4 bg-darkBlue text-gray-100"></th>
+                    <table className={`w-full text-left font-light text-sm border-separate border-spacing-1 border border-white`}>
+                        <thead className="border-b font-medium  text-gray-100">
+                            <tr className={"bg-darkBlue"}>
+                                <th scope="col" className="border py-4 w-100">
+                                    <div className='flex flex-row justify-center'>
+                                        <p>Фото</p>
+                                    </div>
+                                </th>
+                                <th scope="col" className="border py-4 w-300">
+                                    <div className='flex flex-row justify-center'>
+                                        <p>Номер</p>
+                                    </div>
+                                </th>
+                                <th scope="col" className="border py-4 w-auto">
+                                    <div className='flex flex-row justify-center'>
+                                        <p>Фамилия</p>
+                                    </div>
+                                </th>
+                                <th scope="col" className="border py-4">
+                                    <div className='flex flex-row justify-center'>
+                                        <p>Имя</p>
+                                    </div>
+                                </th>
+                                <th scope="col" className="border py-4">
+                                    <div className='flex flex-row justify-center'>
+                                        <p>Отчество</p>
+                                    </div>
+                                </th>
+                                <th scope="col" className="border py-4 w-200">
+                                    <div className='flex flex-row justify-center'>
+                                        <p>Должность</p>
+                                    </div>
+                                </th>
+                                <th scope="col" className="border w-20" />
                             </tr>
                         </thead>
-
                         <tbody className="bg-gray-100">
                             {
                                 !isEmployeeDataLoading && employeeData.length > 0 && employeeData.map((employee) => {
-                                    return <tr key={employee.managerUuid} className='border hover:cursor-default font-medium'>
-                                        <td className="px-6 py-4">
-                                            <img src={avatarBase} className="rounded-full w-10 h-10" alt="" />
+                                    return <tr key={employee.managerUuid} className='border hover:cursor-pointer font-medium'
+                                        onClick={() => {
+                                            setSelectedManagerdata(employee);
+                                            handleManagerDataModalOpen();
+                                        }}
+                                    >
+                                        <td scope="col">
+                                            <div className='flex flex-row justify-center'>
+                                                <img src={avatarBase} className="rounded-full w-40 h-40" alt="" />
+                                            </div>
                                         </td>
-                                        <td className="px-6 py-4">{employee.managerUuid}</td>
-                                        <td className="px-6 py-4">{employee.managerData.personalInfo.lastName}</td>
-                                        <td className="px-6 py-4">{employee.managerData.personalInfo.firstName}</td>
-                                        <td className="px-6 py-4">{employee.managerData.personalInfo.middleName}</td>
-                                        <td className="px-6 py-4">{employee.managerData.personalInfo.positions[0].shortcut}</td>
-                                        <td>
-                                            <button className={`text-gray-100 rounded-lg bg-red-700 p-3 `}
-                                                onClick={() => {
-                                                    setSelectedManagerdata(employee);
-                                                    handleManagerDeleteAlertModalOpen();
-                                                }}
-                                            >
-                                                <AiFillDelete className='w-4 h-4' />
-                                            </button>
+                                        <td scope="col">
+                                            <div className='flex flex-row justify-center'>
+                                                <p>{employee.managerUuid}</p>
+                                            </div>
+                                        </td>
+                                        <td scope="col">
+                                            <div className='flex flex-row justify-center'>
+                                                <p>{employee.managerData.personalInfo.lastName}</p>
+                                            </div>
+                                        </td>
+                                        <td scope="col">
+                                            <div className='flex flex-row justify-center'>
+                                                <p>{employee.managerData.personalInfo.firstName}</p>
+                                            </div>
+                                        </td>
+                                        <td scope="col">
+                                            <div className='flex flex-row justify-center'>
+                                                <p>{employee.managerData.personalInfo.middleName}</p>
+                                            </div>
+                                        </td>
+                                        <td scope="col">
+                                            <div className='flex flex-row justify-center'>
+                                                <p>{employee.managerData.personalInfo.positions[0].fullPosition}</p>
+                                            </div>
                                         </td>
                                         <td>
-                                            <button className={`text-gray-100 rounded-lg bg-yellow-400 p-3 `}
-                                                onClick={() => {
-                                                    setSelectedManagerdata(employee);
-                                                    handleManagerDataModalOpen();
-                                                }}
-                                            >
-                                                <AiFillEdit className='w-4 h-4'/>
-                                            </button>
+                                            <div className='flex flex-row gap-2'>
+                                                <div className='flex flex-row justify-center'>
+                                                    <button className={`text-gray-100 rounded-lg bg-red-700 hover:bg-red-500 p-3 `}
+                                                        onClick={() => {
+                                                            setSelectedManagerdata(employee);
+                                                            handleManagerDeleteAlertModalOpen();
+                                                        }}
+                                                    >
+                                                        <AiFillDelete className='w-4 h-4' />
+                                                    </button>
+                                                </div>
+                                                <div className='flex flex-row justify-center'>
+                                                    <button className={`text-gray-100 rounded-lg bg-yellow-400 hover:bg-yellow-500 p-3 `}
+                                                        onClick={() => {
+                                                            setSelectedManagerdata(employee);
+                                                            handleManagerDataModalOpen();
+                                                        }}
+                                                    >
+                                                        <AiFillEdit className='w-4 h-4' />
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </td>
                                     </tr>
                                 })
                             }
                             {
-                                !isEmployeeDataLoading && employeeData.length <= 0 &&   <tr className='border hover:cursor-default font-medium'>
-                                                                                            <td className="px-6 py-4">Данные отсутствуют</td>
-                                                                                            <td className="px-6 py-4"></td>
-                                                                                            <td className="px-6 py-4"></td>
-                                                                                            <td className="px-6 py-4"></td>
-                                                                                            <td className="px-6 py-4"></td>
-                                                                                            <td className="px-6 py-4"></td>
-                                                                                        </tr>
+                                !isEmployeeDataLoading && employeeData.length <= 0 && <tr className='border hover:cursor-default font-medium'>
+                                    <td className="px-6 py-4">Данные отсутствуют</td>
+                                    <td className="px-6 py-4"/>
+                                    <td className="px-6 py-4"/>
+                                    <td className="px-6 py-4"/>
+                                    <td className="px-6 py-4"/>
+                                    <td className="px-6 py-4"/>
+                                </tr>
                             }
                         </tbody>
                     </table>

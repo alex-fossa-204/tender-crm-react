@@ -24,7 +24,7 @@ const FidbackModal = ({ teamData }) => {
                     </div>
                     <div className='flex flex-row justify-start gap-5 ml-5'>
                         <p className='font-bold'>Позиция</p>
-                        <p className='font-semibold'>{teamData.position}</p>
+                        <p className='font-semibold'>{teamData.position.fullPosition}</p>
                     </div>
                     <div className='flex flex-row justify-start gap-5 ml-5'>
                         <p className='font-bold'>Аллокация</p>

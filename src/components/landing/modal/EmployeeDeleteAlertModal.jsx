@@ -116,7 +116,7 @@ const EmployeeDeleteAlertModal = ({ open, onClose, data, dataFunction }) => {
                             }} className="w-full p-2 text-gray-100 rounded-lg dark:text-white bg-red-800 hover:bg-red-600 hover:cursor-pointer">
                                 Удалить
                             </button>
-                            <button onClick={onClose} className="p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-red-500 hover:cursor-pointer">
+                            <button onClick={onClose} className="p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-green-500 hover:cursor-pointer">
                                 Закрыть
                             </button>
                         </div>
