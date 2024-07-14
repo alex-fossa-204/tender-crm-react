@@ -88,9 +88,11 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
     return (
         <div onClick={onClose} className={`fixed h-screen overflow-y-auto inset-1 top-10 flex justify-center items-center transition-colors ${open ? "visible bg-black/20" : "invisible"}`}>
             <div onClick={(e) => e.stopPropagation()} className={`w-1000 bg-white rounded-xl shadow p-2 transition-all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}>
-                <button onClick={onClose} className="absolute top-2 right-2 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600">
-                    <IoClose className='h-10 w-10' />
-                </button>
+                <div className='flex flex-row justify-end'>
+                    <button onClick={onClose} className="right-2 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600">
+                        <IoClose className='h-8 w-8' />
+                    </button>
+                </div>
                 <div className='bg-white rounded'>
                     <div className='py-5 px-5 text-left'>
                         <h3 className='mb-4 text-xl font-bold text-gray-900'>

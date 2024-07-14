@@ -68,7 +68,8 @@ const Emplpoyees = () => {
 
     // Новое модальное окно для отображения пользователя
     const [managerViewOpen, setManagerViewOpen] = useState(false);
-    const handleManagerDataModalOpen = () => {
+    const handleManagerDataModalOpen = (employee) => {
+        setSelectedManagerdata(employee);
         setManagerViewOpen(!managerViewOpen);
     };
     const [selectedManagerData, setSelectedManagerdata] = useState({});
@@ -146,38 +147,57 @@ const Emplpoyees = () => {
                         <tbody className="bg-gray-100">
                             {
                                 !isEmployeeDataLoading && employeeData.length > 0 && employeeData.map((employee) => {
-                                    return <tr key={employee.managerUuid} className='border hover:cursor-pointer font-medium'
-                                        onClick={() => {
-                                            setSelectedManagerdata(employee);
-                                            handleManagerDataModalOpen();
-                                        }}
-                                    >
-                                        <td scope="col">
+                                    return <tr key={employee.managerUuid} className='border hover:cursor-pointer font-medium'>
+                                        <td scope="col"
+                                            onClick={() => {
+                                                handleManagerDataModalOpen(employee);
+                                            }}
+                                        >
                                             <div className='flex flex-row justify-center'>
                                                 <img src={avatarBase} className="rounded-full w-40 h-40" alt="" />
                                             </div>
                                         </td>
-                                        <td scope="col">
+                                        <td scope="col"
+                                            onClick={() => {
+                                                handleManagerDataModalOpen(employee);
+                                            }}
+                                        >
                                             <div className='flex flex-row justify-center'>
                                                 <p>{employee.managerUuid}</p>
                                             </div>
                                         </td>
-                                        <td scope="col">
+                                        <td scope="col"
+                                            onClick={() => {
+                                                handleManagerDataModalOpen(employee);
+                                            }}
+                                        >
                                             <div className='flex flex-row justify-center'>
                                                 <p>{employee.managerData.personalInfo.lastName}</p>
                                             </div>
                                         </td>
-                                        <td scope="col">
+                                        <td scope="col"
+                                            onClick={() => {
+                                                handleManagerDataModalOpen(employee);
+                                            }}
+                                        >
                                             <div className='flex flex-row justify-center'>
                                                 <p>{employee.managerData.personalInfo.firstName}</p>
                                             </div>
                                         </td>
-                                        <td scope="col">
+                                        <td scope="col"
+                                            onClick={() => {
+                                                handleManagerDataModalOpen(employee);
+                                            }}
+                                        >
                                             <div className='flex flex-row justify-center'>
                                                 <p>{employee.managerData.personalInfo.middleName}</p>
                                             </div>
                                         </td>
-                                        <td scope="col">
+                                        <td scope="col"
+                                            onClick={() => {
+                                                handleManagerDataModalOpen(employee);
+                                            }}
+                                        >
                                             <div className='flex flex-row justify-center'>
                                                 <p>{employee.managerData.personalInfo.positions[0].fullPosition}</p>
                                             </div>
@@ -197,8 +217,7 @@ const Emplpoyees = () => {
                                                 <div className='flex flex-row justify-center'>
                                                     <button className={`text-gray-100 rounded-lg bg-yellow-400 hover:bg-yellow-500 p-3 `}
                                                         onClick={() => {
-                                                            setSelectedManagerdata(employee);
-                                                            handleManagerDataModalOpen();
+                                                            handleManagerDataModalOpen(employee);
                                                         }}
                                                     >
                                                         <AiFillEdit className='w-4 h-4' />
@@ -212,11 +231,11 @@ const Emplpoyees = () => {
                             {
                                 !isEmployeeDataLoading && employeeData.length <= 0 && <tr className='border hover:cursor-default font-medium'>
                                     <td className="px-6 py-4">Данные отсутствуют</td>
-                                    <td className="px-6 py-4"/>
-                                    <td className="px-6 py-4"/>
-                                    <td className="px-6 py-4"/>
-                                    <td className="px-6 py-4"/>
-                                    <td className="px-6 py-4"/>
+                                    <td className="px-6 py-4" />
+                                    <td className="px-6 py-4" />
+                                    <td className="px-6 py-4" />
+                                    <td className="px-6 py-4" />
+                                    <td className="px-6 py-4" />
                                 </tr>
                             }
                         </tbody>
