@@ -10,7 +10,7 @@ import EmployeeModal from '../../../components/tender/EmployeeModal';
 import TestPopupModal from '../../../components/tender/TestPopupModal';
 import { EmployeeDeleteAlertModal, EmployeeInfoModal, EmployeeRegistrationModal } from '../../../components/landing';
 
-let PageSize = 5;
+let PageSize = 8;
 
 const Emplpoyees = () => {
 
@@ -41,7 +41,7 @@ const Emplpoyees = () => {
                 timeout: 2000,
                 signal: AbortSignal.timeout(2000)
             }
-        )
+        );
         setEmployeeData(getResponse.data.managers);
         setEmployeeDataTotalCount(getResponse.data.total);
         setIsEmployeeDataLoading(false);
@@ -148,6 +148,7 @@ const Emplpoyees = () => {
                             {
                                 !isEmployeeDataLoading && employeeData.length > 0 && employeeData.map((employee) => {
                                     return <tr key={employee.managerUuid} className='border hover:cursor-pointer font-medium'>
+                                        {console.log(employee)}
                                         <td scope="col"
                                             onClick={() => {
                                                 handleManagerDataModalOpen(employee);

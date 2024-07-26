@@ -8,7 +8,7 @@ const EmployeeDepartmentDropDown = ({ id, openState, openFunction, data, selectS
                 <div className='w-350 text-white p-3 flex items-center justify-between font-bold text-15 tracking-wider duration-300'
                     onClick={() => { openFunction(!openState) }}
                 >
-                    {`${selectState.name}`}
+                    {`${selectState.data.name}`}
                 </div>
                 <button id='drop-box-item' onClick={() => { openFunction((item) => !item) }}
                     className={`text-white p-2 flex items-center justify-between font-bold text-15 tracking-wider  active:border-white duration-300 active:text-black`}>
@@ -22,13 +22,13 @@ const EmployeeDepartmentDropDown = ({ id, openState, openFunction, data, selectS
                 <div className={`bg-blue-400 w-350 text-white absolute flex flex-col items-start p-2 mt-1 gap-2`}>
                     {
                         data.slice(1, data.length).map((item) => (
-                            <div id={item.id} className='flex w-full justify-between hover:bg-blue-300'
+                            <div className='flex w-full justify-between hover:bg-blue-300'
                                 onClick={() => {
                                     console.log(item)
                                     selectFunction(item);
                                 }}
                             >
-                                <p>{`${item.name}`}</p>
+                                <p>{`${item.data.name}`}</p>
                             </div>
                         ))
                     }

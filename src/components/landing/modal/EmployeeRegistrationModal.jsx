@@ -7,6 +7,63 @@ import axios from 'axios';
 
 const EmployeeRegistrationModal = ({ open, onClose }) => {
 
+
+    const [registreredUser, setRegisteredUser] = useState({
+        data: {
+          personalInfo: {
+            firstName: "string",
+            lastName: "string",
+            middleName: "string",
+            birthDate: "string",
+            positions: [
+              {
+                shortcut: "string",
+                fullPosition: "string",
+                grade: "string",
+                companyName: "string"
+              }
+            ],
+            contacts: [
+              {
+                contactType: "string",
+                contactValue: "string"
+              }
+            ]
+          },
+          department: {
+            name: "string",
+            shortcut: "string",
+            position: {
+              shortcut: "string",
+              fullPosition: "string",
+              grade: "string",
+              companyName: "string"
+            },
+            leader: {
+              firstName: "string",
+              lastName: "string",
+              middleName: "string",
+              birthDate: "string",
+              positions: [
+                {
+                  shortcut: "string",
+                  fullPosition: "string",
+                  grade: "string",
+                  companyName: "string"
+                }
+              ],
+              contacts: [
+                {
+                  contactType: "string",
+                  contactValue: "string"
+                }
+              ]
+            }
+          }
+        },
+        "role": "User"
+      });
+
     //Состояние: выпадающий список позиции сотрудника
     const [positions, setPositions] = useState(
         [
@@ -50,16 +107,10 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
     const [departments, setDepartments] = useState(
         [
             {
-                id: 'dep-0',
-                name: "Выберите департамент"
-            },
-            {
-                id: 'dep-1',
-                name: "Project Management Department"
-            },
-            {
-                id: 'dep-1',
-                name: "Administration Department"
+                data: {
+                    name: "Выберите Департамент",
+                    shortcut: "PMD"
+                }
             }
         ]
     );
@@ -72,8 +123,8 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                 signal: AbortSignal.timeout(2000)
             }
         )
-        console.log(getResponse);
-        //setDepartments(getResponse.data.managers);
+        departments.push(...getResponse.data.departments);
+        setDepartments(departments);
     };
 
     const [openEmployeeDepartmentDropdown, setOpenEmployeeDepartmentDropdown] = useState(false);
@@ -111,6 +162,18 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
             endDate: '',
         }
     );
+
+    const executeRegisterManger = async () => {
+        const postResponse = await axios.request(
+            {
+                method: 'POST',
+                url: `http://localhost:8080/managers/registration`,
+                timeout: 2000,
+                data: registreredUser
+            }
+        );
+        return postResponse.data;
+    };
 
     useEffect(() => {
         executeGetDepartmentsPage(0, 10);
@@ -327,6 +390,10 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                             </div>
                             <button className='w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center'
                                 type="submit"
+                                onClick={() => {
+                                    executeRegisterManger();
+                                    onClose();
+                                }}
                             >
                                 Создать заявку
                             </button>
