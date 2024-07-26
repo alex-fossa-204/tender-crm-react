@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { EmployeePositionDropDown, LandingDropdown } from "../index";
+import React, { useEffect, useState } from 'react';
+import { EmployeeDepartmentDropDown, EmployeePositionDropDown, LandingDropdown } from "../index";
 import { useLandingStateContext } from "../context/LandingContext";
 import Datepicker from 'react-tailwindcss-datepicker';
 import { IoClose } from "react-icons/io5"
+import axios from 'axios';
 
 const EmployeeRegistrationModal = ({ open, onClose }) => {
 
@@ -30,6 +31,20 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
     const [openEmployeePositionDropdown, setOpenEmployeePositionDropdown] = useState(false);
     const [selectedPosition, setSelectedPosition] = useState(positions[0]);
 
+    const data1 = [
+        {
+            data: {
+                name: "Project Management Department",
+                shortcut: "PMD"
+            }
+        },
+        {
+            data: {
+                name: "Administration Department",
+                shortcut: "AD"
+            }
+        }
+    ];
 
     //Состояние: выпадающий список отдела сотрудника
     const [departments, setDepartments] = useState(
@@ -48,6 +63,19 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
             }
         ]
     );
+    const executeGetDepartmentsPage = async (page, capacity) => {
+        const getResponse = await axios.request(
+            {
+                method: 'GET',
+                url: `http://127.0.0.1:8080/departments/page?id=${encodeURIComponent(page)}&items=${encodeURIComponent(capacity)}`,
+                timeout: 2000,
+                signal: AbortSignal.timeout(2000)
+            }
+        )
+        console.log(getResponse);
+        //setDepartments(getResponse.data.managers);
+    };
+
     const [openEmployeeDepartmentDropdown, setOpenEmployeeDepartmentDropdown] = useState(false);
     const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
 
@@ -84,20 +112,26 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
         }
     );
 
+    useEffect(() => {
+        executeGetDepartmentsPage(0, 10);
+    }, []);
+
     const personalDataInputWidth = 250;
     return (
         <div onClick={onClose} className={`fixed h-screen overflow-y-auto inset-1 top-10 flex justify-center items-center transition-colors ${open ? "visible bg-black/20" : "invisible"}`}>
             <div onClick={(e) => e.stopPropagation()} className={`w-1000 bg-white rounded-xl shadow p-2 transition-all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}>
-                <div className='flex flex-row justify-end'>
-                    <button onClick={onClose} className="right-2 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600">
-                        <IoClose className='h-8 w-8' />
-                    </button>
-                </div>
                 <div className='bg-white rounded'>
-                    <div className='py-5 px-5 text-left'>
-                        <h3 className='mb-4 text-xl font-bold text-gray-900'>
-                            Заполните форму на создание новой учетной записи сотрудника
-                        </h3>
+                    <div className='p-2 text-left'>
+                        <div className='flex flex-row justify-between'>
+                            <h3 className='text-xl font-bold text-gray-900'>
+                                Заполните форму на создание новой учетной записи сотрудника
+                            </h3>
+                            <div className='flex flex-row justify-end'>
+                                <button onClick={onClose} className="right-2 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600">
+                                    <IoClose className='h-8 w-8' />
+                                </button>
+                            </div>
+                        </div>
                         <form className='space-y-6'
                             action="#"
                         >
@@ -241,7 +275,7 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                                     Выберите департамент
                                                 </label>
                                                 <div className='flex flex-row'>
-                                                    <EmployeePositionDropDown
+                                                    <EmployeeDepartmentDropDown
                                                         id={'employee-dep-drop-down'}
                                                         openState={openEmployeeDepartmentDropdown}
                                                         openFunction={setOpenEmployeeDepartmentDropdown}

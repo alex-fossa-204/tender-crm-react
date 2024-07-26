@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 
 import avatar2 from '../../../data/images/avatar2.png';
 import WorkspacePage from '../WorkspacePage';
-import { AiFillCheckCircle, AiFillDelete, AiFillEdit, AiOutlineFileSearch, AiOutlineUsergroupAdd } from 'react-icons/ai';
+import { AiFillCheckCircle, AiFillDelete, AiFillEdit, AiOutlineFileSearch, AiOutlineLoading, AiOutlineUsergroupAdd } from 'react-icons/ai';
 import { TenderFormModal, TenderPagination } from '../../../components/tender';
 import { NavLink } from 'react-router-dom';
 import { RiGroupFill, RiLockFill } from 'react-icons/ri';
@@ -12,6 +12,9 @@ import { FidbackDataArea, FidbackModal } from '../../../components/workspace';
 import axios from 'axios';
 
 const Profile = () => {
+
+    //UPLOADING
+    const [isEmployeeDataLoading, setIsEmployeeDataLoading] = useState(true);
 
     const executeGetManagerByPublicId = async (id) => {
         const postResponse = await axios.request(
@@ -58,17 +61,21 @@ const Profile = () => {
 
     };
 
-    //UPLOADING
-    const [isEmployeeDataLoading, setIsEmployeeDataLoading] = useState(true);
+
 
     useEffect(() => {
-        executeGetManagerByPublicId("c004f429-8867-448c-9fd4-b8a3a133d306");
+        executeGetManagerByPublicId("e54d0e04-6409-4496-976b-90b7d09ba69e");
     }, []);
 
     return (
         <WorkspacePage>
-            
-            { !isEmployeeDataLoading &&
+            {
+                isEmployeeDataLoading &&
+                    <div className='flex justify-center gap-10 my-5 '>
+                        <AiOutlineLoading className='text-veryLightBlue animate-spin h-16 w-16' />
+                    </div>
+            }
+            {!isEmployeeDataLoading &&
                 <div className={`grid grid-cols-3 grid-rows-4 bg-blue-50`}>
                     {console.log(currentUser)}
                     <div className='col-span-3 row-span-4'>
