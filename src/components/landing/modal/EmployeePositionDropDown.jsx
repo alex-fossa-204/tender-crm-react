@@ -24,7 +24,6 @@ const EmployeePositionDropDown = ({ id, openState, openFunction, data, selectSta
                         data.slice(1, data.length).map((item) => (
                             <div id={item.id} className='flex w-full justify-between hover:bg-blue-300'
                                 onClick={() => {
-                                    console.log(item)
                                     selectFunction(item);
                                 }}
                             >

@@ -7,63 +7,8 @@ import axios from 'axios';
 
 const EmployeeRegistrationModal = ({ open, onClose }) => {
 
-
-    const [registreredUser, setRegisteredUser] = useState({
-        data: {
-          personalInfo: {
-            firstName: "string",
-            lastName: "string",
-            middleName: "string",
-            birthDate: "string",
-            positions: [
-              {
-                shortcut: "string",
-                fullPosition: "string",
-                grade: "string",
-                companyName: "string"
-              }
-            ],
-            contacts: [
-              {
-                contactType: "string",
-                contactValue: "string"
-              }
-            ]
-          },
-          department: {
-            name: "string",
-            shortcut: "string",
-            position: {
-              shortcut: "string",
-              fullPosition: "string",
-              grade: "string",
-              companyName: "string"
-            },
-            leader: {
-              firstName: "string",
-              lastName: "string",
-              middleName: "string",
-              birthDate: "string",
-              positions: [
-                {
-                  shortcut: "string",
-                  fullPosition: "string",
-                  grade: "string",
-                  companyName: "string"
-                }
-              ],
-              contacts: [
-                {
-                  contactType: "string",
-                  contactValue: "string"
-                }
-              ]
-            }
-          }
-        },
-        "role": "User"
-      });
-
+    //Управление элементами
+    const [openEmployeePositionDropdown, setOpenEmployeePositionDropdown] = useState(false);
     //Состояние: выпадающий список позиции сотрудника
     const [positions, setPositions] = useState(
         [
@@ -74,35 +19,11 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
             {
                 id: 'pos-1',
                 name: "Project coordinator (PC)"
-            },
-            {
-                id: 'pos-2',
-                name: "Senior Project coordinator (SPC)"
-            },
-            {
-                id: 'pos-3',
-                name: "Lead Project coordinator (LPC)"
             }
         ]
     );
-    const [openEmployeePositionDropdown, setOpenEmployeePositionDropdown] = useState(false);
-    const [selectedPosition, setSelectedPosition] = useState(positions[0]);
 
-    const data1 = [
-        {
-            data: {
-                name: "Project Management Department",
-                shortcut: "PMD"
-            }
-        },
-        {
-            data: {
-                name: "Administration Department",
-                shortcut: "AD"
-            }
-        }
-    ];
-
+    const [openEmployeeDepartmentDropdown, setOpenEmployeeDepartmentDropdown] = useState(false);
     //Состояние: выпадающий список отдела сотрудника
     const [departments, setDepartments] = useState(
         [
@@ -114,6 +35,76 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
             }
         ]
     );
+
+    const [openEmployeeRoleDropdown, setOpenEmployeeRoleDropdown] = useState(false);
+    //Состояние: выпадающий список ролей сотрудника
+    const [roles, setRoles] = useState(
+        [
+            {
+                id: 'role-0',
+                name: "Выберите роль"
+            },
+            {
+                id: 'role-1',
+                name: "User"
+            }
+        ]
+    );
+
+
+    // состояния введенных полей
+    const [lastName, setLastName] = useState('');
+    const handleLastNameInput = (data) => {
+        setLastName(data);
+    };
+
+    const [firstName, setFirstName] = useState('');
+    const handleFirstNameInput = (data) => {
+        setFirstName(data);
+    };
+
+    const [middleName, setMiddleName] = useState('');
+    const handleMiddleNameInput = (data) => {
+        setMiddleName(data);
+    };
+
+    const [employeeBirthDate, setEmployeeBirthDate] = useState(
+        {
+            startDate: '',
+            endDate: '',
+        }
+    );
+    const handleDateOfBirthInput = (data) => {
+        setEmployeeBirthDate(data);
+    };
+
+    const [mobilePhone, setMobilePhone] = useState('');
+    const handleMobilePhoneImput = (data) => {
+        setMobilePhone(data);
+    };
+
+    const [skype, setSkype] = useState('');
+    const handleSkypeInput = (data) => {
+        setSkype(data);
+    };
+
+    const [email, setEmail] = useState('');
+    const handleEmailInput = (data) => {
+        setEmail(data);
+    };
+
+    const [teams, setTeams] = useState('');
+    const handleTeamsInput = (data) => {
+        setTeams(data);
+    };
+
+    const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
+
+    const [selectedPosition, setSelectedPosition] = useState(positions[0]);
+
+    const [selectedRole, setSelectedRole] = useState(roles[0]);
+
+    //HTTP
     const executeGetDepartmentsPage = async (page, capacity) => {
         const getResponse = await axios.request(
             {
@@ -127,53 +118,73 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
         setDepartments(departments);
     };
 
-    const [openEmployeeDepartmentDropdown, setOpenEmployeeDepartmentDropdown] = useState(false);
-    const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
-
-    //Состояние: выпадающий список отдела сотрудника
-    const [roles, setRoles] = useState(
-        [
-            {
-                id: 'role-0',
-                name: "Выберите роль"
-            },
-            {
-                id: 'role-1',
-                name: "USER"
-            },
-            {
-                id: 'role-2',
-                name: "MASTER-USER"
-            },
-            {
-                id: 'role-3',
-                name: "ADMIN-USER"
-            }
-        ]
-    );
-    const [openEmployeeRoleDropdown, setOpenEmployeeRoleDropdown] = useState(false);
-    const [selectedRole, setSelectedRole] = useState(roles[0]);
-
-
-    //отслеживание состояния даты создания тендера
-    const [employeeBirthDate, setEmployeeBirthDate] = useState(
-        {
-            startDate: '',
-            endDate: '',
-        }
-    );
-
     const executeRegisterManger = async () => {
+        console.log(selectedPosition);
+        const requestData = {
+            data: {
+                personalInfo: {
+                    firstName: firstName,
+                    lastName: lastName,
+                    middleName: middleName,
+                    birthDate: employeeBirthDate.startDate,
+                    positions: [selectedPosition],
+                    contacts: [
+                        {
+                            contactType: "mobilePhone",
+                            contactValue: mobilePhone
+                        },
+                        {
+                            contactType: "skype",
+                            contactValue: skype
+                        },
+                        {
+                            contactType: "email",
+                            contactValue: email
+                        },
+                        {
+                            contactType: "teams",
+                            contactValue: teams
+                        }
+                    ]
+                },
+                department: {
+                    name: selectedDepartment.data.name,
+                    shortcut: selectedDepartment.data.shortcut,
+                    leader: {
+                        firstName: selectedDepartment.data.leader.firstName,
+                        lastName: selectedDepartment.data.leader.lastName,
+                        middleName: selectedDepartment.data.leader.middleName,
+                        positions: [
+                            {
+                                companyName: selectedDepartment.data.leader.positions[0].companyName,
+                                fullPosition: selectedDepartment.data.leader.positions[0].companyName,
+                                grade: selectedDepartment.data.leader.positions[0].companyName,
+                                shortcut: selectedDepartment.data.leader.positions[0].companyName
+                            }
+                        ]
+                    },
+                    position: {
+                        // companyName: selectedPosition.data.leader.positions[0].companyName,
+                        // fullPosition: selectedPosition.data.leader.positions[0].companyName,
+                        // grade: selectedPosition.data.leader.positions[0].companyName,
+                        // shortcut: selectedPosition.data.leader.positions[0].companyName
+                    }
+                }
+            },
+            role: selectedRole.name
+        };
+        console.log(requestData);
         const postResponse = await axios.request(
             {
                 method: 'POST',
                 url: `http://localhost:8080/managers/registration`,
                 timeout: 2000,
-                data: registreredUser
+                data: requestData
             }
         );
         return postResponse.data;
     };
+
 
     useEffect(() => {
         executeGetDepartmentsPage(0, 10);
@@ -208,9 +219,11 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                             </label>
                                             <input className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-${personalDataInputWidth} p-2.5`}
                                                 type="text"
-                                                name="firstname"
-                                                id="firstname-fld"
+                                                name="lastName"
+                                                id="lastName-fld"
                                                 placeholder='Ваше имя'
+                                                value={lastName}
+                                                onChange={(event) => { handleLastNameInput(event.target.value) }}
 
                                             />
                                         </div>
@@ -226,13 +239,14 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                                 asSingle={true}
                                                 primaryColor={"blue"}
                                                 showShortcuts={true}
-                                                onChange={(date) => setEmployeeBirthDate(date)}
+                                                onChange={(date) => handleDateOfBirthInput(date)}
                                                 configs={{
                                                     footer: {
                                                         cancel: "Quitter",
                                                         apply: "Appliquer"
                                                     }
                                                 }}
+
                                             />
                                         </div>
                                     </div>
@@ -243,9 +257,11 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                         </label>
                                         <input className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-${personalDataInputWidth} p-2.5`}
                                             type="text"
-                                            name="surname"
-                                            id="surname-fld"
+                                            name="firstName"
+                                            id="firstName-fld"
                                             placeholder='Ваша фамилия'
+                                            value={firstName}
+                                            onChange={(event) => { handleFirstNameInput(event.target.value) }}
 
                                         />
                                     </div>
@@ -256,10 +272,11 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                         </label>
                                         <input className={`bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-${personalDataInputWidth} p-2.5`}
                                             type="text"
-                                            name="second-name"
-                                            id="second-name-fld"
+                                            name="middleName"
+                                            id="middleName-fld"
                                             placeholder='Ваше отчество'
-
+                                            value={middleName}
+                                            onChange={(event) => handleMiddleNameInput(event.target.value)}
                                         />
                                     </div>
 
@@ -278,6 +295,8 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                                 name="mobile-phone"
                                                 id="mobile-phone-fld"
                                                 placeholder='Мобильный телефон'
+                                                value={mobilePhone}
+                                                onChange={(event) => handleMobilePhoneImput(event.target.value)}
 
                                             />
                                         </div>
@@ -290,6 +309,8 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                                 name="email"
                                                 id="email"
                                                 placeholder='Email адрес'
+                                                value={email}
+                                                onChange={(event) => handleEmailInput(event.target.value)}
 
                                             />
                                         </div>
@@ -304,6 +325,8 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                                 name="skype"
                                                 id="skype-fld"
                                                 placeholder='Skype Логин'
+                                                value={skype}
+                                                onChange={(event) => handleSkypeInput(event.target.value)}
 
                                             />
                                         </div>
@@ -313,10 +336,11 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                             </label>
                                             <input className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-250 p-2.5"
                                                 type="text"
-                                                name="skype"
-                                                id="skype-fld"
-                                                placeholder='Skype Логин'
-
+                                                name="teams"
+                                                id="teams-fld"
+                                                placeholder='Teams Логин'
+                                                value={teams}
+                                                onChange={(event) => { handleTeamsInput(event.target.value) }}
                                             />
                                         </div>
                                     </div>

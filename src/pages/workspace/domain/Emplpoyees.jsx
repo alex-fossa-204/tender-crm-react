@@ -108,7 +108,7 @@ const Emplpoyees = () => {
 
                         </div>
                     </div>
-                    <table className={`w-full text-left font-light text-sm border-separate border-spacing-1 border border-white`}>
+                    <table className={`w-full h-1/2 text-left font-light text-sm border-separate border-spacing-1 border border-white`}>
                         <thead className="border-b font-medium  text-gray-100">
                             <tr className={"bg-darkBlue"}>
                                 <th scope="col" className="border py-4 w-100">
@@ -148,7 +148,6 @@ const Emplpoyees = () => {
                             {
                                 !isEmployeeDataLoading && employeeData.length > 0 && employeeData.map((employee) => {
                                     return <tr key={employee.managerUuid} className='border hover:cursor-pointer font-medium'>
-                                        {console.log(employee)}
                                         <td scope="col"
                                             onClick={() => {
                                                 handleManagerDataModalOpen(employee);

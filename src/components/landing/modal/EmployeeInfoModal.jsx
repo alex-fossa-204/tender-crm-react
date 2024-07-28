@@ -12,6 +12,7 @@ const EmployeeInfoModal = ({ open, onClose, data, dataFunction }) => {
     const [isTeamDataViewEnabled, setIsTeamDataViewEnabled] = useState(false);
     return (
         <div onClick={onClose} className={`fixed h-screen overflow-y-auto inset-1 top-1 flex justify-center items-center transition-colors ${open ? "visible bg-black/20" : "invisible"}`}>
+            {console.log(currentUser)}
             <div onClick={(e) => e.stopPropagation()} className={`w-1000 bg-white rounded-xl shadow p-2 transition-all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"} cursor-default`}>
                 <div className='flex flex-row justify-end'>
                     <button onClick={onClose} className="right-2 rounded-lg text-gray-400 bg-white hover:bg-gray-50 hover:text-gray-600">
