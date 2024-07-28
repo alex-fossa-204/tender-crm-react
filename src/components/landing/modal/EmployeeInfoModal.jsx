@@ -90,7 +90,7 @@ const EmployeeInfoModal = ({ open, onClose, data, dataFunction }) => {
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Позиция</p>
-                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.managerData.department.position.name} ({currentUser.managerData.department.position.shortcut})</p>
+                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.managerData.department.position.fullPosition} ({currentUser.managerData.department.position.shortcut})</p>
                                             </div>
                                         </div>
                                         <div className='flex flex-col gap-3 ml-5'>
@@ -127,7 +127,7 @@ const EmployeeInfoModal = ({ open, onClose, data, dataFunction }) => {
                                 </div>
                             </div>
                         </div>
-                        {
+                        {/* {
                             isTeamDataViewEnabled &&
                             <div className='flex flex-row justify-between p-2 bg-blue-50 mt-2 mb-20'>
                                 <div className='flex flex-col gap-3 p-2'>
@@ -168,7 +168,7 @@ const EmployeeInfoModal = ({ open, onClose, data, dataFunction }) => {
                                     </div>
                                 </div>
                             </div>
-                        }
+                        } */}
                         <div className='flex flex-row justify-end bg-white-50 mt-2'>
                             <button onClick={onClose} className="p-2 text-gray-100 rounded-lg dark:text-white bg-darkBlue hover:bg-green-500 hover:cursor-pointer">
                                 Закрыть

@@ -10,6 +10,7 @@ export {default as LoginModalView} from './modal/LoginModalView';
 export {default as RegistrationModalView} from './modal/RegistrationModalView';
 export {default as EmployeeRegistrationModal} from './modal/EmployeeRegistrationModal';
 export {default as EmployeePositionDropDown} from './modal/EmployeePositionDropDown';
+export {default as EmployeeRoleDropDown} from './modal/EmployeeRoleDropDown';
 export {default as EmployeeDepartmentDropDown} from './modal/EmployeeDepartmentDropDown';
 export {default as EmployeeInfoModal} from './modal/EmployeeInfoModal';
 export {default as EmployeeDeleteAlertModal} from './modal/EmployeeDeleteAlertModal';

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { EmployeeDepartmentDropDown, EmployeePositionDropDown, LandingDropdown } from "../index";
+import { EmployeeDepartmentDropDown, EmployeePositionDropDown, EmployeeRoleDropDown, LandingDropdown } from "../index";
 import { useLandingStateContext } from "../context/LandingContext";
 import Datepicker from 'react-tailwindcss-datepicker';
 import { IoClose } from "react-icons/io5"
@@ -13,12 +13,16 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
     const [positions, setPositions] = useState(
         [
             {
-                id: 'pos-0',
-                name: "Выберите позицию"
+                companyName: 'Aston',
+                fullPosition: 'Выберите позицию',
+                shortcut: 'PC',
+                grade: 'M1'
             },
             {
-                id: 'pos-1',
-                name: "Project coordinator (PC)"
+                companyName: 'Aston',
+                fullPosition: 'Project Coordinator',
+                shortcut: 'PC',
+                grade: 'M1'
             }
         ]
     );
@@ -41,12 +45,10 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
     const [roles, setRoles] = useState(
         [
             {
-                id: 'role-0',
-                name: "Выберите роль"
+                role: 'Выберите роль',
             },
             {
-                id: 'role-1',
-                name: "User"
+                role: 'User',
             }
         ]
     );
@@ -147,31 +149,10 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                         }
                     ]
                 },
-                department: {
-                    name: selectedDepartment.data.name,
-                    shortcut: selectedDepartment.data.shortcut,
-                    leader: {
-                        firstName: selectedDepartment.data.leader.firstName,
-                        lastName: selectedDepartment.data.leader.lastName,
-                        middleName: selectedDepartment.data.leader.middleName,
-                        positions: [
-                            {
-                                companyName: selectedDepartment.data.leader.positions[0].companyName,
-                                fullPosition: selectedDepartment.data.leader.positions[0].companyName,
-                                grade: selectedDepartment.data.leader.positions[0].companyName,
-                                shortcut: selectedDepartment.data.leader.positions[0].companyName
-                            }
-                        ]
-                    },
-                    position: {
-                        // companyName: selectedPosition.data.leader.positions[0].companyName,
-                        // fullPosition: selectedPosition.data.leader.positions[0].companyName,
-                        // grade: selectedPosition.data.leader.positions[0].companyName,
-                        // shortcut: selectedPosition.data.leader.positions[0].companyName
-                    }
-                }
+                department: selectedDepartment.departmentUuid,
+                position: selectedPosition
             },
-            role: selectedRole.name
+            role: selectedRole.role
         };
         console.log(requestData);
         const postResponse = await axios.request(
@@ -398,7 +379,7 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                                     Выберите роль сотрудника в системе
                                                 </label>
                                                 <div className='flex flex-row'>
-                                                    <EmployeePositionDropDown
+                                                    <EmployeeRoleDropDown
                                                         id={'employee-role-drop-down'}
                                                         openState={openEmployeeRoleDropdown}
                                                         openFunction={setOpenEmployeeRoleDropdown}

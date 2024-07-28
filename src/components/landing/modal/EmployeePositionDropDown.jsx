@@ -8,7 +8,7 @@ const EmployeePositionDropDown = ({ id, openState, openFunction, data, selectSta
                 <div className='w-350 text-white p-3 flex items-center justify-between font-bold text-15 tracking-wider duration-300'
                     onClick={() => { openFunction(!openState) }}
                 >
-                    {`${selectState.name}`}
+                    {`${selectState.fullPosition}`}
                 </div>
                 <button id='drop-box-item' onClick={() => { openFunction((item) => !item) }}
                     className={`text-white p-2 flex items-center justify-between font-bold text-15 tracking-wider  active:border-white duration-300 active:text-black`}>
@@ -27,7 +27,7 @@ const EmployeePositionDropDown = ({ id, openState, openFunction, data, selectSta
                                     selectFunction(item);
                                 }}
                             >
-                                <p>{`${item.name}`}</p>
+                                <p>{`${item.fullPosition}`}</p>
                             </div>
                         ))
                     }
