@@ -1,14 +1,14 @@
 import React from 'react';
 import { AiOutlineCaretDown, AiOutlineCaretUp } from 'react-icons/ai';
 
-const EmployeePositionDropDown = ({ id, openState, openFunction, data, selectState, selectFunction }) => {
+const EmployeePositionLevelDropDown = ({ id, openState, openFunction, data, selectState, selectFunction }) => {
     return (
         <div id={id} className='bg-blue-700 rounded-lg hover:cursor-pointer'>
-            <div className='flex flex-row'>
-                <div className='w-250 text-white p-3 flex items-center justify-between font-bold text-15 tracking-wider duration-300'
+            <div className='flex flex-row '>
+                <div className='w-50 text-white p-3 flex items-center justify-between font-bold text-15 tracking-wider duration-300'
                     onClick={() => { openFunction(!openState) }}
                 >
-                    {`${selectState.fullPosition}`}
+                    {`${selectState}`}
                 </div>
                 <button id='drop-box-item' onClick={() => { openFunction((item) => !item) }}
                     className={`text-white p-2 flex items-center justify-between font-bold text-15 tracking-wider  active:border-white duration-300 active:text-black`}>
@@ -19,15 +19,16 @@ const EmployeePositionDropDown = ({ id, openState, openFunction, data, selectSta
             </div>
 
             {openState && (
-                <div className={`bg-blue-400 w-250 text-white absolute flex flex-col items-start p-2 mt-1 gap-2`}>
+                <div className={`bg-blue-400 w-50 text-white absolute flex flex-col items-start p-2 mt-1 gap-2`}>
                     {
-                        data.slice(1, data.length).map((item) => (
-                            <div id={item.id} className='flex w-full justify-between hover:bg-blue-300'
+                        data.map((item) => (
+                            <div className='flex w-full justify-between hover:bg-blue-300'
                                 onClick={() => {
                                     selectFunction(item);
+                                    openFunction(!openState);
                                 }}
                             >
-                                <p>{`${item.fullPosition}`}</p>
+                                <p>{`${item}`}</p>
                             </div>
                         ))
                     }
@@ -37,4 +38,4 @@ const EmployeePositionDropDown = ({ id, openState, openFunction, data, selectSta
     );
 };
 
-export default EmployeePositionDropDown;
+export default EmployeePositionLevelDropDown;

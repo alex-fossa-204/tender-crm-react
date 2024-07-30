@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { EmployeeDepartmentDropDown, EmployeePositionDropDown, EmployeeRoleDropDown, LandingDropdown } from "../index";
+import { EmployeeDepartmentDropDown, EmployeePositionDropDown, EmployeePositionLevelDropDown, EmployeeRoleDropDown, LandingDropdown } from "../index";
 import { useLandingStateContext } from "../context/LandingContext";
 import Datepicker from 'react-tailwindcss-datepicker';
 import { IoClose } from "react-icons/io5"
 import axios from 'axios';
 
 const EmployeeRegistrationModal = ({ open, onClose }) => {
+
+    //Состояние: выпадающий список уровней позиции
+    const [openPositionGradeDropdown, setOpenPositionGradeDropdown] = useState(false);
+    const [grade, setGrade] = useState('J1');
+    const [grades, setGrades] = useState([
+        "J1", "J2", "J3", "M1", "M2"
+    ]);
 
     //Управление элементами
     const [openEmployeePositionDropdown, setOpenEmployeePositionDropdown] = useState(false);
@@ -16,16 +23,17 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                 companyName: 'Aston',
                 fullPosition: 'Выберите позицию',
                 shortcut: 'PC',
-                grade: 'M1'
+                grade: grade
             },
             {
                 companyName: 'Aston',
                 fullPosition: 'Project Coordinator',
                 shortcut: 'PC',
-                grade: 'M1'
+                grade: grade
             }
         ]
     );
+
 
     const [openEmployeeDepartmentDropdown, setOpenEmployeeDepartmentDropdown] = useState(false);
     //Состояние: выпадающий список отдела сотрудника
@@ -105,6 +113,8 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
     const [selectedPosition, setSelectedPosition] = useState(positions[0]);
 
     const [selectedRole, setSelectedRole] = useState(roles[0]);
+
+    const [selectedGrade, setSelectedGrade] = useState(grades[0]);
 
     //HTTP
     const executeGetDepartmentsPage = async (page, capacity) => {
@@ -367,6 +377,23 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                                                         data={positions}
                                                         selectState={selectedPosition}
                                                         selectFunction={setSelectedPosition}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className='flex justify-between'>
+                                            <div>
+                                                <label className='block mb-2 text-sm font-semibold text-gray-900'>
+                                                    Уровень
+                                                </label>
+                                                <div className='flex flex-row'>
+                                                    <EmployeePositionLevelDropDown
+                                                        id={'employee-pos-drop-down'}
+                                                        openState={openPositionGradeDropdown}
+                                                        openFunction={setOpenPositionGradeDropdown}
+                                                        data={grades}
+                                                        selectState={selectedGrade}
+                                                        selectFunction={setSelectedGrade}
                                                     />
                                                 </div>
                                             </div>

@@ -12,6 +12,7 @@ export {default as EmployeeRegistrationModal} from './modal/EmployeeRegistration
 export {default as EmployeePositionDropDown} from './modal/EmployeePositionDropDown';
 export {default as EmployeeRoleDropDown} from './modal/EmployeeRoleDropDown';
 export {default as EmployeeDepartmentDropDown} from './modal/EmployeeDepartmentDropDown';
+export {default as EmployeePositionLevelDropDown} from './modal/EmployeePositionLevelDropDown';
 export {default as EmployeeInfoModal} from './modal/EmployeeInfoModal';
 export {default as EmployeeDeleteAlertModal} from './modal/EmployeeDeleteAlertModal';
 export {default as LandingPage} from '../../pages/landing/LandingPage';
