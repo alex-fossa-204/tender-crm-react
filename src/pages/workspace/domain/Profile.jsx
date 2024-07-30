@@ -65,7 +65,7 @@ const Profile = () => {
 
 
     useEffect(() => {
-        executeGetManagerByPublicId("6ed03571-c841-4bdf-b273-b08f21d33d0f");
+        executeGetManagerByPublicId("2f330eb5-2132-470e-b71c-286e4d19fb0d");
     }, []);
 
     return (
