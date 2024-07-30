@@ -19,7 +19,7 @@ const EmployeePositionLevelDropDown = ({ id, openState, openFunction, data, sele
             </div>
 
             {openState && (
-                <div className={`bg-blue-400 w-50 text-white absolute flex flex-col items-start p-2 mt-1 gap-2`}>
+                <div className={`bg-blue-400 w-50 text-white absolute flex flex-col items-start p-2 mt-1 gap-1`}>
                     {
                         data.map((item) => (
                             <div className='flex w-full justify-between hover:bg-blue-300'

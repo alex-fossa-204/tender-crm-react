@@ -9,10 +9,10 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
 
     //Состояние: выпадающий список уровней позиции
     const [openPositionGradeDropdown, setOpenPositionGradeDropdown] = useState(false);
-    const [grade, setGrade] = useState('J1');
     const [grades, setGrades] = useState([
-        "J1", "J2", "J3", "M1", "M2"
+        "J1", "J2", "J3", "M1", "M2", "M3", "S1", "S2"
     ]);
+    const [selectedGrade, setSelectedGrade] = useState(grades[0]);
 
     //Управление элементами
     const [openEmployeePositionDropdown, setOpenEmployeePositionDropdown] = useState(false);
@@ -23,17 +23,15 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                 companyName: 'Aston',
                 fullPosition: 'Выберите позицию',
                 shortcut: 'PC',
-                grade: grade
             },
             {
                 companyName: 'Aston',
                 fullPosition: 'Project Coordinator',
                 shortcut: 'PC',
-                grade: grade
             }
         ]
     );
-
+    const [selectedPosition, setSelectedPosition] = useState(positions[0]);
 
     const [openEmployeeDepartmentDropdown, setOpenEmployeeDepartmentDropdown] = useState(false);
     //Состояние: выпадающий список отдела сотрудника
@@ -47,6 +45,7 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
             }
         ]
     );
+    const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
 
     const [openEmployeeRoleDropdown, setOpenEmployeeRoleDropdown] = useState(false);
     //Состояние: выпадающий список ролей сотрудника
@@ -60,6 +59,7 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
             }
         ]
     );
+    const [selectedRole, setSelectedRole] = useState(roles[0]);
 
 
     // состояния введенных полей
@@ -108,14 +108,6 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
         setTeams(data);
     };
 
-    const [selectedDepartment, setSelectedDepartment] = useState(departments[0]);
-
-    const [selectedPosition, setSelectedPosition] = useState(positions[0]);
-
-    const [selectedRole, setSelectedRole] = useState(roles[0]);
-
-    const [selectedGrade, setSelectedGrade] = useState(grades[0]);
-
     //HTTP
     const executeGetDepartmentsPage = async (page, capacity) => {
         const getResponse = await axios.request(
@@ -131,7 +123,6 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
     };
 
     const executeRegisterManger = async () => {
-        console.log(selectedPosition);
         const requestData = {
             data: {
                 personalInfo: {
@@ -139,7 +130,12 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
                     lastName: lastName,
                     middleName: middleName,
                     birthDate: employeeBirthDate.startDate,
-                    positions: [selectedPosition],
+                    positions: [
+                        {
+                            ...selectedPosition,
+                            grade: selectedGrade
+                        }
+                    ],
                     contacts: [
                         {
                             contactType: "mobilePhone",
@@ -164,7 +160,6 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
             },
             role: selectedRole.role
         };
-        console.log(requestData);
         const postResponse = await axios.request(
             {
                 method: 'POST',
@@ -183,7 +178,7 @@ const EmployeeRegistrationModal = ({ open, onClose }) => {
 
     const personalDataInputWidth = 250;
     return (
-        <div onClick={onClose} className={`fixed h-screen overflow-y-auto inset-1 top-10 flex justify-center items-center transition-colors ${open ? "visible bg-black/20" : "invisible"}`}>
+        <div onClick={onClose} className={`fixed h-screen overflow-y-auto inset-1 top-2 flex justify-center items-center transition-colors ${open ? "visible bg-black/20" : "invisible"}`}>
             <div onClick={(e) => e.stopPropagation()} className={`w-1000 bg-white rounded-xl shadow p-2 transition-all ${open ? "scale-100 opacity-100" : "scale-125 opacity-0"}`}>
                 <div className='bg-white rounded'>
                     <div className='p-2 text-left'>

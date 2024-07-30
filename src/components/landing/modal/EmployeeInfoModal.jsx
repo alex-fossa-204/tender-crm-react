@@ -91,7 +91,7 @@ const EmployeeInfoModal = ({ open, onClose, data, dataFunction }) => {
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Позиция</p>
                                                 <div className='flex flex-row gap-2 ml-20 hover:cursor-pointer hover:underline'> 
-                                                    <p className='font-bold'>{currentUser.managerData.department.position.grade}</p> 
+                                                    <p>{currentUser.managerData.department.position.grade}</p> 
                                                     <p>{currentUser.managerData.department.position.fullPosition} ({currentUser.managerData.department.position.shortcut})</p>
                                                 </div>
                                             </div>
