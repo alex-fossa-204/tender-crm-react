@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import WorkspacePage from '../WorkspacePage';
-import { AiFillDelete, AiFillEdit, AiOutlineLoading } from 'react-icons/ai';
+import { AiFillDelete, AiFillEdit, AiFillInfoCircle, AiOutlineLoading } from 'react-icons/ai';
 import { LuRefreshCcw, LuRefreshCw } from "react-icons/lu";
 import { managerMockData } from '../../../data/images/tenderMockList';
 import EmployeePagination from '../../../components/employee/EmployeePagination';
@@ -16,6 +16,8 @@ const Emplpoyees = () => {
 
     //Состояние. Пагинация номер страницы
     const [currentPage, setCurrentPage] = useState(1);
+
+    const [employeePaginationLastPage, setEmployeePaginationLastPage] = useState(0);
 
     //Состояние: таблица сотрудников
     const [employeeData, setEmployeeData] = useState([]);
@@ -84,7 +86,11 @@ const Emplpoyees = () => {
         <WorkspacePage>
             {managerViewOpen && <EmployeeInfoModal open={managerViewOpen} onClose={() => { setManagerViewOpen(!managerViewOpen) }} data={selectedManagerData} dataFunction={() => { }} />}
             {managerDeleteAlertViewOpen && <EmployeeDeleteAlertModal open={managerDeleteAlertViewOpen} onClose={() => { setManagerDeleteAlertViewOpen(!managerDeleteAlertViewOpen) }} data={selectedManagerData} dataFunction={() => { executeDeleteManager(selectedManagerData) }} />}
-            {employeeRegistrationModalOpen && <EmployeeRegistrationModal open={employeeRegistrationModalOpen} onClose={() => { setEmployeeRegistrationModalOpen(!employeeRegistrationModalOpen) }} />}
+            {employeeRegistrationModalOpen && <EmployeeRegistrationModal open={employeeRegistrationModalOpen} 
+                                                    onClose={() => { 
+                                                        setEmployeeRegistrationModalOpen(!employeeRegistrationModalOpen);
+                                                    }}
+                                                />}
             <div className={`${employeeViewOpen ? 'cursor-default' : 'hidden'}`}>
                 <div className={`w-full`}>
                     <div className="flex justify-between bg-slate-100">
@@ -220,7 +226,7 @@ const Emplpoyees = () => {
                                                             handleManagerDataModalOpen(employee);
                                                         }}
                                                     >
-                                                        <AiFillEdit className='w-4 h-4' />
+                                                        <AiFillInfoCircle className='w-4 h-4' />
                                                     </button>
                                                 </div>
                                             </div>

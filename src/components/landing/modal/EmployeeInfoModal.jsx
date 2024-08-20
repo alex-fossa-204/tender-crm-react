@@ -43,7 +43,7 @@ const EmployeeInfoModal = ({ open, onClose, data, dataFunction }) => {
                                         {currentUser.managerData.personalInfo.positions.map((position) => {
                                             return (
                                                 <div>
-                                                    <p>{`${position.fullPosition} в компании ${position.companyName}`}</p>
+                                                    <p>{`${position.fullPosition} в компании ${currentUser.department.companyName}`}</p>
                                                 </div>
                                             );
                                         })}
@@ -78,21 +78,21 @@ const EmployeeInfoModal = ({ open, onClose, data, dataFunction }) => {
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Департамент</p>
-                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.managerData.department.name} ({currentUser.managerData.department.shortcut})</p>
+                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.department.name} ({currentUser.department.shortcut})</p>
                                             </div>
                                         </div>
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Руководитель</p>
-                                                <p className='ml-20 flex hover:cursor-pointer hover:underline'>{currentUser.managerData.department.leader.lastName} {currentUser.managerData.department.leader.firstName} {currentUser.managerData.department.leader.middleName}</p>
+                                                <p className='ml-20 flex hover:cursor-pointer hover:underline'>{currentUser.department.leader.lastName} {currentUser.department.leader.firstName} {currentUser.department.leader.middleName}</p>
                                             </div>
                                         </div>
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Позиция</p>
                                                 <div className='flex flex-row gap-2 ml-20 hover:cursor-pointer hover:underline'> 
-                                                    <p>{currentUser.managerData.department.position.grade}</p> 
-                                                    <p>{currentUser.managerData.department.position.fullPosition} ({currentUser.managerData.department.position.shortcut})</p>
+                                                    <p>{currentUser.department.position.grade}</p> 
+                                                    <p>{currentUser.department.position.fullPosition} ({currentUser.department.position.shortcut})</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +107,7 @@ const EmployeeInfoModal = ({ open, onClose, data, dataFunction }) => {
                                     <div className='flex flex-col mr-10 justify-start'>
                                         <div className='flex flex-col'>
                                             <div className='text-lg font-bold'>Дата назначения:</div>
-                                            <div>{`${currentUser.managerData.department.registrationDate}`}</div>
+                                            <div>{`${currentUser.department.registrationDate}`}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -138,7 +138,7 @@ const EmployeeInfoModal = ({ open, onClose, data, dataFunction }) => {
                                         <p className='text-2xl font-bold'>Команды</p>
                                     </div>
                                     <div className='flex flex-row gap-10'>
-                                        {currentUser.managerData.department.teams.map((team) => {
+                                        {currentUser.department.teams.map((team) => {
                                             return (
                                                 <div className='flex flex-col gap-3 bg-darkBlue text-white p-2 rounded-lg'>
                                                     <div className='flex flex-row p-1 rounded-lg justify-between bg-blue-600 hover:cursor-pointer hover:bg-blue-500'>

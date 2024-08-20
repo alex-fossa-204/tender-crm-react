@@ -65,7 +65,7 @@ const Profile = () => {
 
 
     useEffect(() => {
-        executeGetManagerByPublicId("2f330eb5-2132-470e-b71c-286e4d19fb0d");
+        executeGetManagerByPublicId("d256e737-a4f6-40cf-8d1e-f2d279279912");
     }, []);
 
     return (
@@ -111,7 +111,7 @@ const Profile = () => {
                                             {currentUser.managerData.personalInfo.positions.map((position) => {
                                                 return (
                                                     <div>
-                                                        <p>{`${position.fullPosition} в компании ${position.companyName}`}</p>
+                                                        <p>{`${position.fullPosition} в компании ${currentUser.department.companyName}`}</p>
                                                     </div>
                                                 );
                                             })}
@@ -147,19 +147,19 @@ const Profile = () => {
                                             <div className='flex flex-col gap-3 ml-5'>
                                                 <div className='flex flex-row justify-between'>
                                                     <p className='font-bold'>Департамент</p>
-                                                    <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.managerData.department.name} ({currentUser.managerData.department.shortcut})</p>
+                                                    <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.department.name} ({currentUser.department.shortcut})</p>
                                                 </div>
                                             </div>
                                             <div className='flex flex-col gap-3 ml-5'>
                                                 <div className='flex flex-row justify-between'>
                                                     <p className='font-bold'>Руководитель</p>
-                                                    <p className='ml-20 flex hover:cursor-pointer hover:underline'>{currentUser.managerData.department.leader.lastName} {currentUser.managerData.department.leader.firstName} {currentUser.managerData.department.leader.middleName}</p>
+                                                    <p className='ml-20 flex hover:cursor-pointer hover:underline'>{currentUser.department.leader.lastName} {currentUser.department.leader.firstName} {currentUser.department.leader.middleName}</p>
                                                 </div>
                                             </div>
                                             <div className='flex flex-col gap-3 ml-5'>
                                                 <div className='flex flex-row justify-between'>
                                                     <p className='font-bold'>Позиция</p>
-                                                    <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.managerData.department.position.name} ({currentUser.managerData.department.position.shortcut})</p>
+                                                    <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.department.position.name} ({currentUser.department.position.shortcut})</p>
                                                 </div>
                                             </div>
                                             <div className='flex flex-col gap-3 ml-5'>
@@ -173,7 +173,7 @@ const Profile = () => {
                                         <div className='flex flex-col mr-10 justify-start'>
                                             <div className='flex flex-col'>
                                                 <div className='text-lg font-bold'>Дата назначения:</div>
-                                                <div>{`${currentUser.managerData.department.registrationDate}`}</div>
+                                                <div>{`${currentUser.department.registrationDate}`}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -205,7 +205,7 @@ const Profile = () => {
                                         </div>
 
                                         <div className='flex flex-row gap-10'>
-                                            {currentUser.managerData.department.teams.map((team) => {
+                                            {currentUser.department.teams.map((team) => {
                                                 return (
                                                     <div className='flex flex-col gap-3 bg-darkBlue text-white p-2 rounded-lg'>
                                                         <div className='flex flex-row p-1 rounded-lg justify-between bg-blue-600 hover:cursor-pointer hover:bg-blue-500'>
@@ -242,7 +242,7 @@ const Profile = () => {
                         </div>
                         <div className={`${!isFidbackDataModalOpen && 'hidden'}`}>
                             {
-                                currentUser.managerData.department.teams.map((team) => {
+                                currentUser.department.teams.map((team) => {
                                     return (
                                         <FidbackModal teamData={team} />
                                     );

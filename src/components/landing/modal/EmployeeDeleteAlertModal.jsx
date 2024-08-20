@@ -42,7 +42,7 @@ const EmployeeDeleteAlertModal = ({ open, onClose, data, dataFunction }) => {
                                         {currentUser.managerData.personalInfo.positions.map((position) => {
                                             return (
                                                 <div>
-                                                    <p>{`${position.fullPosition} в компании ${position.companyName}`}</p>
+                                                    <p>{`${position.fullPosition} в компании ${currentUser.department.companyName}`}</p>
                                                 </div>
                                             );
                                         })}
@@ -77,19 +77,19 @@ const EmployeeDeleteAlertModal = ({ open, onClose, data, dataFunction }) => {
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Департамент</p>
-                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.managerData.department.name} ({currentUser.managerData.department.shortcut})</p>
+                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.department.name} ({currentUser.department.shortcut})</p>
                                             </div>
                                         </div>
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Руководитель</p>
-                                                <p className='ml-20 flex hover:cursor-pointer hover:underline'>{currentUser.managerData.department.leader.lastName} {currentUser.managerData.department.leader.firstName} {currentUser.managerData.department.leader.middleName}</p>
+                                                <p className='ml-20 flex hover:cursor-pointer hover:underline'>{currentUser.department.leader.lastName} {currentUser.department.leader.firstName} {currentUser.department.leader.middleName}</p>
                                             </div>
                                         </div>
                                         <div className='flex flex-col gap-3 ml-5'>
                                             <div className='flex flex-row justify-between'>
                                                 <p className='font-bold'>Позиция</p>
-                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.managerData.department.position.name} ({currentUser.managerData.department.position.shortcut})</p>
+                                                <p className='ml-20 hover:cursor-pointer hover:underline'>{currentUser.department.position.name} ({currentUser.department.position.shortcut})</p>
                                             </div>
                                         </div>
                                         <div className='flex flex-col gap-3 ml-5'>
@@ -103,7 +103,7 @@ const EmployeeDeleteAlertModal = ({ open, onClose, data, dataFunction }) => {
                                     <div className='flex flex-col mr-10 justify-start'>
                                         <div className='flex flex-col'>
                                             <div className='text-lg font-bold'>Дата назначения:</div>
-                                            <div>{`${currentUser.managerData.department.registrationDate}`}</div>
+                                            <div>{`${currentUser.department.registrationDate}`}</div>
                                         </div>
                                     </div>
                                 </div>
